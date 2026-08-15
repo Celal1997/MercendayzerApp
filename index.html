@@ -834,55 +834,73 @@ function getActiveVisit() {
 
 function updateWorkerStatus() {
 
-  let active =
-    getActiveVisit();
+  function visitStore(store) {
 
+  let existing =
+    localStorage.getItem("activeVisit");
 
-  let element =
-    document.getElementById(
-      "workerStatus"
+  if (existing) {
+
+    alert(
+      "Hazırda aktiv ziyarət var. Əvvəlcə onu bitirin."
     );
 
-
-  if (!element) {
-
     return;
-
   }
 
+  let now = new Date();
 
-  if (active) {
+  let time =
+    now.toLocaleTimeString("az-AZ");
 
-    element.innerHTML = `
+  let date =
+    now.toLocaleDateString("az-AZ");
+
+  let visit = {
+
+    username: currentUser,
+
+    store: store,
+
+    startTime: time,
+
+    date: date
+
+  };
+
+  localStorage.setItem(
+    "activeVisit",
+    JSON.stringify(visit)
+  );
+
+  updateWorkerStatus();
+
+  document.getElementById(
+    "workerContent"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <h2>📍 ${store}</h2>
 
       <div class="success">
 
-        🟢 Hazırda işdəsiniz.<br>
+        ✅ Ziyarət başladı.<br>
 
-        Mağaza:
-        <b>${active.store}</b><br>
+        Tarix: ${date}<br>
 
-        Başlama:
-        ${active.startTime}
+        Başlama vaxtı: ${time}
 
       </div>
 
-    `;
+      <button
+        onclick="finishVisit('${store}')">
+        ⏹️ Ziyarəti bitir
+      </button>
 
-  } else {
+    </div>
 
-    element.innerHTML = `
-
-      <div class="info">
-
-        🔵 Hazırda aktiv ziyarət yoxdur.
-
-      </div>
-
-    `;
-
-  }
-
+  `;
 }
 
 

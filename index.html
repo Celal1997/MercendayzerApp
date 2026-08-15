@@ -26,7 +26,7 @@ body {
 
 .container {
   padding: 20px;
-  max-width: 500px;
+  max-width: 600px;
   margin: auto;
 }
 
@@ -56,6 +56,7 @@ button {
   color: white;
   border: none;
   font-weight: bold;
+  cursor: pointer;
 }
 
 button:active {
@@ -90,6 +91,84 @@ button:active {
   border-radius: 10px;
   margin-top: 10px;
 }
+
+.danger {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.info {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+}
+
+.stat-number {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.worker {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.online {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.offline {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.small {
+  font-size: 13px;
+  color: #666;
+}
+
+.logout-btn {
+  background: #dc2626;
+}
+
+.back-btn {
+  background: #6b7280;
+}
+
+.admin-btn {
+  background: #7c3aed;
+}
+
+.visit-item {
+  border-left: 4px solid #2563eb;
+  background: #f8fafc;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
 </style>
 </head>
 
@@ -102,195 +181,1070 @@ button:active {
 
 <div class="container">
 
-  <!-- GİRİŞ -->
-  <div id="login" class="card">
-    <h2>İşçi girişi</h2>
+<!-- ==================== GİRİŞ ==================== -->
 
-    <input id="username" type="text" placeholder="İstifadəçi adı">
-    <input id="password" type="password" placeholder="Şifrə">
+<div id="login" class="card">
 
-    <button onclick="login()">Daxil ol</button>
-  </div>
+  <h2>🔐 Giriş</h2>
 
-  <!-- ƏSAS SƏHİFƏ -->
-  <div id="dashboard" class="hidden">
+  <input id="username" type="text" placeholder="İstifadəçi adı">
 
-    <div class="card">
-      <h2>Salam, <span id="workerName"></span> 👋</h2>
-      <p>Bugünkü işlərinizi buradan idarə edə bilərsiniz.</p>
-    </div>
+  <input id="password" type="password" placeholder="Şifrə">
 
-    <div class="menu">
-      <button onclick="showStores()">🏪<br>Mağazalar</button>
-      <button onclick="showVisit()">📍<br>Ziyarət</button>
-      <button onclick="showReport()">📊<br>Hesabat</button>
-      <button onclick="logout()">🚪<br>Çıxış</button>
-    </div>
+  <button onclick="login()">Daxil ol</button>
 
-    <div id="content" style="margin-top:15px;"></div>
-
+  <div class="info">
+    <b>Demo girişləri</b><br><br>
+    Müdir: <b>mudir</b> / <b>1234</b><br>
+    İşçi: <b>mer1</b> – <b>mer11</b> / <b>1234</b>
   </div>
 
 </div>
 
+
+<!-- ==================== İŞÇİ PANELİ ==================== -->
+
+<div id="workerDashboard" class="hidden">
+
+  <div class="card">
+    <h2>Salam, <span id="workerName"></span> 👋</h2>
+
+    <p>Bugünkü işlərinizi buradan idarə edə bilərsiniz.</p>
+
+    <div id="workerStatus"></div>
+  </div>
+
+  <div class="menu">
+
+    <button onclick="showStores()">
+      🏪<br>Mağazalar
+    </button>
+
+    <button onclick="showVisit()">
+      📍<br>Ziyarət
+    </button>
+
+    <button onclick="showReport()">
+      📊<br>Hesabat
+    </button>
+
+    <button onclick="logout()">
+      🚪<br>Çıxış
+    </button>
+
+  </div>
+
+  <div id="workerContent" style="margin-top:15px;"></div>
+
+</div>
+
+
+<!-- ==================== MÜDİR PANELİ ==================== -->
+
+<div id="adminDashboard" class="hidden">
+
+  <div class="card">
+
+    <h2>👨‍💼 Müdir Paneli</h2>
+
+    <p>
+      Bütün merçendayzerlərin iş vəziyyətini buradan izləyə bilərsiniz.
+    </p>
+
+  </div>
+
+
+  <!-- STATİSTİKA -->
+
+  <div class="card">
+
+    <h2>📊 Bugünkü statistika</h2>
+
+    <div class="stat-grid">
+
+      <div class="stat">
+        <div class="stat-number" id="totalWorkers">
+          11
+        </div>
+        <div>
+          👥 İşçi
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number" id="workingWorkers">
+          0
+        </div>
+        <div>
+          🟢 İşdə
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number" id="finishedVisits">
+          0
+        </div>
+        <div>
+          ✅ Ziyarət
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number" id="storeCount">
+          4
+        </div>
+        <div>
+          🏪 Mağaza
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- İŞÇİLƏR -->
+
+  <div class="card">
+
+    <h2>👥 Merçendayzerlər</h2>
+
+    <div id="workerList"></div>
+
+  </div>
+
+
+  <!-- SON ZİYARƏTLƏR -->
+
+  <div class="card">
+
+    <h2>📋 Son ziyarətlər</h2>
+
+    <div id="visitList"></div>
+
+  </div>
+
+
+  <button onclick="refreshAdmin()">
+    🔄 Məlumatları yenilə
+  </button>
+
+  <button class="logout-btn" onclick="logout()">
+    🚪 Müdir panelindən çıx
+  </button>
+
+</div>
+
+</div>
+
+
 <script>
+
+/* =====================================================
+   İŞÇİLƏR
+===================================================== */
+
+const workers = [
+  {
+    username: "mer1",
+    name: "Merçendayzer 1"
+  },
+  {
+    username: "mer2",
+    name: "Merçendayzer 2"
+  },
+  {
+    username: "mer3",
+    name: "Merçendayzer 3"
+  },
+  {
+    username: "mer4",
+    name: "Merçendayzer 4"
+  },
+  {
+    username: "mer5",
+    name: "Merçendayzer 5"
+  },
+  {
+    username: "mer6",
+    name: "Merçendayzer 6"
+  },
+  {
+    username: "mer7",
+    name: "Merçendayzer 7"
+  },
+  {
+    username: "mer8",
+    name: "Merçendayzer 8"
+  },
+  {
+    username: "mer9",
+    name: "Merçendayzer 9"
+  },
+  {
+    username: "mer10",
+    name: "Merçendayzer 10"
+  },
+  {
+    username: "mer11",
+    name: "Merçendayzer 11"
+  }
+];
+
+
+/* =====================================================
+   MAĞAZALAR
+===================================================== */
+
+const stores = [
+  "Araz",
+  "Bravo",
+  "Oba",
+  "Bazarstore"
+];
+
+
+/* =====================================================
+   GİRİŞ
+===================================================== */
+
+let currentUser = null;
+let currentRole = null;
+
 
 function login() {
 
-  let username = document.getElementById("username").value;
-  let password = document.getElementById("password").value;
+  let username =
+    document.getElementById("username").value.trim();
+
+  let password =
+    document.getElementById("password").value.trim();
+
 
   if (username === "" || password === "") {
+
     alert("İstifadəçi adı və şifrəni daxil edin.");
+
     return;
   }
 
-  document.getElementById("login").classList.add("hidden");
-  document.getElementById("dashboard").classList.remove("hidden");
 
-  document.getElementById("workerName").innerText = username;
+  /* MÜDİR */
+
+  if (
+    username === "mudir" &&
+    password === "1234"
+  ) {
+
+    currentUser = "Müdir";
+    currentRole = "admin";
+
+    document
+      .getElementById("login")
+      .classList.add("hidden");
+
+    document
+      .getElementById("adminDashboard")
+      .classList.remove("hidden");
+
+    refreshAdmin();
+
+    return;
+  }
+
+
+  /* İŞÇİ */
+
+  let worker = workers.find(
+    w => w.username === username
+  );
+
+
+  if (
+    worker &&
+    password === "1234"
+  ) {
+
+    currentUser = worker.username;
+    currentRole = "worker";
+
+
+    document
+      .getElementById("login")
+      .classList.add("hidden");
+
+
+    document
+      .getElementById("workerDashboard")
+      .classList.remove("hidden");
+
+
+    document.getElementById(
+      "workerName"
+    ).innerText = worker.name;
+
+
+    updateWorkerStatus();
+
+    return;
+  }
+
+
+  alert("İstifadəçi adı və ya şifrə yanlışdır.");
+
 }
+
+
+/* =====================================================
+   İŞÇİ STATUSU
+===================================================== */
+
+function getActiveVisit() {
+
+  let active =
+    JSON.parse(
+      localStorage.getItem("activeVisit")
+    );
+
+  if (!active) return null;
+
+  if (active.username !== currentUser) {
+
+    return null;
+  }
+
+  return active;
+}
+
+
+function updateWorkerStatus() {
+
+  let active = getActiveVisit();
+
+  let element =
+    document.getElementById("workerStatus");
+
+
+  if (active) {
+
+    element.innerHTML = `
+      <div class="success">
+        🟢 Hazırda işdəsiniz.<br>
+        Mağaza: <b>${active.store}</b><br>
+        Başlama: ${active.startTime}
+      </div>
+    `;
+
+  } else {
+
+    element.innerHTML = `
+      <div class="info">
+        🔵 Hazırda aktiv ziyarət yoxdur.
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   MAĞAZALAR
+===================================================== */
 
 function showStores() {
 
-  document.getElementById("content").innerHTML = `
+  let html = `
     <div class="card">
       <h2>🏪 Mağazalar</h2>
+  `;
+
+
+  stores.forEach(store => {
+
+    html += `
 
       <div class="store">
-        <b>Araz</b>
-        <p>Mağaza №1</p>
-        <button onclick="visitStore('Araz')">Ziyarətə başla</button>
+
+        <b>${store}</b>
+
+        <p>Mağaza ziyarəti</p>
+
+        <button
+          onclick="visitStore('${store}')">
+          📍 Ziyarətə başla
+        </button>
+
       </div>
 
-      <div class="store">
-        <b>Bravo</b>
-        <p>Mağaza №2</p>
-        <button onclick="visitStore('Bravo')">Ziyarətə başla</button>
-      </div>
+    `;
 
-      <div class="store">
-        <b>Oba</b>
-        <p>Mağaza №3</p>
-        <button onclick="visitStore('Oba')">Ziyarətə başla</button>
-      </div>
+  });
 
-      <div class="store">
-        <b>Bazarstore</b>
-        <p>Mağaza №4</p>
-        <button onclick="visitStore('Bazarstore')">Ziyarətə başla</button>
-      </div>
+
+  html += `
     </div>
   `;
+
+
+  document.getElementById(
+    "workerContent"
+  ).innerHTML = html;
+
 }
+
+
+/* =====================================================
+   ZİYARƏT SƏHİFƏSİ
+===================================================== */
 
 function showVisit() {
 
-  document.getElementById("content").innerHTML = `
+  document.getElementById(
+    "workerContent"
+  ).innerHTML = `
+
     <div class="card">
+
       <h2>📍 Mağaza ziyarəti</h2>
 
       <select id="storeSelect">
-        <option value="">Mağaza seçin</option>
-        <option>Araz</option>
-        <option>Bravo</option>
-        <option>Oba</option>
-        <option>Bazarstore</option>
+
+        <option value="">
+          Mağaza seçin
+        </option>
+
+        ${stores.map(
+          store => `<option>${store}</option>`
+        ).join("")}
+
       </select>
 
-      <button onclick="startVisit()">Ziyarəti başlat</button>
+
+      <button onclick="startVisit()">
+        ▶️ Ziyarəti başlat
+      </button>
+
 
       <div id="visitResult"></div>
+
     </div>
+
   `;
+
 }
+
+
+/* =====================================================
+   ZİYARƏTİ BAŞLAT
+===================================================== */
 
 function startVisit() {
 
-  let store = document.getElementById("storeSelect").value;
+  let store =
+    document.getElementById(
+      "storeSelect"
+    ).value;
+
 
   if (store === "") {
+
     alert("Əvvəlcə mağaza seçin.");
+
     return;
   }
 
-  let time = new Date().toLocaleTimeString("az-AZ");
 
-  document.getElementById("visitResult").innerHTML = `
+  let existing =
+    localStorage.getItem(
+      "activeVisit"
+    );
+
+
+  if (existing) {
+
+    alert(
+      "Hazırda aktiv ziyarət var. Əvvəlcə onu bitirin."
+    );
+
+    return;
+  }
+
+
+  let now =
+    new Date();
+
+
+  let time =
+    now.toLocaleTimeString(
+      "az-AZ"
+    );
+
+
+  let date =
+    now.toLocaleDateString(
+      "az-AZ"
+    );
+
+
+  let visit = {
+
+    username: currentUser,
+
+    store: store,
+
+    startTime: time,
+
+    date: date
+
+  };
+
+
+  localStorage.setItem(
+    "activeVisit",
+    JSON.stringify(visit)
+  );
+
+
+  updateWorkerStatus();
+
+
+  document.getElementById(
+    "visitResult"
+  ).innerHTML = `
+
     <div class="success">
+
       ✅ ${store} mağazasına ziyarət başladı.<br>
-      Vaxt: ${time}
+
+      Tarix: ${date}<br>
+
+      Başlama vaxtı: ${time}
+
     </div>
+
+    <button
+      onclick="finishVisit('${store}')">
+      ⏹️ Ziyarəti bitir
+    </button>
+
   `;
+
 }
+
+
+/* =====================================================
+   MAĞAZADAN BAŞLAMA
+===================================================== */
 
 function visitStore(store) {
 
-  let time = new Date().toLocaleTimeString("az-AZ");
+  let existing =
+    localStorage.getItem(
+      "activeVisit"
+    );
 
-  document.getElementById("content").innerHTML = `
+
+  if (existing) {
+
+    alert(
+      "Hazırda aktiv ziyarət var. Əvvəlcə onu bitirin."
+    );
+
+    return;
+  }
+
+
+  let now =
+    new Date();
+
+
+  let time =
+    now.toLocaleTimeString(
+      "az-AZ"
+    );
+
+
+  let date =
+    now.toLocaleDateString(
+      "az-AZ"
+    );
+
+
+  let visit = {
+
+    username: currentUser,
+
+    store: store,
+
+    startTime: time,
+
+    date: date
+
+  };
+
+
+  localStorage.setItem(
+    "activeVisit",
+    JSON.stringify(visit)
+  );
+
+
+  updateWorkerStatus();
+
+
+  document.getElementById(
+    "workerContent"
+  ).innerHTML = `
+
     <div class="card">
+
       <h2>📍 ${store}</h2>
 
       <div class="success">
+
         ✅ Ziyarət başladı.<br>
+
+        Tarix: ${date}<br>
+
         Başlama vaxtı: ${time}
+
       </div>
 
-      <button onclick="finishVisit('${store}')">
-        Ziyarəti bitir
+
+      <button
+        onclick="finishVisit('${store}')">
+        ⏹️ Ziyarəti bitir
       </button>
+
     </div>
+
   `;
+
 }
+
+
+/* =====================================================
+   ZİYARƏTİ BİTİR
+===================================================== */
 
 function finishVisit(store) {
 
-  let time = new Date().toLocaleTimeString("az-AZ");
+  let now =
+    new Date();
 
-  document.getElementById("content").innerHTML = `
+
+  let endTime =
+    now.toLocaleTimeString(
+      "az-AZ"
+    );
+
+
+  let date =
+    now.toLocaleDateString(
+      "az-AZ"
+    );
+
+
+  let active =
+    getActiveVisit();
+
+
+  let startTime =
+    active
+      ? active.startTime
+      : "";
+
+
+  let visits =
+    JSON.parse(
+      localStorage.getItem(
+        "visits"
+      )
+    ) || [];
+
+
+  visits.unshift({
+
+    username: currentUser,
+
+    store: store,
+
+    startTime: startTime,
+
+    endTime: endTime,
+
+    date: date
+
+  });
+
+
+  localStorage.setItem(
+    "visits",
+    JSON.stringify(visits)
+  );
+
+
+  localStorage.removeItem(
+    "activeVisit"
+  );
+
+
+  updateWorkerStatus();
+
+
+  document.getElementById(
+    "workerContent"
+  ).innerHTML = `
+
     <div class="card">
+
       <h2>✅ Ziyarət tamamlandı</h2>
 
       <div class="success">
+
         ${store} mağazası üzrə ziyarət bitdi.<br>
-        Bitmə vaxtı: ${time}
+
+        Başlama: ${startTime}<br>
+
+        Bitmə: ${endTime}
+
       </div>
+
     </div>
+
   `;
+
 }
+
+
+/* =====================================================
+   İŞÇİ HESABATI
+===================================================== */
 
 function showReport() {
 
-  document.getElementById("content").innerHTML = `
+  let visits =
+    JSON.parse(
+      localStorage.getItem(
+        "visits"
+      )
+    ) || [];
+
+
+  let myVisits =
+    visits.filter(
+      v => v.username === currentUser
+    );
+
+
+  let html = `
+
     <div class="card">
-      <h2>📊 Günlük hesabat</h2>
 
-      <p>Bu bölmədə gələcəkdə:</p>
+      <h2>📊 Mənim hesabatım</h2>
 
-      <ul>
-        <li>Görülən mağazalar</li>
-        <li>Ziyarət saatları</li>
-        <li>Məhsul yoxlamaları</li>
-        <li>Çəkilən şəkillər</li>
-        <li>Günlük nəticələr</li>
-      </ul>
+  `;
 
-      <div class="success">
-        Sistem hazırdır və funksiyalar əlavə edilə bilər.
+
+  if (myVisits.length === 0) {
+
+    html += `
+      <div class="info">
+        Hələ tamamlanmış ziyarət yoxdur.
       </div>
+    `;
+
+  } else {
+
+    myVisits.forEach(v => {
+
+      html += `
+
+        <div class="visit-item">
+
+          🏪 <b>${v.store}</b><br>
+
+          📅 ${v.date}<br>
+
+          ▶️ Başlama: ${v.startTime}<br>
+
+          ⏹️ Bitmə: ${v.endTime}
+
+        </div>
+
+      `;
+
+    });
+
+  }
+
+
+  html += `
     </div>
   `;
+
+
+  document.getElementById(
+    "workerContent"
+  ).innerHTML = html;
+
 }
+
+
+/* =====================================================
+   MÜDİR PANELİ
+===================================================== */
+
+function refreshAdmin() {
+
+  let visits =
+    JSON.parse(
+      localStorage.getItem(
+        "visits"
+      )
+    ) || [];
+
+
+  let active =
+    JSON.parse(
+      localStorage.getItem(
+        "activeVisit"
+      )
+    );
+
+
+  document.getElementById(
+    "totalWorkers"
+  ).innerText =
+    workers.length;
+
+
+  let working =
+    active ? 1 : 0;
+
+
+  document.getElementById(
+    "workingWorkers"
+  ).innerText =
+    working;
+
+
+  document.getElementById(
+    "finishedVisits"
+  ).innerText =
+    visits.length;
+
+
+  document.getElementById(
+    "storeCount"
+  ).innerText =
+    stores.length;
+
+
+  /* İŞÇİ SİYAHISI */
+
+  let workerList = "";
+
+
+  workers.forEach(worker => {
+
+    let isActive =
+      active &&
+      active.username === worker.username;
+
+
+    if (isActive) {
+
+      workerList += `
+
+        <div class="worker">
+
+          <b>${worker.name}</b>
+
+          <div class="online">
+            🟢 İŞDƏDİR
+          </div>
+
+          <div class="small">
+            Mağaza: ${active.store}<br>
+            Başlama: ${active.startTime}<br>
+            Tarix: ${active.date}
+          </div>
+
+        </div>
+
+      `;
+
+    } else {
+
+      workerList += `
+
+        <div class="worker">
+
+          <b>${worker.name}</b>
+
+          <div class="offline">
+            🔴 İşdə deyil
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+  });
+
+
+  document.getElementById(
+    "workerList"
+  ).innerHTML =
+    workerList;
+
+
+  /* SON ZİYARƏTLƏR */
+
+  let visitList =
+    document.getElementById(
+      "visitList"
+    );
+
+
+  if (visits.length === 0) {
+
+    visitList.innerHTML = `
+
+      <div class="info">
+
+        Hələ heç bir ziyarət tamamlanmayıb.
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  let html = "";
+
+
+  visits.slice(0, 20).forEach(
+    visit => {
+
+      let worker =
+        workers.find(
+          w =>
+            w.username ===
+            visit.username
+        );
+
+
+      let name =
+        worker
+          ? worker.name
+          : visit.username;
+
+
+      html += `
+
+        <div class="visit-item">
+
+          👤 <b>${name}</b><br>
+
+          🏪 Mağaza:
+          <b>${visit.store}</b><br>
+
+          📅 ${visit.date}<br>
+
+          ▶️ Başlama:
+          ${visit.startTime}<br>
+
+          ⏹️ Bitmə:
+          ${visit.endTime}
+
+        </div>
+
+      `;
+
+    }
+  );
+
+
+  visitList.innerHTML =
+    html;
+
+}
+
+
+/* =====================================================
+   ÇIXIŞ
+===================================================== */
 
 function logout() {
 
-  document.getElementById("dashboard").classList.add("hidden");
-  document.getElementById("login").classList.remove("hidden");
+  currentUser = null;
 
-  document.getElementById("username").value = "";
-  document.getElementById("password").value = "";
+  currentRole = null;
+
+
+  document
+    .getElementById(
+      "workerDashboard"
+    )
+    .classList.add("hidden");
+
+
+  document
+    .getElementById(
+      "adminDashboard"
+    )
+    .classList.add("hidden");
+
+
+  document
+    .getElementById(
+      "login"
+    )
+    .classList.remove("hidden");
+
+
+  document.getElementById(
+    "username"
+  ).value = "";
+
+
+  document.getElementById(
+    "password"
+  ).value = "";
+
+
+  document.getElementById(
+    "workerContent"
+  ).innerHTML = "";
+
 }
+
+
+/* =====================================================
+   ENTER İLƏ GİRİŞ
+===================================================== */
+
+document
+  .getElementById("password")
+  .addEventListener(
+    "keydown",
+    function(event) {
+
+      if (event.key === "Enter") {
+
+        login();
+
+      }
+
+    }
+  );
 
 </script>
 

@@ -313,7 +313,69 @@ button:active {
 
   </div>
 
+<div class="card">
 
+  <h2>➕ İşçiyə mağaza əlavə et</h2>
+
+  <select id="adminWorkerSelect">
+
+    <option value="">
+      İşçi seçin
+    </option>
+
+  </select>
+
+
+  <select id="adminStoreSelect">
+
+    <option value="">
+      Mağaza seçin
+    </option>
+
+  </select>
+
+
+  <select id="adminDaySelect">
+
+    <option value="">
+      Gün seçin
+    </option>
+
+    <option value="1">
+      1-ci gün — Bazar ertəsi
+    </option>
+
+    <option value="2">
+      2-ci gün — Çərşənbə axşamı
+    </option>
+
+    <option value="3">
+      3-cü gün — Çərşənbə
+    </option>
+
+    <option value="4">
+      4-cü gün — Cümə axşamı
+    </option>
+
+    <option value="5">
+      5-ci gün — Cümə
+    </option>
+
+    <option value="6">
+      6-cı gün — Şənbə
+    </option>
+
+  </select>
+
+
+  <button onclick="adminAddStore()">
+    ➕ Mağazanı işçiyə əlavə et
+  </button>
+
+
+  <div id="adminAddResult"></div>
+
+</div>
   <!-- SON ZİYARƏTLƏR -->
 
   <div class="card">

@@ -1037,32 +1037,78 @@ function showStores() {
    ZİYARƏT SƏHİFƏSİ
 ===================================================== */
 
-function showVisit() {
+  function showVisit() {
 
+  let today = new Date().getDay();
+
+  // Bazar günü
+  if (today === 0) {
+
+    document.getElementById(
+      "workerContent"
+    ).innerHTML = `
+
+      <div class="card">
+
+        <h2>📍 Mağaza ziyarəti</h2>
+
+        <div class="info">
+          📅 Bu gün istirahət günüdür.
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  let day = today;
+
+
+  // İşçinin həmin gün üçün marşrutunu götürürük
   let route =
-    getWorkerRoute(
-      currentUser,
-      new Date().getDay()
-    );
+    getWorkerRoute(currentUser, day);
 
 
+  // Həmin gün mağaza yoxdursa
+  if (!route || route.length === 0) {
+
+    document.getElementById(
+      "workerContent"
+    ).innerHTML = `
+
+      <div class="card">
+
+        <h2>📍 Mağaza ziyarəti</h2>
+
+        <div class="info">
+          Bu gün üçün sizə təyin edilmiş mağaza yoxdur.
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  // Mağazaları seçim siyahısına əlavə edirik
   let options = `
-
     <option value="">
       Mağaza seçin
     </option>
-
   `;
 
 
   route.forEach(store => {
 
     options += `
-
       <option value="${store}">
         ${store}
       </option>
-
     `;
 
   });
@@ -1076,6 +1122,10 @@ function showVisit() {
 
       <h2>📍 Mağaza ziyarəti</h2>
 
+      <p>
+        📅 Bugünkü mağazalar
+      </p>
+
       <select id="storeSelect">
 
         ${options}
@@ -1084,9 +1134,7 @@ function showVisit() {
 
 
       <button onclick="startVisit()">
-
         ▶️ Ziyarəti başlat
-
       </button>
 
 

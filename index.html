@@ -414,7 +414,143 @@ button:active {
 
   </div>
 
+/* =====================================================
+   MÜDİR — YENİ MAĞAZA YARAT
+===================================================== */
 
+function adminCreateStore() {
+
+  let code =
+    document.getElementById("newStoreCode").value.trim();
+
+  let name =
+    document.getElementById("newStoreName").value.trim();
+
+  let area =
+    document.getElementById("newStoreArea").value.trim();
+
+
+  if (
+    code === "" ||
+    name === "" ||
+    area === ""
+  ) {
+
+    alert("Mağaza kodu, adı və ərazisini daxil edin.");
+
+    return;
+  }
+
+
+  let fullStore =
+    code + " — " + name;
+
+
+  /*
+    Eyni mağazanın təkrar əlavə olunmasının qarşısını alırıq
+  */
+
+  if (stores.includes(fullStore)) {
+
+    alert("Bu mağaza artıq sistemdə mövcuddur.");
+
+    return;
+  }
+
+
+  /*
+    Mağazanı əsas siyahıya əlavə edirik
+  */
+
+  stores.push(fullStore);
+
+
+  /*
+    Yeni mağazaları ayrıca yadda saxlayırıq
+  */
+
+  let customStores =
+    JSON.parse(
+      localStorage.getItem("customStores")
+    ) || [];
+
+
+  customStores.push({
+
+    store: fullStore,
+
+    code: code,
+
+    name: name,
+
+    area: area
+
+  });
+
+
+  localStorage.setItem(
+    "customStores",
+    JSON.stringify(customStores)
+  );
+
+
+  /*
+    Nəticəni göstəririk
+  */
+
+  document.getElementById(
+    "newStoreResult"
+  ).innerHTML = `
+
+    <div class="success">
+
+      ✅ Yeni mağaza sistemə əlavə edildi.<br><br>
+
+      🏪 Mağaza:
+      <b>${fullStore}</b><br>
+
+      📍 Ərazi:
+      <b>${area}</b>
+
+    </div>
+
+  `;
+
+
+  /*
+    Xanaları təmizləyirik
+  */
+
+  document.getElementById(
+    "newStoreCode"
+  ).value = "";
+
+  document.getElementById(
+    "newStoreName"
+  ).value = "";
+
+  document.getElementById(
+    "newStoreArea"
+  ).value = "";
+
+
+  /*
+    Müdir panelində mağaza sayını yeniləyirik
+  */
+
+  document.getElementById(
+    "storeCount"
+  ).innerText =
+    stores.length;
+
+
+  /*
+    Mağaza seçim siyahısını da yeniləyirik
+  */
+
+  loadAdminStorePanel();
+
+}
 <!-- =====================================================
      YENİ MAĞAZA YARAT
 ===================================================== -->

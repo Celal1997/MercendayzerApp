@@ -154,14 +154,6 @@ button:active {
   background: #dc2626;
 }
 
-.back-btn {
-  background: #6b7280;
-}
-
-.admin-btn {
-  background: #7c3aed;
-}
-
 .visit-item {
   border-left: 4px solid #2563eb;
   background: #f8fafc;
@@ -207,12 +199,17 @@ button:active {
 <div id="workerDashboard" class="hidden">
 
   <div class="card">
+
     <h2>Salam, <span id="workerName"></span> 👋</h2>
 
-    <p>Bugünkü işlərinizi buradan idarə edə bilərsiniz.</p>
+    <p>
+      Bugünkü işlərinizi buradan idarə edə bilərsiniz.
+    </p>
 
     <div id="workerStatus"></div>
+
   </div>
+
 
   <div class="menu">
 
@@ -233,6 +230,7 @@ button:active {
     </button>
 
   </div>
+
 
   <div id="workerContent" style="margin-top:15px;"></div>
 
@@ -263,39 +261,54 @@ button:active {
     <div class="stat-grid">
 
       <div class="stat">
+
         <div class="stat-number" id="totalWorkers">
           11
         </div>
+
         <div>
           👥 İşçi
         </div>
+
       </div>
 
+
       <div class="stat">
+
         <div class="stat-number" id="workingWorkers">
           0
         </div>
+
         <div>
           🟢 İşdə
         </div>
+
       </div>
 
+
       <div class="stat">
+
         <div class="stat-number" id="finishedVisits">
           0
         </div>
+
         <div>
           ✅ Ziyarət
         </div>
+
       </div>
 
+
       <div class="stat">
+
         <div class="stat-number" id="storeCount">
-          4
+          14
         </div>
+
         <div>
           🏪 Mağaza
         </div>
+
       </div>
 
     </div>
@@ -313,69 +326,75 @@ button:active {
 
   </div>
 
-<div class="card">
 
-  <h2>➕ İşçiyə mağaza əlavə et</h2>
+  <!-- MAĞAZA ƏLAVƏ ET -->
 
-  <select id="adminWorkerSelect">
+  <div class="card">
 
-    <option value="">
-      İşçi seçin
-    </option>
-
-  </select>
+    <h2>➕ İşçiyə mağaza əlavə et</h2>
 
 
-  <select id="adminStoreSelect">
+    <select id="adminWorkerSelect">
 
-    <option value="">
-      Mağaza seçin
-    </option>
+      <option value="">
+        İşçi seçin
+      </option>
 
-  </select>
-
-
-  <select id="adminDaySelect">
-
-    <option value="">
-      Gün seçin
-    </option>
-
-    <option value="1">
-      1-ci gün — Bazar ertəsi
-    </option>
-
-    <option value="2">
-      2-ci gün — Çərşənbə axşamı
-    </option>
-
-    <option value="3">
-      3-cü gün — Çərşənbə
-    </option>
-
-    <option value="4">
-      4-cü gün — Cümə axşamı
-    </option>
-
-    <option value="5">
-      5-ci gün — Cümə
-    </option>
-
-    <option value="6">
-      6-cı gün — Şənbə
-    </option>
-
-  </select>
+    </select>
 
 
-  <button onclick="adminAddStore()">
-    ➕ Mağazanı işçiyə əlavə et
-  </button>
+    <select id="adminStoreSelect">
+
+      <option value="">
+        Mağaza seçin
+      </option>
+
+    </select>
 
 
-  <div id="adminAddResult"></div>
+    <select id="adminDaySelect">
 
-</div>
+      <option value="">
+        Gün seçin
+      </option>
+
+      <option value="1">
+        1-ci gün — Bazar ertəsi
+      </option>
+
+      <option value="2">
+        2-ci gün — Çərşənbə axşamı
+      </option>
+
+      <option value="3">
+        3-cü gün — Çərşənbə
+      </option>
+
+      <option value="4">
+        4-cü gün — Cümə axşamı
+      </option>
+
+      <option value="5">
+        5-ci gün — Cümə
+      </option>
+
+      <option value="6">
+        6-cı gün — Şənbə
+      </option>
+
+    </select>
+
+
+    <button onclick="adminAddStore()">
+      ➕ Mağazanı işçiyə əlavə et
+    </button>
+
+
+    <div id="adminAddResult"></div>
+
+  </div>
+
+
   <!-- SON ZİYARƏTLƏR -->
 
   <div class="card">
@@ -390,6 +409,7 @@ button:active {
   <button onclick="refreshAdmin()">
     🔄 Məlumatları yenilə
   </button>
+
 
   <button class="logout-btn" onclick="logout()">
     🚪 Müdir panelindən çıx
@@ -407,50 +427,62 @@ button:active {
 ===================================================== */
 
 const workers = [
+
   {
     username: "mer1",
     name: "Cəlal Abbasov"
   },
+
   {
     username: "mer2",
     name: "Şəhanə"
   },
+
   {
     username: "mer3",
     name: "Şəhanə2"
   },
+
   {
     username: "mer4",
     name: "Rüfət"
   },
+
   {
     username: "mer5",
     name: "Ariz"
   },
+
   {
     username: "mer6",
     name: "Sahil"
   },
+
   {
     username: "mer7",
     name: "Aytac"
   },
+
   {
     username: "mer8",
     name: "Səkinə"
   },
+
   {
     username: "mer9",
     name: "Qənirə"
   },
+
   {
     username: "mer10",
     name: "Ruhiyyə"
   },
+
   {
     username: "mer11",
     name: "Günel"
   }
+
 ];
 
 
@@ -458,9 +490,36 @@ const workers = [
    MAĞAZALAR
 ===================================================== */
 
-const stores = 
-  [const stores = [
-  ...
+const stores = [
+
+  "Bravo 5041 — Sea Breeze",
+
+  "Bravo 2004 — Xətai SS Babək prospekti",
+
+  "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
+
+  "Bravo 4023 — Xətai Sabit Orucov küçəsi",
+
+  "Bravo 3077 — Sea Breeze Premium",
+
+  "Tamstore 220 — Sea Breeze",
+
+  "Bravo 4001 — Amburan Mall",
+
+  "Bravo 5004 — Sabunçu",
+
+  "Bravo 5021 — Sabunçu",
+
+  "Bravo 5120 — Ağ Şəhər",
+
+  "Bravo 3013 — Xətai Park Azure",
+
+  "Bravo 4072 — Bilgəh yolu",
+
+  "Bravo 5179 — Maştağa",
+
+  "Tamstore 137 — Savalan"
+
 ];
 
 
@@ -469,8 +528,107 @@ const stores =
 ===================================================== */
 
 const workerRoutes = {
+
+  mer1: {
+
+    1: [
+
+      "Bravo 5041 — Sea Breeze",
+
+      "Bravo 2004 — Xətai SS Babək prospekti",
+
+      "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
+
+      "Bravo 4023 — Xətai Sabit Orucov küçəsi"
+
+    ],
+
+
+    2: [
+
+      "Bravo 5041 — Sea Breeze",
+
+      "Bravo 3077 — Sea Breeze Premium",
+
+      "Tamstore 220 — Sea Breeze",
+
+      "Bravo 4001 — Amburan Mall",
+
+      "Bravo 5004 — Sabunçu",
+
+      "Bravo 5021 — Sabunçu"
+
+    ],
+
+
+    3: [
+
+      "Bravo 5041 — Sea Breeze",
+
+      "Bravo 5120 — Ağ Şəhər",
+
+      "Bravo 3013 — Xətai Park Azure",
+
+      "Bravo 4023 — Xətai Sabit Orucov küçəsi",
+
+      "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi"
+
+    ],
+
+
+    4: [
+
+      "Bravo 5041 — Sea Breeze",
+
+      "Bravo 4001 — Amburan Mall",
+
+      "Bravo 4072 — Bilgəh yolu",
+
+      "Bravo 5179 — Maştağa",
+
+      "Tamstore 137 — Savalan",
+
+      "Bravo 5021 — Sabunçu"
+
+    ],
+
+
+    5: [
+
+      "Bravo 5041 — Sea Breeze",
+
+      "Bravo 2004 — Xətai SS Babək prospekti",
+
+      "Bravo 3013 — Xətai Park Azure",
+
+      "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
+
+      "Bravo 4023 — Xətai Sabit Orucov küçəsi"
+
+    ],
+
+
+    6: [
+
+      "Bravo 5041 — Sea Breeze",
+
+      "Bravo 3077 — Sea Breeze Premium",
+
+      "Bravo 4001 — Amburan Mall",
+
+      "Bravo 5004 — Sabunçu",
+
+      "Bravo 5021 — Sabunçu"
+
+    ]
+
+  }
+
+};
+
+
 /* =====================================================
-   MÜDİR TƏRƏFİNDƏN ƏLAVƏ EDİLƏN MAĞAZALAR
+   ƏLAVƏ MARŞRUTLAR
 ===================================================== */
 
 function getAddedRoutes() {
@@ -478,18 +636,32 @@ function getAddedRoutes() {
   return JSON.parse(
     localStorage.getItem("addedRoutes")
   ) || {};
+
 }
 
 
+/* =====================================================
+   İŞÇİNİN TAM MARŞRUTU
+===================================================== */
+
 function getWorkerRoute(username, day) {
 
-  let baseRoute =
+  let baseRoute = [];
+
+  if (
     workerRoutes[username] &&
     workerRoutes[username][day]
-      ? [...workerRoutes[username][day]]
-      : [];
+  ) {
+
+    baseRoute = [
+      ...workerRoutes[username][day]
+    ];
+
+  }
+
 
   let addedRoutes = getAddedRoutes();
+
 
   if (
     addedRoutes[username] &&
@@ -497,83 +669,19 @@ function getWorkerRoute(username, day) {
   ) {
 
     baseRoute = [
+
       ...baseRoute,
+
       ...addedRoutes[username][day]
+
     ];
 
   }
 
+
   return baseRoute;
+
 }
-  mer1: {
-
-    1: [
-      "Bravo 5041 — Sea Breeze",
-      "Bravo 2004 — Xətai SS Babək prospekti",
-      "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
-      "Bravo 4023 — Xətai Sabit Orucov küçəsi"
-    ],
-
-    2: [
-      "Bravo 5041 — Sea Breeze",
-      "Bravo 3077 — Sea Breeze Premium",
-      "Tamstore 220 — Sea Breeze",
-      "Bravo 4001 — Amburan Mall",
-      "Bravo 5004 — Sabunçu",
-      "Bravo 5021 — Sabunçu"
-    ],
-
-    3: [
-      "Bravo 5041 — Sea Breeze",
-      "Bravo 5120 — Ağ Şəhər",
-      "Bravo 3013 — Xətai Park Azure",
-      "Bravo 4023 — Xətai Sabit Orucov küçəsi",
-      "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi"
-    ],
-
-    4: [
-      "Bravo 5041 — Sea Breeze",
-      "Bravo 4001 — Amburan Mall",
-      "Bravo 4072 — Bilgəh yolu",
-      "Bravo 5179 — Maştağa",
-      "Tamstore 137 — Savalan",
-      "Bravo 5021 — Sabunçu"
-    ],
-
-    5: [
-      "Bravo 5041 — Sea Breeze",
-      "Bravo 2004 — Xətai SS Babək prospekti",
-      "Bravo 3013 — Xətai Park Azure",
-      "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
-      "Bravo 4023 — Xətai Sabit Orucov küçəsi"
-    ],
-
-    6: [
-      "Bravo 5041 — Sea Breeze",
-      "Bravo 3077 — Sea Breeze Premium",
-      "Bravo 4001 — Amburan Mall",
-      "Bravo 5004 — Sabunçu",
-      "Bravo 5021 — Sabunçu"
-    ]
-
-  }
-
-};
-  "Bravo 5041 — Sea Breeze",
-  "Bravo 2004 — Xətai SS Babək prospekti",
-  "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
-  "Bravo 4023 — Xətai Sabit Orucov küçəsi",
-  "Bravo 3077 — Sea Breeze Premium",
-  "Tamstore 220 — Sea Breeze",
-  "Bravo 4001 — Amburan Mall",
-  "Bravo 5004 — Sabunçu",
-  "Bravo 5021 — Sabunçu",
-  "Bravo 5120 — Ağ Şəhər",
-  "Bravo 3013 — Xətai Park Azure",
-  "Bravo 4072 — Bilgəh yolu",
-  "Bravo 5179 — Maştağa",
-  "Tamstore 137 — Savalan"
-];
 
 
 /* =====================================================
@@ -589,15 +697,22 @@ function login() {
   let username =
     document.getElementById("username").value.trim();
 
+
   let password =
     document.getElementById("password").value.trim();
 
 
-  if (username === "" || password === "") {
+  if (
+    username === "" ||
+    password === ""
+  ) {
 
-    alert("İstifadəçi adı və şifrəni daxil edin.");
+    alert(
+      "İstifadəçi adı və şifrəni daxil edin."
+    );
 
     return;
+
   }
 
 
@@ -608,20 +723,27 @@ function login() {
     password === "1234"
   ) {
 
-    currentUser = "Müdir";
+    currentUser = "mudir";
+
     currentRole = "admin";
+
 
     document
       .getElementById("login")
       .classList.add("hidden");
 
+
     document
       .getElementById("adminDashboard")
       .classList.remove("hidden");
 
+
     refreshAdmin();
-loadAdminStorePanel();
+
+    loadAdminStorePanel();
+
     return;
+
   }
 
 
@@ -637,8 +759,11 @@ loadAdminStorePanel();
     password === "1234"
   ) {
 
-    currentUser = worker.username;
-    currentRole = "worker";
+    currentUser =
+      worker.username;
+
+    currentRole =
+      "worker";
 
 
     document
@@ -653,16 +778,20 @@ loadAdminStorePanel();
 
     document.getElementById(
       "workerName"
-    ).innerText = worker.name;
+    ).innerText =
+      worker.name;
 
 
     updateWorkerStatus();
 
     return;
+
   }
 
 
-  alert("İstifadəçi adı və ya şifrə yanlışdır.");
+  alert(
+    "İstifadəçi adı və ya şifrə yanlışdır."
+  );
 
 }
 
@@ -675,44 +804,81 @@ function getActiveVisit() {
 
   let active =
     JSON.parse(
-      localStorage.getItem("activeVisit")
+      localStorage.getItem(
+        "activeVisit"
+      )
     );
 
-  if (!active) return null;
 
-  if (active.username !== currentUser) {
+  if (!active) {
 
     return null;
+
   }
 
+
+  if (
+    active.username !==
+    currentUser
+  ) {
+
+    return null;
+
+  }
+
+
   return active;
+
 }
 
 
 function updateWorkerStatus() {
 
-  let active = getActiveVisit();
+  let active =
+    getActiveVisit();
+
 
   let element =
-    document.getElementById("workerStatus");
+    document.getElementById(
+      "workerStatus"
+    );
+
+
+  if (!element) {
+
+    return;
+
+  }
 
 
   if (active) {
 
     element.innerHTML = `
+
       <div class="success">
+
         🟢 Hazırda işdəsiniz.<br>
-        Mağaza: <b>${active.store}</b><br>
-        Başlama: ${active.startTime}
+
+        Mağaza:
+        <b>${active.store}</b><br>
+
+        Başlama:
+        ${active.startTime}
+
       </div>
+
     `;
 
   } else {
 
     element.innerHTML = `
+
       <div class="info">
+
         🔵 Hazırda aktiv ziyarət yoxdur.
+
       </div>
+
     `;
 
   }
@@ -721,26 +887,31 @@ function updateWorkerStatus() {
 
 
 /* =====================================================
-   MAĞAZALAR
+   BUGÜNKÜ MAĞAZALAR
 ===================================================== */
 
 function showStores() {
-function showStores() {
 
-  let today = new Date().getDay();
+  let today =
+    new Date().getDay();
 
-  // JavaScript:
-  // Bazar = 0
-  // Bazar ertəsi = 1
-  // Çərşənbə axşamı = 2
-  // Çərşənbə = 3
-  // Cümə axşamı = 4
-  // Cümə = 5
-  // Şənbə = 6
 
-  let day = today;
+  /*
+    JavaScript:
+    Bazar = 0
+    Bazar ertəsi = 1
+    Çərşənbə axşamı = 2
+    Çərşənbə = 3
+    Cümə axşamı = 4
+    Cümə = 5
+    Şənbə = 6
+  */
 
-  // Bazar günü üçün ayrıca mesaj
+
+  let day =
+    today;
+
+
   if (day === 0) {
 
     document.getElementById(
@@ -752,7 +923,9 @@ function showStores() {
         <h2>🏪 Bugünkü mağazalar</h2>
 
         <div class="info">
+
           📅 Bu gün istirahət günüdür.
+
         </div>
 
       </div>
@@ -760,17 +933,21 @@ function showStores() {
     `;
 
     return;
+
   }
 
 
   let route =
-    getworkerRoute(currentUser, day);
-    
-    
+    getWorkerRoute(
+      currentUser,
+      day
+    );
 
 
-  // Əgər həmin işçinin həmin gün üçün marşrutu yoxdursa
-  if (!route || route.length === 0) {
+  if (
+    !route ||
+    route.length === 0
+  ) {
 
     document.getElementById(
       "workerContent"
@@ -781,7 +958,9 @@ function showStores() {
         <h2>🏪 Bugünkü mağazalar</h2>
 
         <div class="info">
+
           Bu gün üçün təyin edilmiş mağaza yoxdur.
+
         </div>
 
       </div>
@@ -789,6 +968,7 @@ function showStores() {
     `;
 
     return;
+
   }
 
 
@@ -799,32 +979,43 @@ function showStores() {
       <h2>🏪 Bugünkü mağazalar</h2>
 
       <p>
-        📅 Gün: <b>${day}. gün</b>
+
+        📅 Gün:
+        <b>${day}. gün</b>
+
       </p>
 
   `;
 
 
-  route.forEach((store, index) => {
+  route.forEach(
+    (store, index) => {
 
-    html += `
+      html += `
 
-      <div class="store">
+        <div class="store">
 
-        <b>${index + 1}. ${store}</b>
+          <b>
+            ${index + 1}. ${store}
+          </b>
 
-        <p>Mağaza ziyarəti</p>
+          <p>
+            Mağaza ziyarəti
+          </p>
 
-        <button
-          onclick="visitStore('${store}')">
-          📍 Ziyarətə başla
-        </button>
+          <button
+            onclick="visitStore('${store}')">
 
-      </div>
+            📍 Ziyarətə başla
 
-    `;
+          </button>
 
-  });
+        </div>
+
+      `;
+
+    }
+  );
 
 
   html += `
@@ -836,45 +1027,8 @@ function showStores() {
 
   document.getElementById(
     "workerContent"
-  ).innerHTML = html;
-
-}
-  let html = `
-    <div class="card">
-      <h2>🏪 Mağazalar</h2>
-  `;
-
-
-  stores.forEach(store => {
-
-    html += `
-
-      <div class="store">
-
-        <b>${store}</b>
-
-        <p>Mağaza ziyarəti</p>
-
-        <button
-          onclick="visitStore('${store}')">
-          📍 Ziyarətə başla
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-
-  html += `
-    </div>
-  `;
-
-
-  document.getElementById(
-    "workerContent"
-  ).innerHTML = html;
+  ).innerHTML =
+    html;
 
 }
 
@@ -884,6 +1038,35 @@ function showStores() {
 ===================================================== */
 
 function showVisit() {
+
+  let route =
+    getWorkerRoute(
+      currentUser,
+      new Date().getDay()
+    );
+
+
+  let options = `
+
+    <option value="">
+      Mağaza seçin
+    </option>
+
+  `;
+
+
+  route.forEach(store => {
+
+    options += `
+
+      <option value="${store}">
+        ${store}
+      </option>
+
+    `;
+
+  });
+
 
   document.getElementById(
     "workerContent"
@@ -895,19 +1078,15 @@ function showVisit() {
 
       <select id="storeSelect">
 
-        <option value="">
-          Mağaza seçin
-        </option>
-
-        ${stores.map(
-          store => `<option>${store}</option>`
-        ).join("")}
+        ${options}
 
       </select>
 
 
       <button onclick="startVisit()">
+
         ▶️ Ziyarəti başlat
+
       </button>
 
 
@@ -926,17 +1105,31 @@ function showVisit() {
 
 function startVisit() {
 
-  let store =
+  let select =
     document.getElementById(
       "storeSelect"
-    ).value;
+    );
+
+
+  if (!select) {
+
+    return;
+
+  }
+
+
+  let store =
+    select.value;
 
 
   if (store === "") {
 
-    alert("Əvvəlcə mağaza seçin.");
+    alert(
+      "Əvvəlcə mağaza seçin."
+    );
 
     return;
+
   }
 
 
@@ -953,6 +1146,7 @@ function startVisit() {
     );
 
     return;
+
   }
 
 
@@ -974,13 +1168,17 @@ function startVisit() {
 
   let visit = {
 
-    username: currentUser,
+    username:
+      currentUser,
 
-    store: store,
+    store:
+      store,
 
-    startTime: time,
+    startTime:
+      time,
 
-    date: date
+    date:
+      date
 
   };
 
@@ -1000,17 +1198,23 @@ function startVisit() {
 
     <div class="success">
 
-      ✅ ${store} mağazasına ziyarət başladı.<br>
+      ✅ ${store}
+      mağazasına ziyarət başladı.<br>
 
-      Tarix: ${date}<br>
+      Tarix:
+      ${date}<br>
 
-      Başlama vaxtı: ${time}
+      Başlama vaxtı:
+      ${time}
 
     </div>
 
+
     <button
       onclick="finishVisit('${store}')">
+
       ⏹️ Ziyarəti bitir
+
     </button>
 
   `;
@@ -1037,6 +1241,7 @@ function visitStore(store) {
     );
 
     return;
+
   }
 
 
@@ -1058,13 +1263,17 @@ function visitStore(store) {
 
   let visit = {
 
-    username: currentUser,
+    username:
+      currentUser,
 
-    store: store,
+    store:
+      store,
 
-    startTime: time,
+    startTime:
+      time,
 
-    date: date
+    date:
+      date
 
   };
 
@@ -1086,20 +1295,25 @@ function visitStore(store) {
 
       <h2>📍 ${store}</h2>
 
+
       <div class="success">
 
         ✅ Ziyarət başladı.<br>
 
-        Tarix: ${date}<br>
+        Tarix:
+        ${date}<br>
 
-        Başlama vaxtı: ${time}
+        Başlama vaxtı:
+        ${time}
 
       </div>
 
 
       <button
         onclick="finishVisit('${store}')">
+
         ⏹️ Ziyarəti bitir
+
       </button>
 
     </div>
@@ -1151,15 +1365,20 @@ function finishVisit(store) {
 
   visits.unshift({
 
-    username: currentUser,
+    username:
+      currentUser,
 
-    store: store,
+    store:
+      store,
 
-    startTime: startTime,
+    startTime:
+      startTime,
 
-    endTime: endTime,
+    endTime:
+      endTime,
 
-    date: date
+    date:
+      date
 
   });
 
@@ -1184,15 +1403,21 @@ function finishVisit(store) {
 
     <div class="card">
 
-      <h2>✅ Ziyarət tamamlandı</h2>
+      <h2>
+        ✅ Ziyarət tamamlandı
+      </h2>
+
 
       <div class="success">
 
-        ${store} mağazası üzrə ziyarət bitdi.<br>
+        ${store}
+        mağazası üzrə ziyarət bitdi.<br>
 
-        Başlama: ${startTime}<br>
+        Başlama:
+        ${startTime}<br>
 
-        Bitmə: ${endTime}
+        Bitmə:
+        ${endTime}
 
       </div>
 
@@ -1219,7 +1444,9 @@ function showReport() {
 
   let myVisits =
     visits.filter(
-      v => v.username === currentUser
+      v =>
+        v.username ===
+        currentUser
     );
 
 
@@ -1227,17 +1454,25 @@ function showReport() {
 
     <div class="card">
 
-      <h2>📊 Mənim hesabatım</h2>
+      <h2>
+        📊 Mənim hesabatım
+      </h2>
 
   `;
 
 
-  if (myVisits.length === 0) {
+  if (
+    myVisits.length === 0
+  ) {
 
     html += `
+
       <div class="info">
+
         Hələ tamamlanmış ziyarət yoxdur.
+
       </div>
+
     `;
 
   } else {
@@ -1248,13 +1483,17 @@ function showReport() {
 
         <div class="visit-item">
 
-          🏪 <b>${v.store}</b><br>
+          🏪
+          <b>${v.store}</b><br>
 
-          📅 ${v.date}<br>
+          📅
+          ${v.date}<br>
 
-          ▶️ Başlama: ${v.startTime}<br>
+          ▶️ Başlama:
+          ${v.startTime}<br>
 
-          ⏹️ Bitmə: ${v.endTime}
+          ⏹️ Bitmə:
+          ${v.endTime}
 
         </div>
 
@@ -1266,123 +1505,106 @@ function showReport() {
 
 
   html += `
+
     </div>
+
   `;
 
 
   document.getElementById(
     "workerContent"
-  ).innerHTML = html;
+  ).innerHTML =
+    html;
 
 }
 
 
 /* =====================================================
-   MÜDİR PANELİ
-===================================================== */
-/* =================8====================================
-   MÜDİR — MAĞAZA ƏLAVƏ ET
+   MÜDİR — SEÇİMLƏRİ DOLDUR
 ===================================================== */
 
 function loadAdminStorePanel() {
 
   let workerSelect =
-    document.getElementById("adminWorkerSelect");
+    document.getElementById(
+      "adminWorkerSelect"
+    );
+
 
   let storeSelect =
-    document.getElementById("adminStoreSelect");
+    document.getElementById(
+      "adminStoreSelect"
+    );
 
-  if (!workerSelect || !storeSelect) {
+
+  if (
+    !workerSelect ||
+    !storeSelect
+  ) {
+
     return;
+
   }
+
 
   workerSelect.innerHTML = `
-    <option value="">İşçi seçin</option>
+
+    <option value="">
+      İşçi seçin
+    </option>
+
   `;
 
-  workers.forEach(worker => {
-    workerSelect.innerHTML += `
-      <option value="${worker.username}">
-        ${worker.name}
-      </option>
-    `;
-  });
 
-  storeSelect.innerHTML = `
-    <option value="">Mağaza seçin</option>
-  `;
+  workers.forEach(
+    worker => {
 
-  stores.forEach(store => {
-    storeSelect.innerHTML += `
-      <option value="${store}">
-        ${store}
-      </option>
-    `;
-  });
-}
+      workerSelect.innerHTML += `
 
+        <option
+          value="${worker.username}">
 
-/* =====================================================
-   MAĞAZANI ƏLAVƏ ET
-===================================================== */
+          ${worker.name}
 
-function adminAddStore() {
+        </option>
 
-  let username =
-    document.getElementById("adminWorkerSelect").value;
+      `;
 
-  let store =
-    document.getElementById("adminStoreSelect").value;
-
-  let day =
-    document.getElementById("adminDaySelect").value;
-
-  if (username === "" || store === "" || day === "") {
-    alert("İşçi, mağaza və günü seçin.");
-    return;
-  }
-
-  let addedRoutes = getAddedRoutes();
-
-  if (!addedRoutes[username]) {
-    addedRoutes[username] = {};
-  }
-
-  if (!addedRoutes[username][day]) {
-    addedRoutes[username][day] = [];
-  }
-
-  if (addedRoutes[username][day].includes(store)) {
-    alert("Bu mağaza həmin gün üçün artıq əlavə olunub.");
-    return;
-  }
-
-  addedRoutes[username][day].push(store);
-
-  localStorage.setItem(
-    "addedRoutes",
-    JSON.stringify(addedRoutes)
+    }
   );
 
-  let worker =
-    workers.find(w => w.username === username);
 
-  document.getElementById("adminAddResult").innerHTML = `
-    <div class="success">
-      ✅ Mağaza əlavə edildi.<br>
-      İşçi: <b>${worker.name}</b><br>
-      Mağaza: <b>${store}</b><br>
-      Gün: <b>${day}-ci gün</b>
-    </div>
+  storeSelect.innerHTML = `
+
+    <option value="">
+      Mağaza seçin
+    </option>
+
   `;
+
+
+  stores.forEach(
+    store => {
+
+      storeSelect.innerHTML += `
+
+        <option
+          value="${store}">
+
+          ${store}
+
+        </option>
+
+      `;
+
+    }
+  );
+
 }
-function refreshAdmin() {
-/* =====================================================
-
 
 
 /* =====================================================
-   MAĞAZANI ƏLAVƏ ET
+   MÜDİR — MAĞAZA ƏLAVƏ ET
 ===================================================== */
 
 function adminAddStore() {
@@ -1416,6 +1638,7 @@ function adminAddStore() {
     );
 
     return;
+
   }
 
 
@@ -1423,14 +1646,18 @@ function adminAddStore() {
     getAddedRoutes();
 
 
-  if (!addedRoutes[username]) {
+  if (
+    !addedRoutes[username]
+  ) {
 
     addedRoutes[username] = {};
 
   }
 
 
-  if (!addedRoutes[username][day]) {
+  if (
+    !addedRoutes[username][day]
+  ) {
 
     addedRoutes[username][day] = [];
 
@@ -1447,21 +1674,27 @@ function adminAddStore() {
     );
 
     return;
+
   }
 
 
-  addedRoutes[username][day].push(store);
+  addedRoutes[username][day]
+    .push(store);
 
 
   localStorage.setItem(
     "addedRoutes",
-    JSON.stringify(addedRoutes)
+    JSON.stringify(
+      addedRoutes
+    )
   );
 
 
   let worker =
     workers.find(
-      w => w.username === username
+      w =>
+        w.username ===
+        username
     );
 
 
@@ -1487,6 +1720,14 @@ function adminAddStore() {
   `;
 
 }
+
+
+/* =====================================================
+   MÜDİR PANELİNİ YENİLƏ
+===================================================== */
+
+function refreshAdmin() {
+
   let visits =
     JSON.parse(
       localStorage.getItem(
@@ -1508,6 +1749,10 @@ function adminAddStore() {
   ).innerText =
     workers.length;
 
+
+  /*
+    Hazırda bir aktiv ziyarət
+  */
 
   let working =
     active ? 1 : 0;
@@ -1536,54 +1781,72 @@ function adminAddStore() {
   let workerList = "";
 
 
-  workers.forEach(worker => {
+  workers.forEach(
+    worker => {
 
-    let isActive =
-      active &&
-      active.username === worker.username;
+      let isActive =
+        active &&
+        active.username ===
+        worker.username;
 
 
-    if (isActive) {
+      if (isActive) {
 
-      workerList += `
+        workerList += `
 
-        <div class="worker">
+          <div class="worker">
 
-          <b>${worker.name}</b>
+            <b>
+              ${worker.name}
+            </b>
 
-          <div class="online">
-            🟢 İŞDƏDİR
+            <div class="online">
+
+              🟢 İŞDƏDİR
+
+            </div>
+
+            <div class="small">
+
+              Mağaza:
+              ${active.store}<br>
+
+              Başlama:
+              ${active.startTime}<br>
+
+              Tarix:
+              ${active.date}
+
+            </div>
+
           </div>
 
-          <div class="small">
-            Mağaza: ${active.store}<br>
-            Başlama: ${active.startTime}<br>
-            Tarix: ${active.date}
+        `;
+
+      } else {
+
+        workerList += `
+
+          <div class="worker">
+
+            <b>
+              ${worker.name}
+            </b>
+
+            <div class="offline">
+
+              🔴 İşdə deyil
+
+            </div>
+
           </div>
 
-        </div>
+        `;
 
-      `;
-
-    } else {
-
-      workerList += `
-
-        <div class="worker">
-
-          <b>${worker.name}</b>
-
-          <div class="offline">
-            🔴 İşdə deyil
-          </div>
-
-        </div>
-
-      `;
+      }
 
     }
-
-  });
+  );
 
 
   document.getElementById(
@@ -1600,7 +1863,9 @@ function adminAddStore() {
     );
 
 
-  if (visits.length === 0) {
+  if (
+    visits.length === 0
+  ) {
 
     visitList.innerHTML = `
 
@@ -1613,52 +1878,56 @@ function adminAddStore() {
     `;
 
     return;
+
   }
 
 
   let html = "";
 
 
-  visits.slice(0, 20).forEach(
-    visit => {
+  visits
+    .slice(0, 20)
+    .forEach(
+      visit => {
 
-      let worker =
-        workers.find(
-          w =>
-            w.username ===
-            visit.username
-        );
-
-
-      let name =
-        worker
-          ? worker.name
-          : visit.username;
+        let worker =
+          workers.find(
+            w =>
+              w.username ===
+              visit.username
+          );
 
 
-      html += `
+        let name =
+          worker
+            ? worker.name
+            : visit.username;
 
-        <div class="visit-item">
 
-          👤 <b>${name}</b><br>
+        html += `
 
-          🏪 Mağaza:
-          <b>${visit.store}</b><br>
+          <div class="visit-item">
 
-          📅 ${visit.date}<br>
+            👤
+            <b>${name}</b><br>
 
-          ▶️ Başlama:
-          ${visit.startTime}<br>
+            🏪 Mağaza:
+            <b>${visit.store}</b><br>
 
-          ⏹️ Bitmə:
-          ${visit.endTime}
+            📅 ${visit.date}<br>
 
-        </div>
+            ▶️ Başlama:
+            ${visit.startTime}<br>
 
-      `;
+            ⏹️ Bitmə:
+            ${visit.endTime}
 
-    }
-  );
+          </div>
+
+        `;
+
+      }
+    );
 
 
   visitList.innerHTML =
@@ -1673,30 +1942,39 @@ function adminAddStore() {
 
 function logout() {
 
-  currentUser = null;
+  currentUser =
+    null;
 
-  currentRole = null;
+
+  currentRole =
+    null;
 
 
   document
     .getElementById(
       "workerDashboard"
     )
-    .classList.add("hidden");
+    .classList.add(
+      "hidden"
+    );
 
 
   document
     .getElementById(
       "adminDashboard"
     )
-    .classList.add("hidden");
+    .classList.add(
+      "hidden"
+    );
 
 
   document
     .getElementById(
       "login"
     )
-    .classList.remove("hidden");
+    .classList.remove(
+      "hidden"
+    );
 
 
   document.getElementById(
@@ -1721,12 +1999,17 @@ function logout() {
 ===================================================== */
 
 document
-  .getElementById("password")
+  .getElementById(
+    "password"
+  )
   .addEventListener(
     "keydown",
     function(event) {
 
-      if (event.key === "Enter") {
+      if (
+        event.key ===
+        "Enter"
+      ) {
 
         login();
 

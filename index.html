@@ -1282,7 +1282,176 @@ function showReport() {
 ===================================================== */
 
 function refreshAdmin() {
+/* =====================================================
+   MÜDİR — MAĞAZA ƏLAVƏ ET
+===================================================== */
 
+function loadAdminStorePanel() {
+
+  let workerSelect =
+    document.getElementById(
+      "adminWorkerSelect"
+    );
+
+  let storeSelect =
+    document.getElementById(
+      "adminStoreSelect"
+    );
+
+
+  if (!workerSelect || !storeSelect) {
+    return;
+  }
+
+
+  workerSelect.innerHTML = `
+    <option value="">
+      İşçi seçin
+    </option>
+  `;
+
+
+  workers.forEach(worker => {
+
+    workerSelect.innerHTML += `
+
+      <option value="${worker.username}">
+        ${worker.name}
+      </option>
+
+    `;
+
+  });
+
+
+  storeSelect.innerHTML = `
+    <option value="">
+      Mağaza seçin
+    </option>
+  `;
+
+
+  stores.forEach(store => {
+
+    storeSelect.innerHTML += `
+
+      <option value="${store}">
+        ${store}
+      </option>
+
+    `;
+
+  });
+
+}
+
+
+/* =====================================================
+   MAĞAZANI ƏLAVƏ ET
+===================================================== */
+
+function adminAddStore() {
+
+  let username =
+    document.getElementById(
+      "adminWorkerSelect"
+    ).value;
+
+
+  let store =
+    document.getElementById(
+      "adminStoreSelect"
+    ).value;
+
+
+  let day =
+    document.getElementById(
+      "adminDaySelect"
+    ).value;
+
+
+  if (
+    username === "" ||
+    store === "" ||
+    day === ""
+  ) {
+
+    alert(
+      "İşçi, mağaza və günü seçin."
+    );
+
+    return;
+  }
+
+
+  let addedRoutes =
+    getAddedRoutes();
+
+
+  if (!addedRoutes[username]) {
+
+    addedRoutes[username] = {};
+
+  }
+
+
+  if (!addedRoutes[username][day]) {
+
+    addedRoutes[username][day] = [];
+
+  }
+
+
+  if (
+    addedRoutes[username][day]
+      .includes(store)
+  ) {
+
+    alert(
+      "Bu mağaza həmin gün üçün artıq əlavə olunub."
+    );
+
+    return;
+  }
+
+
+  addedRoutes[username][day].push(store);
+
+
+  localStorage.setItem(
+    "addedRoutes",
+    JSON.stringify(addedRoutes)
+  );
+
+
+  let worker =
+    workers.find(
+      w => w.username === username
+    );
+
+
+  document.getElementById(
+    "adminAddResult"
+  ).innerHTML = `
+
+    <div class="success">
+
+      ✅ Mağaza əlavə edildi.<br>
+
+      İşçi:
+      <b>${worker.name}</b><br>
+
+      Mağaza:
+      <b>${store}</b><br>
+
+      Gün:
+      <b>${day}-ci gün</b>
+
+    </div>
+
+  `;
+
+}
   let visits =
     JSON.parse(
       localStorage.getItem(

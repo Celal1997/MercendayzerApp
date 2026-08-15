@@ -1,14 +1,298 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Merçendayzer App</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merçendayzer App</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #222;
+}
+
+.header {
+  background: #1f2937;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.container {
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.menu button {
+  min-height: 90px;
+}
+
+.hidden {
+  display: none;
+}
+
+.store {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.success {
+  background: #dcfce7;
+  color: #166534;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+</style>
 </head>
+
 <body>
 
+<div class="header">
   <h1>Merçendayzer App</h1>
-  <p>Proqram hazırdır.</p>
+  <div>Mağaza ziyarət sistemi</div>
+</div>
+
+<div class="container">
+
+  <!-- GİRİŞ -->
+  <div id="login" class="card">
+    <h2>İşçi girişi</h2>
+
+    <input id="username" type="text" placeholder="İstifadəçi adı">
+    <input id="password" type="password" placeholder="Şifrə">
+
+    <button onclick="login()">Daxil ol</button>
+  </div>
+
+  <!-- ƏSAS SƏHİFƏ -->
+  <div id="dashboard" class="hidden">
+
+    <div class="card">
+      <h2>Salam, <span id="workerName"></span> 👋</h2>
+      <p>Bugünkü işlərinizi buradan idarə edə bilərsiniz.</p>
+    </div>
+
+    <div class="menu">
+      <button onclick="showStores()">🏪<br>Mağazalar</button>
+      <button onclick="showVisit()">📍<br>Ziyarət</button>
+      <button onclick="showReport()">📊<br>Hesabat</button>
+      <button onclick="logout()">🚪<br>Çıxış</button>
+    </div>
+
+    <div id="content" style="margin-top:15px;"></div>
+
+  </div>
+
+</div>
+
+<script>
+
+function login() {
+
+  let username = document.getElementById("username").value;
+  let password = document.getElementById("password").value;
+
+  if (username === "" || password === "") {
+    alert("İstifadəçi adı və şifrəni daxil edin.");
+    return;
+  }
+
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
+
+  document.getElementById("workerName").innerText = username;
+}
+
+function showStores() {
+
+  document.getElementById("content").innerHTML = `
+    <div class="card">
+      <h2>🏪 Mağazalar</h2>
+
+      <div class="store">
+        <b>Araz</b>
+        <p>Mağaza №1</p>
+        <button onclick="visitStore('Araz')">Ziyarətə başla</button>
+      </div>
+
+      <div class="store">
+        <b>Bravo</b>
+        <p>Mağaza №2</p>
+        <button onclick="visitStore('Bravo')">Ziyarətə başla</button>
+      </div>
+
+      <div class="store">
+        <b>Oba</b>
+        <p>Mağaza №3</p>
+        <button onclick="visitStore('Oba')">Ziyarətə başla</button>
+      </div>
+
+      <div class="store">
+        <b>Bazarstore</b>
+        <p>Mağaza №4</p>
+        <button onclick="visitStore('Bazarstore')">Ziyarətə başla</button>
+      </div>
+    </div>
+  `;
+}
+
+function showVisit() {
+
+  document.getElementById("content").innerHTML = `
+    <div class="card">
+      <h2>📍 Mağaza ziyarəti</h2>
+
+      <select id="storeSelect">
+        <option value="">Mağaza seçin</option>
+        <option>Araz</option>
+        <option>Bravo</option>
+        <option>Oba</option>
+        <option>Bazarstore</option>
+      </select>
+
+      <button onclick="startVisit()">Ziyarəti başlat</button>
+
+      <div id="visitResult"></div>
+    </div>
+  `;
+}
+
+function startVisit() {
+
+  let store = document.getElementById("storeSelect").value;
+
+  if (store === "") {
+    alert("Əvvəlcə mağaza seçin.");
+    return;
+  }
+
+  let time = new Date().toLocaleTimeString("az-AZ");
+
+  document.getElementById("visitResult").innerHTML = `
+    <div class="success">
+      ✅ ${store} mağazasına ziyarət başladı.<br>
+      Vaxt: ${time}
+    </div>
+  `;
+}
+
+function visitStore(store) {
+
+  let time = new Date().toLocaleTimeString("az-AZ");
+
+  document.getElementById("content").innerHTML = `
+    <div class="card">
+      <h2>📍 ${store}</h2>
+
+      <div class="success">
+        ✅ Ziyarət başladı.<br>
+        Başlama vaxtı: ${time}
+      </div>
+
+      <button onclick="finishVisit('${store}')">
+        Ziyarəti bitir
+      </button>
+    </div>
+  `;
+}
+
+function finishVisit(store) {
+
+  let time = new Date().toLocaleTimeString("az-AZ");
+
+  document.getElementById("content").innerHTML = `
+    <div class="card">
+      <h2>✅ Ziyarət tamamlandı</h2>
+
+      <div class="success">
+        ${store} mağazası üzrə ziyarət bitdi.<br>
+        Bitmə vaxtı: ${time}
+      </div>
+    </div>
+  `;
+}
+
+function showReport() {
+
+  document.getElementById("content").innerHTML = `
+    <div class="card">
+      <h2>📊 Günlük hesabat</h2>
+
+      <p>Bu bölmədə gələcəkdə:</p>
+
+      <ul>
+        <li>Görülən mağazalar</li>
+        <li>Ziyarət saatları</li>
+        <li>Məhsul yoxlamaları</li>
+        <li>Çəkilən şəkillər</li>
+        <li>Günlük nəticələr</li>
+      </ul>
+
+      <div class="success">
+        Sistem hazırdır və funksiyalar əlavə edilə bilər.
+      </div>
+    </div>
+  `;
+}
+
+function logout() {
+
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("login").classList.remove("hidden");
+
+  document.getElementById("username").value = "";
+  document.getElementById("password").value = "";
+}
+
+</script>
 
 </body>
 </html>

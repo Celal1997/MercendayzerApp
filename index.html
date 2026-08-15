@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>Merçendayzer App</title>
 
@@ -40,7 +45,9 @@ body {
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin-top: 0;
 }
 
@@ -142,11 +149,13 @@ button:active {
 .online {
   color: #16a34a;
   font-weight: bold;
+  margin: 5px 0;
 }
 
 .offline {
   color: #dc2626;
   font-weight: bold;
+  margin: 5px 0;
 }
 
 .visit-item {
@@ -165,12 +174,26 @@ button:active {
   background: #16a34a;
 }
 
-</style>
-</head>
+.delete-btn {
+  background: #dc2626;
+  margin-top: 8px;
+}
 
+.small-text {
+  font-size: 13px;
+  color: #666;
+}
+
+</style>
+
+</head>
 
 <body>
 
+
+<!-- =====================================================
+     BAŞLIQ
+===================================================== -->
 
 <div class="header">
 
@@ -210,7 +233,6 @@ button:active {
     Daxil ol
   </button>
 
-
   <div class="info">
 
     <b>Demo girişləri</b>
@@ -248,7 +270,6 @@ button:active {
 
 <div id="workerDashboard" class="hidden">
 
-
   <div class="card">
 
     <h2>
@@ -274,20 +295,17 @@ button:active {
       Mağazalar
     </button>
 
-
     <button onclick="showVisit()">
       📍
       <br>
       Ziyarət
     </button>
 
-
     <button onclick="showReport()">
       📊
       <br>
       Hesabat
     </button>
-
 
     <button onclick="logout()">
       🚪
@@ -303,7 +321,6 @@ button:active {
     style="margin-top:15px;"
   ></div>
 
-
 </div>
 
 
@@ -315,6 +332,8 @@ button:active {
 <div id="adminDashboard" class="hidden">
 
 
+  <!-- MÜDİR BAŞLIQ -->
+
   <div class="card">
 
     <h2>
@@ -322,13 +341,17 @@ button:active {
     </h2>
 
     <p>
-      Bütün merçendayzerlərin iş vəziyyətini buradan izləyə bilərsiniz.
+      Bütün merçendayzerlərin iş vəziyyətini
+      buradan izləyə bilərsiniz.
     </p>
 
   </div>
 
 
-  <!-- STATİSTİKA -->
+
+  <!-- ===================================================
+       STATİSTİKA
+  ==================================================== -->
 
   <div class="card">
 
@@ -336,9 +359,7 @@ button:active {
       📊 Bugünkü statistika
     </h2>
 
-
     <div class="stat-grid">
-
 
       <div class="stat">
 
@@ -395,14 +416,15 @@ button:active {
 
       </div>
 
-
     </div>
 
   </div>
 
 
 
-  <!-- İŞÇİLƏR -->
+  <!-- ===================================================
+       İŞÇİLƏR
+  ==================================================== -->
 
   <div class="card">
 
@@ -414,184 +436,59 @@ button:active {
 
   </div>
 
-/* =====================================================
-   MÜDİR — YENİ MAĞAZA YARAT
-===================================================== */
-
-function adminCreateStore() {
-
-  let code =
-    document.getElementById("newStoreCode").value.trim();
-
-  let name =
-    document.getElementById("newStoreName").value.trim();
-
-  let area =
-    document.getElementById("newStoreArea").value.trim();
 
 
-  if (
-    code === "" ||
-    name === "" ||
-    area === ""
-  ) {
+  <!-- ===================================================
+       YENİ MAĞAZA YARAT
+  ==================================================== -->
 
-    alert("Mağaza kodu, adı və ərazisini daxil edin.");
+  <div class="card">
 
-    return;
-  }
+    <h2>
+      🏪 Yeni mağaza yarat
+    </h2>
 
+    <p class="small-text">
+      Buradan sistemə yeni mağaza əlavə edə bilərsiniz.
+    </p>
 
-  let fullStore =
-    code + " — " + name;
+    <input
+      id="newStoreCode"
+      type="text"
+      placeholder="Mağaza kodu — məsələn: Bravo 5200"
+    >
 
+    <input
+      id="newStoreName"
+      type="text"
+      placeholder="Mağaza adı — məsələn: Bakıxanov"
+    >
 
-  /*
-    Eyni mağazanın təkrar əlavə olunmasının qarşısını alırıq
-  */
+    <input
+      id="newStoreArea"
+      type="text"
+      placeholder="Ərazi — məsələn: Sabunçu"
+    >
 
-  if (stores.includes(fullStore)) {
+    <button onclick="adminCreateStore()">
+      ➕ Mağazanı sistemə əlavə et
+    </button>
 
-    alert("Bu mağaza artıq sistemdə mövcuddur.");
+    <div id="newStoreResult"></div>
 
-    return;
-  }
-
-
-  /*
-    Mağazanı əsas siyahıya əlavə edirik
-  */
-
-  stores.push(fullStore);
-
-
-  /*
-    Yeni mağazaları ayrıca yadda saxlayırıq
-  */
-
-  let customStores =
-    JSON.parse(
-      localStorage.getItem("customStores")
-    ) || [];
+  </div>
 
 
-  customStores.push({
 
-    store: fullStore,
-
-    code: code,
-
-    name: name,
-
-    area: area
-
-  });
-
-
-  localStorage.setItem(
-    "customStores",
-    JSON.stringify(customStores)
-  );
-
-
-  /*
-    Nəticəni göstəririk
-  */
-
-  document.getElementById(
-    "newStoreResult"
-  ).innerHTML = `
-
-    <div class="success">
-
-      ✅ Yeni mağaza sistemə əlavə edildi.<br><br>
-
-      🏪 Mağaza:
-      <b>${fullStore}</b><br>
-
-      📍 Ərazi:
-      <b>${area}</b>
-
-    </div>
-
-  `;
-
-
-  /*
-    Xanaları təmizləyirik
-  */
-
-  document.getElementById(
-    "newStoreCode"
-  ).value = "";
-
-  document.getElementById(
-    "newStoreName"
-  ).value = "";
-
-  document.getElementById(
-    "newStoreArea"
-  ).value = "";
-
-
-  /*
-    Müdir panelində mağaza sayını yeniləyirik
-  */
-
-  document.getElementById(
-    "storeCount"
-  ).innerText =
-    stores.length;
-
-
-  /*
-    Mağaza seçim siyahısını da yeniləyirik
-  */
-
-  loadAdminStorePanel();
-
-}
-<!-- =====================================================
-     YENİ MAĞAZA YARAT
-===================================================== -->
-
-<div class="card">
-
-  <h2>🏪 Yeni mağaza yarat</h2>
-
-  <input
-    id="newStoreCode"
-    type="text"
-    placeholder="Mağaza kodu — məsələn: Bravo 5200"
-  >
-
-  <input
-    id="newStoreName"
-    type="text"
-    placeholder="Mağaza adı — məsələn: Bakıxanov"
-  >
-
-  <input
-    id="newStoreArea"
-    type="text"
-    placeholder="Ərazi — məsələn: Sabunçu"
-  >
-
-  <button onclick="adminCreateStore()">
-    ➕ Mağazanı sistemə əlavə et
-  </button>
-
-  <div id="newStoreResult"></div>
-
-</div>
-  <!-- MAĞAZA ƏLAVƏ ET -->
+  <!-- ===================================================
+       İŞÇİYƏ MAĞAZA ƏLAVƏ ET
+  ==================================================== -->
 
   <div class="card">
 
     <h2>
       ➕ İşçiyə mağaza əlavə et
     </h2>
-
 
     <select id="adminWorkerSelect">
 
@@ -657,7 +554,9 @@ function adminCreateStore() {
 
 
 
-  <!-- SON ZİYARƏTLƏR -->
+  <!-- ===================================================
+       SON ZİYARƏTLƏR
+  ==================================================== -->
 
   <div class="card">
 
@@ -668,6 +567,7 @@ function adminCreateStore() {
     <div id="visitList"></div>
 
   </div>
+
 
 
   <button onclick="refreshAdmin()">
@@ -763,7 +663,7 @@ const workers = [
 
 
 /* =====================================================
-   MAĞAZALAR
+   ƏSAS MAĞAZALAR
 ===================================================== */
 
 let stores = [
@@ -801,6 +701,52 @@ let stores = [
 
 
 /* =====================================================
+   YADDAŞDA SAXLANAN YENİ MAĞAZALARI YÜKLƏ
+===================================================== */
+
+function loadCustomStores() {
+
+  try {
+
+    const customStores =
+      JSON.parse(
+        localStorage.getItem("customStores")
+      ) || [];
+
+
+    customStores.forEach(item => {
+
+      if (
+        item.store &&
+        !stores.includes(item.store)
+      ) {
+
+        stores.push(item.store);
+
+      }
+
+    });
+
+  } catch (error) {
+
+    console.log(
+      "Yeni mağazalar yüklənmədi.",
+      error
+    );
+
+  }
+
+}
+
+
+
+/* Səhifə açılan kimi yeni mağazaları yüklə */
+
+loadCustomStores();
+
+
+
+/* =====================================================
    CƏLALIN HƏFTƏLİK MARŞRUTU
 ===================================================== */
 
@@ -820,7 +766,6 @@ const workerRoutes = {
 
     ],
 
-
     2: [
 
       "Bravo 5041 — Sea Breeze",
@@ -837,7 +782,6 @@ const workerRoutes = {
 
     ],
 
-
     3: [
 
       "Bravo 5041 — Sea Breeze",
@@ -851,7 +795,6 @@ const workerRoutes = {
       "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi"
 
     ],
-
 
     4: [
 
@@ -869,7 +812,6 @@ const workerRoutes = {
 
     ],
 
-
     5: [
 
       "Bravo 5041 — Sea Breeze",
@@ -883,7 +825,6 @@ const workerRoutes = {
       "Bravo 4023 — Xətai Sabit Orucov küçəsi"
 
     ],
-
 
     6: [
 
@@ -906,7 +847,7 @@ const workerRoutes = {
 
 
 /* =====================================================
-   MÜDİR TƏRƏFİNDƏN ƏLAVƏ EDİLƏN MAĞAZALAR
+   MÜDİR TƏRƏFİNDƏN ƏLAVƏ EDİLƏN MARŞRUTLAR
 ===================================================== */
 
 function getAddedRoutes() {
@@ -926,6 +867,10 @@ function getAddedRoutes() {
 }
 
 
+
+/* =====================================================
+   İŞÇİNİN MARŞRUTUNU GƏTİR
+===================================================== */
 
 function getWorkerRoute(username, day) {
 
@@ -971,12 +916,69 @@ function getWorkerRoute(username, day) {
 
 
 /* =====================================================
-   DƏYİŞƏNLƏR
+   AKTİV İSTİFADƏÇİ
 ===================================================== */
 
 let currentUser = null;
 
 let currentRole = null;
+
+
+
+/* =====================================================
+   AKTİV ZİYARƏTLƏR
+===================================================== */
+
+/*
+  Artıq bütün işçilər üçün tək activeVisit istifadə etmirik.
+  Hər işçinin öz aktiv ziyarəti olacaq.
+*/
+
+function getActiveVisits() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem("activeVisits")
+    ) || {};
+
+  } catch {
+
+    return {};
+
+  }
+
+}
+
+
+
+function saveActiveVisits(data) {
+
+  localStorage.setItem(
+    "activeVisits",
+    JSON.stringify(data)
+  );
+
+}
+
+
+
+function getActiveVisit(username) {
+
+  if (!username) {
+
+    return null;
+
+  }
+
+
+  const activeVisits =
+    getActiveVisits();
+
+
+  return activeVisits[username] || null;
+
+}
 
 
 
@@ -1014,7 +1016,10 @@ function login() {
   }
 
 
-  /* MÜDİR */
+
+  /* ===================================================
+     MÜDİR
+  ==================================================== */
 
   if (
     username === "mudir" &&
@@ -1051,7 +1056,9 @@ function login() {
 
 
 
-  /* İŞÇİ */
+  /* ===================================================
+     İŞÇİ
+  ==================================================== */
 
   const worker =
     workers.find(
@@ -1109,51 +1116,6 @@ function login() {
 
 
 /* =====================================================
-   AKTİV ZİYARƏT
-===================================================== */
-
-function getActiveVisit() {
-
-  try {
-
-    const active =
-      JSON.parse(
-        localStorage.getItem(
-          "activeVisit"
-        )
-      );
-
-
-    if (!active) {
-
-      return null;
-
-    }
-
-
-    if (
-      active.username !==
-      currentUser
-    ) {
-
-      return null;
-
-    }
-
-
-    return active;
-
-  } catch {
-
-    return null;
-
-  }
-
-}
-
-
-
-/* =====================================================
    İŞÇİ STATUSU
 ===================================================== */
 
@@ -1173,7 +1135,7 @@ function updateWorkerStatus() {
 
 
   const active =
-    getActiveVisit();
+    getActiveVisit(currentUser);
 
 
   if (active) {
@@ -1198,7 +1160,7 @@ function updateWorkerStatus() {
 
         <button
           class="finish-btn"
-          onclick="finishVisit('${escapeForAttribute(active.store)}')"
+          onclick="finishVisit()"
         >
 
           ⏹️ Ziyarəti bitir
@@ -1228,14 +1190,17 @@ function updateWorkerStatus() {
 
 
 /* =====================================================
-   ESCAPE
+   XÜSUSİ İŞARƏLƏRİ TƏMİZLƏ
 ===================================================== */
 
-function escapeForAttribute(text) {
+function escapeHTML(text) {
 
-  return text
-    .replace(/\\/g, "\\\\")
-    .replace(/'/g, "\\'");
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
 }
 
@@ -1339,7 +1304,7 @@ function showStores() {
 
           <b>
             ${index + 1}.
-            ${store}
+            ${escapeHTML(store)}
           </b>
 
           <p>
@@ -1347,7 +1312,7 @@ function showStores() {
           </p>
 
           <button
-            onclick="visitStore('${escapeForAttribute(store)}')"
+            onclick='visitStore(${JSON.stringify(store)})'
           >
 
             📍 Ziyarətə başla
@@ -1465,8 +1430,10 @@ function showVisit() {
 
       options += `
 
-        <option value="${store}">
-          ${store}
+        <option value="${escapeHTML(store)}">
+
+          ${escapeHTML(store)}
+
         </option>
 
       `;
@@ -1550,15 +1517,13 @@ function startVisit() {
 
 
   const existing =
-    localStorage.getItem(
-      "activeVisit"
-    );
+    getActiveVisit(currentUser);
 
 
   if (existing) {
 
     alert(
-      "Hazırda aktiv ziyarət var. Əvvəlcə onu bitirin."
+      "Hazırda aktiv ziyarətiniz var. Əvvəlcə onu bitirin."
     );
 
     return;
@@ -1579,15 +1544,13 @@ function startVisit() {
 function visitStore(store) {
 
   const existing =
-    localStorage.getItem(
-      "activeVisit"
-    );
+    getActiveVisit(currentUser);
 
 
   if (existing) {
 
     alert(
-      "Hazırda aktiv ziyarət var. Əvvəlcə onu bitirin."
+      "Hazırda aktiv ziyarətiniz var. Əvvəlcə onu bitirin."
     );
 
     return;
@@ -1640,9 +1603,16 @@ function createVisit(store) {
   };
 
 
-  localStorage.setItem(
-    "activeVisit",
-    JSON.stringify(visit)
+  const activeVisits =
+    getActiveVisits();
+
+
+  activeVisits[currentUser] =
+    visit;
+
+
+  saveActiveVisits(
+    activeVisits
   );
 
 
@@ -1656,7 +1626,7 @@ function createVisit(store) {
     <div class="card">
 
       <h2>
-        📍 ${store}
+        📍 ${escapeHTML(store)}
       </h2>
 
 
@@ -1679,7 +1649,7 @@ function createVisit(store) {
 
       <button
         class="finish-btn"
-        onclick="finishVisit('${escapeForAttribute(store)}')"
+        onclick="finishVisit()"
       >
 
         ⏹️ Ziyarəti bitir
@@ -1698,10 +1668,10 @@ function createVisit(store) {
    ZİYARƏTİ BİTİR
 ===================================================== */
 
-function finishVisit(store) {
+function finishVisit() {
 
   const active =
-    getActiveVisit();
+    getActiveVisit(currentUser);
 
 
   if (!active) {
@@ -1761,8 +1731,15 @@ function finishVisit(store) {
   );
 
 
-  localStorage.removeItem(
-    "activeVisit"
+  const activeVisits =
+    getActiveVisits();
+
+
+  delete activeVisits[currentUser];
+
+
+  saveActiveVisits(
+    activeVisits
   );
 
 
@@ -1783,7 +1760,7 @@ function finishVisit(store) {
       <div class="success">
 
         🏪 Mağaza:
-        <b>${active.store}</b>
+        <b>${escapeHTML(active.store)}</b>
 
         <br><br>
 
@@ -1862,22 +1839,22 @@ function showReport() {
           <div class="visit-item">
 
             🏪
-            <b>${visit.store}</b>
+            <b>${escapeHTML(visit.store)}</b>
 
             <br>
 
             📅
-            ${visit.date}
+            ${escapeHTML(visit.date)}
 
             <br>
 
             ▶️ Başlama:
-            ${visit.startTime}
+            ${escapeHTML(visit.startTime)}
 
             <br>
 
             ⏹️ Bitmə:
-            ${visit.endTime}
+            ${escapeHTML(visit.endTime)}
 
           </div>
 
@@ -1949,7 +1926,7 @@ function loadAdminStorePanel() {
 
         <option value="${worker.username}">
 
-          ${worker.name}
+          ${escapeHTML(worker.name)}
 
         </option>
 
@@ -1973,9 +1950,9 @@ function loadAdminStorePanel() {
 
       storeSelect.innerHTML += `
 
-        <option value="${store}">
+        <option value="${escapeHTML(store)}">
 
-          ${store}
+          ${escapeHTML(store)}
 
         </option>
 
@@ -1989,7 +1966,172 @@ function loadAdminStorePanel() {
 
 
 /* =====================================================
-   MÜDİR — MAĞAZA ƏLAVƏ ET
+   MÜDİR — YENİ MAĞAZA YARAT
+===================================================== */
+
+function adminCreateStore() {
+
+  const code =
+    document
+      .getElementById("newStoreCode")
+      .value
+      .trim();
+
+
+  const name =
+    document
+      .getElementById("newStoreName")
+      .value
+      .trim();
+
+
+  const area =
+    document
+      .getElementById("newStoreArea")
+      .value
+      .trim();
+
+
+  if (
+    code === "" ||
+    name === "" ||
+    area === ""
+  ) {
+
+    alert(
+      "Mağaza kodu, adı və ərazisini daxil edin."
+    );
+
+    return;
+
+  }
+
+
+  const fullStore =
+    code + " — " + name;
+
+
+  if (
+    stores.includes(fullStore)
+  ) {
+
+    alert(
+      "Bu mağaza artıq sistemdə mövcuddur."
+    );
+
+    return;
+
+  }
+
+
+  /* Mağazanı əsas siyahıya əlavə et */
+
+  stores.push(fullStore);
+
+
+  /* Yadda saxla */
+
+  let customStores = [];
+
+  try {
+
+    customStores =
+      JSON.parse(
+        localStorage.getItem("customStores")
+      ) || [];
+
+  } catch {
+
+    customStores = [];
+
+  }
+
+
+  customStores.push({
+
+    store:
+      fullStore,
+
+    code:
+      code,
+
+    name:
+      name,
+
+    area:
+      area
+
+  });
+
+
+  localStorage.setItem(
+    "customStores",
+    JSON.stringify(
+      customStores
+    )
+  );
+
+
+  /* Nəticə */
+
+  document.getElementById(
+    "newStoreResult"
+  ).innerHTML = `
+
+    <div class="success">
+
+      ✅ Yeni mağaza sistemə əlavə edildi.
+
+      <br><br>
+
+      🏪 Mağaza:
+      <b>${escapeHTML(fullStore)}</b>
+
+      <br>
+
+      📍 Ərazi:
+      <b>${escapeHTML(area)}</b>
+
+    </div>
+
+  `;
+
+
+  /* Xanaları təmizlə */
+
+  document.getElementById(
+    "newStoreCode"
+  ).value = "";
+
+
+  document.getElementById(
+    "newStoreName"
+  ).value = "";
+
+
+  document.getElementById(
+    "newStoreArea"
+  ).value = "";
+
+
+  /* Sayı yenilə */
+
+  document.getElementById(
+    "storeCount"
+  ).innerText =
+    stores.length;
+
+
+  /* Seçim siyahısını yenilə */
+
+  loadAdminStorePanel();
+
+}
+
+
+
+/* =====================================================
+   MÜDİR — İŞÇİYƏ MAĞAZA ƏLAVƏ ET
 ===================================================== */
 
 function adminAddStore() {
@@ -2095,12 +2237,12 @@ function adminAddStore() {
       <br>
 
       👤 İşçi:
-      <b>${worker.name}</b>
+      <b>${escapeHTML(worker.name)}</b>
 
       <br>
 
       🏪 Mağaza:
-      <b>${store}</b>
+      <b>${escapeHTML(store)}</b>
 
       <br>
 
@@ -2129,12 +2271,8 @@ function refreshAdmin() {
     ) || [];
 
 
-  const active =
-    JSON.parse(
-      localStorage.getItem(
-        "activeVisit"
-      )
-    );
+  const activeVisits =
+    getActiveVisits();
 
 
   document.getElementById(
@@ -2143,10 +2281,19 @@ function refreshAdmin() {
     workers.length;
 
 
+  /* Hazırda işləyən bütün işçilər */
+
+  const workingCount =
+    workers.filter(
+      worker =>
+        activeVisits[worker.username]
+    ).length;
+
+
   document.getElementById(
     "workingWorkers"
   ).innerText =
-    active ? 1 : 0;
+    workingCount;
 
 
   document.getElementById(
@@ -2162,7 +2309,9 @@ function refreshAdmin() {
 
 
 
-  /* İŞÇİ SİYAHISI */
+  /* ===================================================
+     İŞÇİ SİYAHISI
+  ==================================================== */
 
   let workerHTML = "";
 
@@ -2170,20 +2319,18 @@ function refreshAdmin() {
   workers.forEach(
     worker => {
 
-      const isActive =
-        active &&
-        active.username ===
-        worker.username;
+      const active =
+        activeVisits[worker.username];
 
 
-      if (isActive) {
+      if (active) {
 
         workerHTML += `
 
           <div class="worker">
 
             <b>
-              ${worker.name}
+              ${escapeHTML(worker.name)}
             </b>
 
             <div class="online">
@@ -2195,17 +2342,17 @@ function refreshAdmin() {
             <div>
 
               🏪 Mağaza:
-              ${active.store}
+              ${escapeHTML(active.store)}
 
               <br>
 
               🕐 Başlama:
-              ${active.startTime}
+              ${escapeHTML(active.startTime)}
 
               <br>
 
               📅 Tarix:
-              ${active.date}
+              ${escapeHTML(active.date)}
 
             </div>
 
@@ -2220,7 +2367,7 @@ function refreshAdmin() {
           <div class="worker">
 
             <b>
-              ${worker.name}
+              ${escapeHTML(worker.name)}
             </b>
 
             <div class="offline">
@@ -2246,7 +2393,9 @@ function refreshAdmin() {
 
 
 
-  /* SON ZİYARƏTLƏR */
+  /* ===================================================
+     SON ZİYARƏTLƏR
+  ==================================================== */
 
   const visitList =
     document.getElementById(
@@ -2300,26 +2449,26 @@ function refreshAdmin() {
           <div class="visit-item">
 
             👤
-            <b>${name}</b>
+            <b>${escapeHTML(name)}</b>
 
             <br>
 
             🏪 Mağaza:
-            <b>${visit.store}</b>
+            <b>${escapeHTML(visit.store)}</b>
 
             <br>
 
-            📅 ${visit.date}
+            📅 ${escapeHTML(visit.date)}
 
             <br>
 
             ▶️ Başlama:
-            ${visit.startTime}
+            ${escapeHTML(visit.startTime)}
 
             <br>
 
             ⏹️ Bitmə:
-            ${visit.endTime}
+            ${escapeHTML(visit.endTime)}
 
           </div>
 

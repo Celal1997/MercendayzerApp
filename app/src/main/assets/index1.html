@@ -3,123 +3,275 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Merçendayzer</title>
 
 <style>
+
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
+    padding:0;
     font-family:Arial,sans-serif;
     background:#f4f7fb;
     color:#222;
 }
+
 .container{
+    width:100%;
     max-width:500px;
     margin:auto;
     padding:20px;
 }
+
 .card{
-    background:white;
+    background:#fff;
     border-radius:18px;
     padding:18px;
     margin-bottom:15px;
-    box-shadow:0 3px 12px #00000012;
+    box-shadow:0 3px 12px rgba(0,0,0,0.08);
 }
-h1{margin-top:5px}
-input,button{
+
+h1{
+    margin-top:5px;
+}
+
+h2{
+    margin-top:5px;
+}
+
+h3{
+    margin-top:0;
+}
+
+input,
+button{
     width:100%;
-    box-sizing:border-box;
     padding:14px;
     margin-top:10px;
     border-radius:10px;
-    border:1px solid #ddd;
     font-size:16px;
 }
+
+input{
+    border:1px solid #ddd;
+    background:#fff;
+}
+
 button{
     border:0;
     background:#1976d2;
     color:white;
     font-weight:bold;
 }
-.green{background:#159447}
-.red{background:#d62828}
-.gray{background:#777}
-.store{
-    padding:15px;
-    border:1px solid #eee;
-    border-radius:14px;
-    margin-top:12px;
+
+button:active{
+    opacity:.75;
 }
+
+.green{
+    background:#159447;
+}
+
+.red{
+    background:#d62828;
+}
+
+.gray{
+    background:#777;
+}
+
+.store{
+    border:1px solid #eeeeee;
+}
+
 .small{
     color:#777;
     font-size:14px;
 }
-.hidden{display:none}
-#status{
+
+.hidden{
+    display:none !important;
+}
+
+.status{
     padding:12px;
     border-radius:10px;
     background:#e8f5e9;
     margin-bottom:15px;
 }
+
+.error{
+    color:#d62828;
+    font-size:14px;
+}
+
+.success{
+    color:#159447;
+}
+
+hr{
+    border:0;
+    border-top:1px solid #eee;
+    margin:18px 0;
+}
+
 </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
+
+<!-- ================= LOGIN ================= -->
+
 <div id="loginPage">
 
     <div class="card">
+
         <h1>Merçendayzer</h1>
-        <p class="small">İşçi giriş sistemi</p>
 
-        <input id="username" placeholder="İstifadəçi adı">
-        <input id="password" type="password" placeholder="Şifrə">
+        <p class="small">
+            İşçi giriş sistemi
+        </p>
 
-        <button onclick="login()">Daxil ol</button>
+        <input
+            id="username"
+            type="text"
+            placeholder="İstifadəçi adı"
+            autocomplete="username"
+        >
 
-        <p id="loginError" style="color:red"></p>
+        <input
+            id="password"
+            type="password"
+            placeholder="Şifrə"
+            autocomplete="current-password"
+        >
+
+        <button
+            id="loginButton"
+            type="button"
+        >
+            Daxil ol
+        </button>
+
+        <p
+            id="loginError"
+            class="error"
+        ></p>
+
+        <p class="small">
+
+            Demo giriş:<br>
+            <b>mudir</b> / <b>1234</b>
+
+            <br><br>
+
+            İşçilər:<br>
+            <b>mer1</b> ... <b>mer11</b> / <b>1234</b>
+
+        </p>
+
     </div>
 
 </div>
 
 
-<div id="appPage" class="hidden">
+<!-- ================= MAIN PAGE ================= -->
+
+<div
+    id="appPage"
+    class="hidden"
+>
 
     <div class="card">
+
         <h2 id="welcome"></h2>
-        <div id="status">Bu gün üçün mağazalar</div>
+
+        <div
+            id="status"
+            class="status"
+        >
+            Bu gün üçün mağazalar
+        </div>
+
     </div>
+
 
     <div id="stores"></div>
 
-    <button class="gray" onclick="logout()">Çıxış</button>
+
+    <button
+        id="logoutButton"
+        class="gray"
+        type="button"
+    >
+        Çıxış
+    </button>
 
 </div>
 
 
-<div id="visitPage" class="hidden">
+<!-- ================= VISIT PAGE ================= -->
+
+<div
+    id="visitPage"
+    class="hidden"
+>
 
     <div class="card">
 
         <h2 id="visitStore"></h2>
 
-        <div id="visitStatus">
+
+        <div
+            id="visitStatus"
+            class="status"
+        >
             Mağaza aktiv deyil
         </div>
 
-        <button id="startBtn" class="green" onclick="startVisit()">
+
+        <button
+            id="startButton"
+            class="green"
+            type="button"
+        >
             Mağazanı aktivləşdir
         </button>
 
-        <div id="visitInfo" class="hidden">
 
-            <p><b>Giriş vaxtı:</b> <span id="entryTime"></span></p>
-            <p><b>Giriş GPS:</b> <span id="entryGPS"></span></p>
+        <div
+            id="visitInfo"
+            class="hidden"
+        >
+
+            <p>
+                <b>Giriş vaxtı:</b>
+                <span id="entryTime"></span>
+            </p>
+
+            <p>
+                <b>Giriş GPS:</b>
+                <span id="entryGPS"></span>
+            </p>
+
 
             <hr>
 
-            <p><b>Çıxmazdan əvvəl foto yüklə:</b></p>
+
+            <p>
+                <b>
+                    Çıxmazdan əvvəl foto yüklə:
+                </b>
+            </p>
+
 
             <input
                 id="photo"
@@ -128,13 +280,23 @@ button{
                 capture="environment"
             >
 
-            <button class="red" onclick="finishVisit()">
+
+            <button
+                id="finishButton"
+                class="red"
+                type="button"
+            >
                 Mağazadan çıxışı təsdiqlə
             </button>
 
         </div>
 
-        <button class="gray" onclick="backToStores()">
+
+        <button
+            id="backButton"
+            class="gray"
+            type="button"
+        >
             Geri
         </button>
 
@@ -142,235 +304,523 @@ button{
 
 </div>
 
+
 </div>
 
 
 <script>
 
+/* =====================================================
+   MERÇENDAYZER DEMO
+   ===================================================== */
+
+"use strict";
+
+
+/* ================= VARIABLES ================= */
+
 let currentUser = null;
+
 let currentStore = null;
+
 let visitStarted = false;
 
+
+/* ================= WORKERS ================= */
+
 const workers = [
-    "mer1","mer2","mer3","mer4","mer5",
-    "mer6","mer7","mer8","mer9","mer10","mer11"
+
+    "mer1",
+    "mer2",
+    "mer3",
+    "mer4",
+    "mer5",
+    "mer6",
+    "mer7",
+    "mer8",
+    "mer9",
+    "mer10",
+    "mer11"
+
 ];
 
+
+/* ================= STORES ================= */
+
 const stores = [
+
     {
         code:"5041",
         chain:"Bravo",
         location:"Sea Breeze"
     },
+
     {
         code:"3077",
         chain:"Bravo",
         location:"Sea Breeze Premium"
     },
+
     {
         code:"220",
         chain:"Tamstore",
         location:"Sea Breeze"
     },
+
     {
         code:"4001",
         chain:"Bravo",
         location:"Amburan Bravo"
     }
+
 ];
 
+
+/* ================= SHORT SELECTOR ================= */
+
+function get(id){
+
+    return document.getElementById(id);
+
+}
+
+
+/* ================= LOGIN ================= */
 
 function login(){
 
     const username =
-        document.getElementById("username").value.trim();
+        get("username")
+        .value
+        .trim()
+        .toLowerCase();
+
 
     const password =
-        document.getElementById("password").value;
+        get("password")
+        .value;
+
+
+    /* ADMIN */
 
     if(
-        (username === "mudir" && password === "1234") ||
-        (workers.includes(username) && password === "1234")
+        username === "mudir" &&
+        password === "1234"
     ){
 
         currentUser = username;
 
-        document.getElementById("loginPage")
-            .classList.add("hidden");
+        openMainPage();
 
-        document.getElementById("appPage")
-            .classList.remove("hidden");
-
-        document.getElementById("welcome").innerText =
-            username === "mudir"
-            ? "Admin paneli"
-            : "Salam, " + username;
-
-        showStores();
-
-    }else{
-
-        document.getElementById("loginError").innerText =
-            "İstifadəçi adı və ya şifrə səhvdir.";
+        return;
 
     }
+
+
+    /* WORKERS */
+
+    if(
+        workers.indexOf(username) !== -1 &&
+        password === "1234"
+    ){
+
+        currentUser = username;
+
+        openMainPage();
+
+        return;
+
+    }
+
+
+    /* WRONG LOGIN */
+
+    get("loginError").textContent =
+        "İstifadəçi adı və ya şifrə səhvdir.";
+
 }
 
+
+/* ================= OPEN MAIN PAGE ================= */
+
+function openMainPage(){
+
+    get("loginPage")
+        .classList
+        .add("hidden");
+
+
+    get("visitPage")
+        .classList
+        .add("hidden");
+
+
+    get("appPage")
+        .classList
+        .remove("hidden");
+
+
+    get("loginError")
+        .textContent = "";
+
+
+    if(currentUser === "mudir"){
+
+        get("welcome")
+            .textContent =
+            "Admin paneli";
+
+    }
+    else{
+
+        get("welcome")
+            .textContent =
+            "Salam, " + currentUser;
+
+    }
+
+
+    showStores();
+
+}
+
+
+/* ================= SHOW STORES ================= */
 
 function showStores(){
 
     const box =
-        document.getElementById("stores");
+        get("stores");
+
 
     box.innerHTML = "";
 
-    stores.forEach(store => {
 
-        box.innerHTML += `
-        <div class="card store">
+    stores.forEach(
+        function(store,index){
 
-            <h3>${store.chain}</h3>
+            const card =
+                document.createElement("div");
 
-            <b>${store.code}</b>
 
-            <p class="small">
-                ${store.location}
-            </p>
+            card.className =
+                "card store";
 
-            <button onclick='openStore(${JSON.stringify(store)})'>
-                Mağazaya daxil ol
-            </button>
 
-        </div>
-        `;
+            const title =
+                document.createElement("h3");
 
-    });
+
+            title.textContent =
+                store.chain;
+
+
+            const code =
+                document.createElement("b");
+
+
+            code.textContent =
+                store.code;
+
+
+            const location =
+                document.createElement("p");
+
+
+            location.className =
+                "small";
+
+
+            location.textContent =
+                store.location;
+
+
+            const button =
+                document.createElement("button");
+
+
+            button.type =
+                "button";
+
+
+            button.textContent =
+                "Mağazaya daxil ol";
+
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    openStore(index);
+
+                }
+            );
+
+
+            card.appendChild(title);
+
+            card.appendChild(code);
+
+            card.appendChild(location);
+
+            card.appendChild(button);
+
+
+            box.appendChild(card);
+
+        }
+    );
+
 }
 
 
-function openStore(store){
+/* ================= OPEN STORE ================= */
 
-    currentStore = store;
+function openStore(index){
 
-    document.getElementById("appPage")
-        .classList.add("hidden");
+    currentStore =
+        stores[index];
 
-    document.getElementById("visitPage")
-        .classList.remove("hidden");
 
-    document.getElementById("visitStore").innerText =
-        store.chain + " " +
-        store.code + " — " +
-        store.location;
+    get("appPage")
+        .classList
+        .add("hidden");
 
-    document.getElementById("visitInfo")
-        .classList.add("hidden");
 
-    document.getElementById("startBtn")
-        .classList.remove("hidden");
+    get("visitPage")
+        .classList
+        .remove("hidden");
 
-    document.getElementById("visitStatus").innerText =
+
+    get("visitStore")
+        .textContent =
+        currentStore.chain +
+        " " +
+        currentStore.code +
+        " — " +
+        currentStore.location;
+
+
+    get("visitStatus")
+        .textContent =
         "Mağazaya çatanda aktivləşdir.";
+
+
+    get("startButton")
+        .classList
+        .remove("hidden");
+
+
+    get("visitInfo")
+        .classList
+        .add("hidden");
+
+
+    get("photo").value = "";
+
+
+    visitStarted = false;
+
 }
 
+
+/* ================= START VISIT ================= */
 
 function startVisit(){
 
     if(!navigator.geolocation){
 
-        alert("Bu telefonda GPS dəstəyi yoxdur.");
+        alert(
+            "Bu telefonda GPS dəstəyi yoxdur."
+        );
+
         return;
+
     }
+
+
+    get("visitStatus")
+        .textContent =
+        "GPS yoxlanılır...";
+
 
     navigator.geolocation.getCurrentPosition(
 
         function(position){
 
             const lat =
-                position.coords.latitude.toFixed(6);
+                position.coords.latitude
+                .toFixed(6);
+
 
             const lng =
-                position.coords.longitude.toFixed(6);
+                position.coords.longitude
+                .toFixed(6);
+
 
             const now =
-                new Date().toLocaleString("az-AZ");
+                new Date()
+                .toLocaleString("az-AZ");
 
-            document.getElementById("entryTime")
-                .innerText = now;
 
-            document.getElementById("entryGPS")
-                .innerText = lat + ", " + lng;
+            get("entryTime")
+                .textContent =
+                now;
 
-            document.getElementById("visitStatus")
-                .innerText = "Mağaza aktivdir.";
 
-            document.getElementById("startBtn")
-                .classList.add("hidden");
+            get("entryGPS")
+                .textContent =
+                lat + ", " + lng;
 
-            document.getElementById("visitInfo")
-                .classList.remove("hidden");
+
+            get("visitStatus")
+                .textContent =
+                "Mağaza aktivdir.";
+
+
+            get("startButton")
+                .classList
+                .add("hidden");
+
+
+            get("visitInfo")
+                .classList
+                .remove("hidden");
+
 
             visitStarted = true;
 
         },
 
+
         function(){
 
+            get("visitStatus")
+                .textContent =
+                "GPS icazəsi tələb olunur.";
+
+
             alert(
-                "GPS icazəsi verilmədi. " +
-                "Telefonun məkan xidmətlərini aç."
+                "GPS məlumatı alınmadı.\n\n" +
+                "Telefonun Məkan xidmətini aç " +
+                "və tətbiqə məkan icazəsi ver."
             );
 
         },
 
+
         {
+
             enableHighAccuracy:true,
-            timeout:10000
+
+            timeout:15000,
+
+            maximumAge:0
+
         }
+
     );
+
 }
 
+
+/* ================= FINISH VISIT ================= */
 
 function finishVisit(){
 
     if(!visitStarted){
-        alert("Əvvəl mağazanı aktivləşdir.");
-        return;
-    }
-
-    const photo =
-        document.getElementById("photo");
-
-    if(!photo.files.length){
 
         alert(
-            "Mağazadan çıxmazdan əvvəl foto yükləməlisən."
+            "Əvvəl mağazanı aktivləşdir."
         );
 
         return;
+
     }
+
+
+    const photo =
+        get("photo");
+
+
+    if(
+        !photo.files ||
+        photo.files.length === 0
+    ){
+
+        alert(
+            "Mağazadan çıxmazdan əvvəl " +
+            "foto yükləməlisən."
+        );
+
+        return;
+
+    }
+
+
+    if(!navigator.geolocation){
+
+        alert(
+            "GPS dəstəyi yoxdur."
+        );
+
+        return;
+
+    }
+
 
     navigator.geolocation.getCurrentPosition(
 
         function(position){
 
             const exitTime =
-                new Date().toLocaleString("az-AZ");
+                new Date()
+                .toLocaleString("az-AZ");
+
 
             const exitGPS =
-                position.coords.latitude.toFixed(6)
-                + ", "
-                + position.coords.longitude.toFixed(6);
+
+                position.coords.latitude
+                .toFixed(6)
+
+                + ", " +
+
+                position.coords.longitude
+                .toFixed(6);
+
 
             alert(
+
                 "Ziyarət tamamlandı!\n\n" +
-                "Çıxış vaxtı: " + exitTime +
-                "\nÇıxış GPS: " + exitGPS
+
+                "Mağaza: " +
+
+                currentStore.chain +
+
+                " " +
+
+                currentStore.code +
+
+                "\n\nGiriş: " +
+
+                get("entryTime")
+                .textContent +
+
+                "\n\nÇıxış: " +
+
+                exitTime +
+
+                "\n\nÇıxış GPS: " +
+
+                exitGPS
+
             );
+
 
             backToStores();
 
         },
+
 
         function(){
 
@@ -380,40 +830,182 @@ function finishVisit(){
 
         },
 
+
         {
+
             enableHighAccuracy:true,
-            timeout:10000
+
+            timeout:15000,
+
+            maximumAge:0
+
         }
+
     );
+
 }
 
+
+/* ================= BACK ================= */
 
 function backToStores(){
 
-    document.getElementById("visitPage")
-        .classList.add("hidden");
+    get("visitPage")
+        .classList
+        .add("hidden");
 
-    document.getElementById("appPage")
-        .classList.remove("hidden");
+
+    get("appPage")
+        .classList
+        .remove("hidden");
+
+
+    currentStore = null;
 
     visitStarted = false;
 
+
     showStores();
+
 }
 
+
+/* ================= LOGOUT ================= */
 
 function logout(){
 
     currentUser = null;
 
-    document.getElementById("appPage")
-        .classList.add("hidden");
+    currentStore = null;
 
-    document.getElementById("loginPage")
-        .classList.remove("hidden");
+    visitStarted = false;
 
-    document.getElementById("username").value = "";
-    document.getElementById("password").value = "";
+
+    get("appPage")
+        .classList
+        .add("hidden");
+
+
+    get("visitPage")
+        .classList
+        .add("hidden");
+
+
+    get("loginPage")
+        .classList
+        .remove("hidden");
+
+
+    get("username").value = "";
+
+    get("password").value = "";
+
+    get("loginError")
+        .textContent = "";
+
+}
+
+
+/* ================= INIT ================= */
+
+function init(){
+
+    /* LOGIN BUTTON */
+
+    get("loginButton")
+        .addEventListener(
+            "click",
+            login
+        );
+
+
+    /* ENTER KEY */
+
+    get("username")
+        .addEventListener(
+            "keydown",
+            function(event){
+
+                if(event.key === "Enter"){
+
+                    get("password")
+                        .focus();
+
+                }
+
+            }
+        );
+
+
+    get("password")
+        .addEventListener(
+            "keydown",
+            function(event){
+
+                if(event.key === "Enter"){
+
+                    login();
+
+                }
+
+            }
+        );
+
+
+    /* LOGOUT */
+
+    get("logoutButton")
+        .addEventListener(
+            "click",
+            logout
+        );
+
+
+    /* START VISIT */
+
+    get("startButton")
+        .addEventListener(
+            "click",
+            startVisit
+        );
+
+
+    /* FINISH */
+
+    get("finishButton")
+        .addEventListener(
+            "click",
+            finishVisit
+        );
+
+
+    /* BACK */
+
+    get("backButton")
+        .addEventListener(
+            "click",
+            backToStores
+        );
+
+}
+
+
+/* ================= START APP ================= */
+
+if(
+    document.readyState === "loading"
+){
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        init
+    );
+
+}
+else{
+
+    init();
+
 }
 
 </script>

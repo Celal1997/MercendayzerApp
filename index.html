@@ -407,7 +407,42 @@ const stores =
 ===================================================== */
 
 const workerRoutes = {
+/* =====================================================
+   MÜDİR TƏRƏFİNDƏN ƏLAVƏ EDİLƏN MAĞAZALAR
+===================================================== */
 
+function getAddedRoutes() {
+
+  return JSON.parse(
+    localStorage.getItem("addedRoutes")
+  ) || {};
+}
+
+
+function getWorkerRoute(username, day) {
+
+  let baseRoute =
+    workerRoutes[username] &&
+    workerRoutes[username][day]
+      ? [...workerRoutes[username][day]]
+      : [];
+
+  let addedRoutes = getAddedRoutes();
+
+  if (
+    addedRoutes[username] &&
+    addedRoutes[username][day]
+  ) {
+
+    baseRoute = [
+      ...baseRoute,
+      ...addedRoutes[username][day]
+    ];
+
+  }
+
+  return baseRoute;
+}
   mer1: {
 
     1: [

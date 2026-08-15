@@ -628,7 +628,120 @@ function updateWorkerStatus() {
 ===================================================== */
 
 function showStores() {
+function showStores() {
 
+  let today = new Date().getDay();
+
+  // JavaScript:
+  // Bazar = 0
+  // Bazar ertəsi = 1
+  // Çərşənbə axşamı = 2
+  // Çərşənbə = 3
+  // Cümə axşamı = 4
+  // Cümə = 5
+  // Şənbə = 6
+
+  let day = today;
+
+  // Bazar günü üçün ayrıca mesaj
+  if (day === 0) {
+
+    document.getElementById(
+      "workerContent"
+    ).innerHTML = `
+
+      <div class="card">
+
+        <h2>🏪 Bugünkü mağazalar</h2>
+
+        <div class="info">
+          📅 Bu gün istirahət günüdür.
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  let route =
+    workerRoutes[currentUser]
+      ? workerRoutes[currentUser][day]
+      : null;
+
+
+  // Əgər həmin işçinin həmin gün üçün marşrutu yoxdursa
+  if (!route || route.length === 0) {
+
+    document.getElementById(
+      "workerContent"
+    ).innerHTML = `
+
+      <div class="card">
+
+        <h2>🏪 Bugünkü mağazalar</h2>
+
+        <div class="info">
+          Bu gün üçün təyin edilmiş mağaza yoxdur.
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  let html = `
+
+    <div class="card">
+
+      <h2>🏪 Bugünkü mağazalar</h2>
+
+      <p>
+        📅 Gün: <b>${day}. gün</b>
+      </p>
+
+  `;
+
+
+  route.forEach((store, index) => {
+
+    html += `
+
+      <div class="store">
+
+        <b>${index + 1}. ${store}</b>
+
+        <p>Mağaza ziyarəti</p>
+
+        <button
+          onclick="visitStore('${store}')">
+          📍 Ziyarətə başla
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+
+  html += `
+
+    </div>
+
+  `;
+
+
+  document.getElementById(
+    "workerContent"
+  ).innerHTML = html;
+
+}
   let html = `
     <div class="card">
       <h2>🏪 Mağazalar</h2>

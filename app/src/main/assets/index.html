@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merçendayzer</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7fb;
+    color:#222;
+}
+.container{
+    max-width:500px;
+    margin:auto;
+    padding:20px;
+}
+.card{
+    background:white;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 3px 12px #00000012;
+}
+h1{margin-top:5px}
+input,button{
+    width:100%;
+    box-sizing:border-box;
+    padding:14px;
+    margin-top:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    font-size:16px;
+}
+button{
+    border:0;
+    background:#1976d2;
+    color:white;
+    font-weight:bold;
+}
+.green{background:#159447}
+.red{background:#d62828}
+.gray{background:#777}
+.store{
+    padding:15px;
+    border:1px solid #eee;
+    border-radius:14px;
+    margin-top:12px;
+}
+.small{
+    color:#777;
+    font-size:14px;
+}
+.hidden{display:none}
+#status{
+    padding:12px;
+    border-radius:10px;
+    background:#e8f5e9;
+    margin-bottom:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="loginPage">
+
+    <div class="card">
+        <h1>Merçendayzer</h1>
+        <p class="small">İşçi giriş sistemi</p>
+
+        <input id="username" placeholder="İstifadəçi adı">
+        <input id="password" type="password" placeholder="Şifrə">
+
+        <button onclick="login()">Daxil ol</button>
+
+        <p id="loginError" style="color:red"></p>
+    </div>
+
+</div>
+
+
+<div id="appPage" class="hidden">
+
+    <div class="card">
+        <h2 id="welcome"></h2>
+        <div id="status">Bu gün üçün mağazalar</div>
+    </div>
+
+    <div id="stores"></div>
+
+    <button class="gray" onclick="logout()">Çıxış</button>
+
+</div>
+
+
+<div id="visitPage" class="hidden">
+
+    <div class="card">
+
+        <h2 id="visitStore"></h2>
+
+        <div id="visitStatus">
+            Mağaza aktiv deyil
+        </div>
+
+        <button id="startBtn" class="green" onclick="startVisit()">
+            Mağazanı aktivləşdir
+        </button>
+
+        <div id="visitInfo" class="hidden">
+
+            <p><b>Giriş vaxtı:</b> <span id="entryTime"></span></p>
+            <p><b>Giriş GPS:</b> <span id="entryGPS"></span></p>
+
+            <hr>
+
+            <p><b>Çıxmazdan əvvəl foto yüklə:</b></p>
+
+            <input
+                id="photo"
+                type="file"
+                accept="image/*"
+                capture="environment"
+            >
+
+            <button class="red" onclick="finishVisit()">
+                Mağazadan çıxışı təsdiqlə
+            </button>
+
+        </div>
+
+        <button class="gray" onclick="backToStores()">
+            Geri
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<script>
+
+let currentUser = null;
+let currentStore = null;
+let visitStarted = false;
+
+const workers = [
+    "mer1","mer2","mer3","mer4","mer5",
+    "mer6","mer7","mer8","mer9","mer10","mer11"
+];
+
+const stores = [
+    {
+        code:"5041",
+        chain:"Bravo",
+        location:"Sea Breeze"
+    },
+    {
+        code:"3077",
+        chain:"Bravo",
+        location:"Sea Breeze Premium"
+    },
+    {
+        code:"220",
+        chain:"Tamstore",
+        location:"Sea Breeze"
+    },
+    {
+        code:"4001",
+        chain:"Bravo",
+        location:"Amburan Bravo"
+    }
+];
+
+
+function login(){
+
+    const username =
+        document.getElementById("username").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    if(
+        (username === "mudir" && password === "1234") ||
+        (workers.includes(username) && password === "1234")
+    ){
+
+        currentUser = username;
+
+        document.getElementById("loginPage")
+            .classList.add("hidden");
+
+        document.getElementById("appPage")
+            .classList.remove("hidden");
+
+        document.getElementById("welcome").innerText =
+            username === "mudir"
+            ? "Admin paneli"
+            : "Salam, " + username;
+
+        showStores();
+
+    }else{
+
+        document.getElementById("loginError").innerText =
+            "İstifadəçi adı və ya şifrə səhvdir.";
+
+    }
+}
+
+
+function showStores(){
+
+    const box =
+        document.getElementById("stores");
+
+    box.innerHTML = "";
+
+    stores.forEach(store => {
+
+        box.innerHTML += `
+        <div class="card store">
+
+            <h3>${store.chain}</h3>
+
+            <b>${store.code}</b>
+
+            <p class="small">
+                ${store.location}
+            </p>
+
+            <button onclick='openStore(${JSON.stringify(store)})'>
+                Mağazaya daxil ol
+            </button>
+
+        </div>
+        `;
+
+    });
+}
+
+
+function openStore(store){
+
+    currentStore = store;
+
+    document.getElementById("appPage")
+        .classList.add("hidden");
+
+    document.getElementById("visitPage")
+        .classList.remove("hidden");
+
+    document.getElementById("visitStore").innerText =
+        store.chain + " " +
+        store.code + " — " +
+        store.location;
+
+    document.getElementById("visitInfo")
+        .classList.add("hidden");
+
+    document.getElementById("startBtn")
+        .classList.remove("hidden");
+
+    document.getElementById("visitStatus").innerText =
+        "Mağazaya çatanda aktivləşdir.";
+}
+
+
+function startVisit(){
+
+    if(!navigator.geolocation){
+
+        alert("Bu telefonda GPS dəstəyi yoxdur.");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            const lat =
+                position.coords.latitude.toFixed(6);
+
+            const lng =
+                position.coords.longitude.toFixed(6);
+
+            const now =
+                new Date().toLocaleString("az-AZ");
+
+            document.getElementById("entryTime")
+                .innerText = now;
+
+            document.getElementById("entryGPS")
+                .innerText = lat + ", " + lng;
+
+            document.getElementById("visitStatus")
+                .innerText = "Mağaza aktivdir.";
+
+            document.getElementById("startBtn")
+                .classList.add("hidden");
+
+            document.getElementById("visitInfo")
+                .

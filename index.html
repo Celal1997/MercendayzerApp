@@ -3,9 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Merçendayzer App</title>
 
@@ -180,24 +178,26 @@ button:active {
   background: #7c3aed;
 }
 
-.remove-btn {
+.remove-worker-btn {
   background: #ea580c;
 }
 
 .small-title {
-  font-size: 18px;
+  margin-top: 15px;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
 hr {
-  border: none;
-  border-top: 1px solid #ddd;
+  border: 0;
+  border-top: 1px solid #e5e7eb;
   margin: 20px 0;
 }
 
 </style>
 
 </head>
+
 
 <body>
 
@@ -272,7 +272,6 @@ hr {
 
 <div id="workerDashboard" class="hidden">
 
-
   <div class="card">
 
     <h2>
@@ -284,9 +283,7 @@ hr {
     </h2>
 
     <p>
-
       Bugünkü işlərinizi buradan idarə edə bilərsiniz.
-
     </p>
 
     <div id="workerStatus"></div>
@@ -295,7 +292,6 @@ hr {
 
 
   <div class="menu">
-
 
     <button onclick="showStores()">
 
@@ -332,7 +328,6 @@ hr {
 
     </button>
 
-
   </div>
 
 
@@ -340,7 +335,6 @@ hr {
     id="workerContent"
     style="margin-top:15px;"
   ></div>
-
 
 </div>
 
@@ -360,19 +354,16 @@ hr {
     </h2>
 
     <p>
-
-      Bütün merçendayzerlərin iş vəziyyətini
-      buradan izləyə bilərsiniz.
-
+      Bütün merçendayzerlərin iş vəziyyətini buradan izləyə bilərsiniz.
     </p>
 
   </div>
 
 
 
-  <!-- =================================================
+  <!-- ===================================================
        STATİSTİKA
-  ================================================== -->
+  =================================================== -->
 
   <div class="card">
 
@@ -446,9 +437,9 @@ hr {
 
 
 
-  <!-- =================================================
+  <!-- ===================================================
        İŞÇİLƏR
-  ================================================== -->
+  =================================================== -->
 
   <div class="card">
 
@@ -462,9 +453,9 @@ hr {
 
 
 
-  <!-- =================================================
+  <!-- ===================================================
        YENİ MAĞAZA YARAT
-  ================================================== -->
+  =================================================== -->
 
   <div class="card">
 
@@ -507,9 +498,9 @@ hr {
 
 
 
-  <!-- =================================================
+  <!-- ===================================================
        İŞÇİYƏ MAĞAZA ƏLAVƏ ET
-  ================================================== -->
+  =================================================== -->
 
   <div class="card">
 
@@ -582,94 +573,52 @@ hr {
 
 
 
-  <!-- =================================================
-       MAĞAZANI İŞÇİDƏN SİL
-  ================================================== -->
+  <!-- ===================================================
+       1. SİSTEMDƏN MAĞAZA SİL
+  =================================================== -->
 
   <div class="card">
 
     <h2>
-      🗑️ İşçidən mağaza sil
+      🗑️ Sistemdən mağaza sil
     </h2>
 
-    <div class="warning">
+    <div class="danger">
 
-      Buradan mağazanı seçilmiş işçinin
-      seçilmiş günündən silə bilərsiniz.
+      ⚠️ Buradan mağazanı tamamilə sistemdən silə bilərsiniz.
+      Mağaza bütün işçilərin marşrutlarından da silinəcək.
 
     </div>
 
 
-    <select id="removeWorkerSelect">
+    <select id="deleteStoreSelect">
 
       <option value="">
-        İşçi seçin
-      </option>
-
-    </select>
-
-
-    <select id="removeStoreSelect">
-
-      <option value="">
-        Mağaza seçin
-      </option>
-
-    </select>
-
-
-    <select id="removeDaySelect">
-
-      <option value="">
-        Gün seçin
-      </option>
-
-      <option value="1">
-        1-ci gün — Bazar ertəsi
-      </option>
-
-      <option value="2">
-        2-ci gün — Çərşənbə axşamı
-      </option>
-
-      <option value="3">
-        3-cü gün — Çərşənbə
-      </option>
-
-      <option value="4">
-        4-cü gün — Cümə axşamı
-      </option>
-
-      <option value="5">
-        5-ci gün — Cümə
-      </option>
-
-      <option value="6">
-        6-cı gün — Şənbə
+        Silinəcək mağazanı seçin
       </option>
 
     </select>
 
 
     <button
-      class="remove-btn"
-      onclick="removeStoreFromWorker()"
+      class="delete-btn"
+      onclick="adminDeleteStore()"
     >
 
-      🗑️ İşçidən mağazanı sil
+      🗑️ Mağazanı tamamilə sil
 
     </button>
 
 
-    <div id="removeStoreResult"></div>
+    <div id="deleteStoreResult"></div>
 
   </div>
 
 
 
-  <!-- =================================================
-       MAĞAZANI BAŞQA İŞÇİYƏ KEÇİR
-  ================================================== -->
+  <!-- ===================================================
+       2. MAĞAZANI BAŞQA İŞÇİYƏ KEÇİR
+  =================================================== -->
 
   <div class="card">
 
@@ -680,28 +629,46 @@ hr {
 
     <div class="info">
 
-      Mağazanı bir işçidən silib,
-      eyni gün üçün başqa işçiyə əlavə edir.
+      Burada mağazanı bir işçidən götürüb
+      başqa işçiyə təyin edə bilərsiniz.
 
     </div>
 
 
-    <select id="transferFromWorker">
+    <div class="small-title">
+      1️⃣ Mağazanın hazırkı işçisi
+    </div>
+
+
+    <select
+      id="transferFromWorker"
+      onchange="loadTransferStores()"
+    >
 
       <option value="">
-        Kimdən götürülsün?
+        İşçi seçin
       </option>
 
     </select>
+
+
+    <div class="small-title">
+      2️⃣ Mağaza
+    </div>
 
 
     <select id="transferStore">
 
       <option value="">
-        Mağaza seçin
+        Əvvəlcə işçi seçin
       </option>
 
     </select>
+
+
+    <div class="small-title">
+      3️⃣ Hansı gün?
+    </div>
 
 
     <select id="transferDay">
@@ -737,10 +704,15 @@ hr {
     </select>
 
 
+    <div class="small-title">
+      4️⃣ Yeni işçi
+    </div>
+
+
     <select id="transferToWorker">
 
       <option value="">
-        Kimə keçirilsin?
+        Yeni işçi seçin
       </option>
 
     </select>
@@ -748,10 +720,10 @@ hr {
 
     <button
       class="transfer-btn"
-      onclick="transferStore()"
+      onclick="adminTransferStore()"
     >
 
-      🔄 Mağazanı keçir
+      🔄 Mağazanı digər işçiyə keçir
 
     </button>
 
@@ -762,54 +734,98 @@ hr {
 
 
 
-  <!-- =================================================
-       SİSTEMDƏN MAĞAZANI TAM SİL
-  ================================================== -->
+  <!-- ===================================================
+       3. İŞÇİDƏN MAĞAZA SİL
+  =================================================== -->
 
   <div class="card">
 
     <h2>
-      🗑️ Mağazanı sistemdən sil
+      📋 İşçinin mağazalarını idarə et
     </h2>
 
 
-    <div class="danger">
+    <div class="info">
 
-      ⚠️ Diqqət:
-      Bu əməliyyat mağazanı sistemdən silir
-      və bütün işçilərin marşrutlarından çıxarır.
+      Burada mağazanı sistemdən yox,
+      yalnız seçilmiş işçinin marşrutundan silə bilərsiniz.
 
     </div>
 
 
-    <select id="deleteSystemStoreSelect">
+    <select
+      id="removeWorkerSelect"
+      onchange="loadWorkerAssignedStores()"
+    >
 
       <option value="">
-        Mağaza seçin
+        İşçi seçin
+      </option>
+
+    </select>
+
+
+    <select id="removeWorkerStore">
+
+      <option value="">
+        Əvvəlcə işçi seçin
+      </option>
+
+    </select>
+
+
+    <select id="removeWorkerDay">
+
+      <option value="">
+        Gün seçin
+      </option>
+
+      <option value="1">
+        1-ci gün — Bazar ertəsi
+      </option>
+
+      <option value="2">
+        2-ci gün — Çərşənbə axşamı
+      </option>
+
+      <option value="3">
+        3-cü gün — Çərşənbə
+      </option>
+
+      <option value="4">
+        4-cü gün — Cümə axşamı
+      </option>
+
+      <option value="5">
+        5-ci gün — Cümə
+      </option>
+
+      <option value="6">
+        6-cı gün — Şənbə
       </option>
 
     </select>
 
 
     <button
-      class="delete-btn"
-      onclick="deleteStoreFromSystem()"
+      class="remove-worker-btn"
+      onclick="adminRemoveStoreFromWorker()"
     >
 
-      🗑️ Mağazanı sistemdən TAM SİL
+      ➖ Mağazanı bu işçidən sil
 
     </button>
 
 
-    <div id="deleteSystemResult"></div>
+    <div id="removeWorkerResult"></div>
 
   </div>
 
 
 
-  <!-- =================================================
+  <!-- ===================================================
        SON ZİYARƏTLƏR
-  ================================================== -->
+  =================================================== -->
 
   <div class="card">
 
@@ -857,58 +873,58 @@ hr {
 const workers = [
 
   {
-    username:"mer1",
-    name:"Cəlal Abbasov"
+    username: "mer1",
+    name: "Cəlal Abbasov"
   },
 
   {
-    username:"mer2",
-    name:"Şəhanə"
+    username: "mer2",
+    name: "Şəhanə"
   },
 
   {
-    username:"mer3",
-    name:"Şəhanə2"
+    username: "mer3",
+    name: "Şəhanə2"
   },
 
   {
-    username:"mer4",
-    name:"Rüfət"
+    username: "mer4",
+    name: "Rüfət"
   },
 
   {
-    username:"mer5",
-    name:"Ariz"
+    username: "mer5",
+    name: "Ariz"
   },
 
   {
-    username:"mer6",
-    name:"Sahil"
+    username: "mer6",
+    name: "Sahil"
   },
 
   {
-    username:"mer7",
-    name:"Aytac"
+    username: "mer7",
+    name: "Aytac"
   },
 
   {
-    username:"mer8",
-    name:"Səkinə"
+    username: "mer8",
+    name: "Səkinə"
   },
 
   {
-    username:"mer9",
-    name:"Qənirə"
+    username: "mer9",
+    name: "Qənirə"
   },
 
   {
-    username:"mer10",
-    name:"Ruhiyyə"
+    username: "mer10",
+    name: "Ruhiyyə"
   },
 
   {
-    username:"mer11",
-    name:"Günel"
+    username: "mer11",
+    name: "Günel"
   }
 
 ];
@@ -919,7 +935,7 @@ const workers = [
    ƏSAS MAĞAZALAR
 ===================================================== */
 
-let stores = [
+const defaultStores = [
 
   "Bravo 5041 — Sea Breeze",
 
@@ -954,59 +970,40 @@ let stores = [
 
 
 /* =====================================================
-   SİLİNMİŞ MAĞAZALAR
+   AKTİV MAĞAZA SİYAHISI
 ===================================================== */
 
-function getDeletedStores() {
+let stores = [];
 
-  try {
-
-    return JSON.parse(
-      localStorage.getItem("deletedStores")
-    ) || [];
-
-  } catch {
-
-    return [];
-
-  }
-
-}
-
-
-function saveDeletedStores(list) {
-
-  localStorage.setItem(
-    "deletedStores",
-    JSON.stringify(list)
-  );
-
-}
 
 
 /* =====================================================
-   ƏVVƏL SİLİNMİŞ MAĞAZALARI ƏSAS SİYAHIDAN ÇIXAR
+   MAĞAZALARI YÜKLƏ
 ===================================================== */
 
-function applyDeletedStores() {
+function loadStores() {
 
-  const deleted =
-    getDeletedStores();
-
-  stores =
-    stores.filter(
-      store =>
-        !deleted.includes(store)
-    );
-
-}
+  stores = [];
 
 
-/* =====================================================
-   CUSTOM MAĞAZALARI YÜKLƏ
-===================================================== */
+  /*
+    Əvvəl standart mağazalar
+  */
 
-function loadCustomStores() {
+  defaultStores.forEach(store => {
+
+    if (!stores.includes(store)) {
+
+      stores.push(store);
+
+    }
+
+  });
+
+
+  /*
+    Sonradan yaradılmış mağazalar
+  */
 
   try {
 
@@ -1031,21 +1028,40 @@ function loadCustomStores() {
 
   } catch {
 
-    console.log(
-      "Custom mağazalar oxunmadı."
-    );
+    console.log("Custom mağazalar oxunmadı.");
 
   }
 
 
-  applyDeletedStores();
+  /*
+    Müdir tərəfindən silinmiş mağazalar
+  */
+
+  try {
+
+    const deletedStores =
+      JSON.parse(
+        localStorage.getItem("deletedStores")
+      ) || [];
+
+
+    stores = stores.filter(
+      store =>
+        !deletedStores.includes(store)
+    );
+
+  } catch {
+
+    console.log("Silinmiş mağazalar oxunmadı.");
+
+  }
 
 }
 
 
-/* Səhifə açılan kimi */
 
-loadCustomStores();
+/* səhifə açılarkən */
+loadStores();
 
 
 
@@ -1165,7 +1181,7 @@ let currentRole = null;
 
 
 /* =====================================================
-   ƏLAVƏ ROUTE-LƏR
+   ƏLAVƏ MARŞRUTLAR
 ===================================================== */
 
 function getAddedRoutes() {
@@ -1185,18 +1201,17 @@ function getAddedRoutes() {
 }
 
 
+
 /* =====================================================
-   SİLİNMİŞ TƏYİNATLAR
+   SİLİNMİŞ MARŞRUTLAR
 ===================================================== */
 
-function getRemovedAssignments() {
+function getRemovedRoutes() {
 
   try {
 
     return JSON.parse(
-      localStorage.getItem(
-        "removedAssignments"
-      )
+      localStorage.getItem("removedRoutes")
     ) || {};
 
   } catch {
@@ -1208,53 +1223,9 @@ function getRemovedAssignments() {
 }
 
 
-function saveRemovedAssignments(data) {
-
-  localStorage.setItem(
-    "removedAssignments",
-    JSON.stringify(data)
-  );
-
-}
-
-
 
 /* =====================================================
-   KÖÇÜRÜLMÜŞ MARŞRUTLAR
-===================================================== */
-
-function getTransferRoutes() {
-
-  try {
-
-    return JSON.parse(
-      localStorage.getItem(
-        "transferRoutes"
-      )
-    ) || {};
-
-  } catch {
-
-    return {};
-
-  }
-
-}
-
-
-function saveTransferRoutes(data) {
-
-  localStorage.setItem(
-    "transferRoutes",
-    JSON.stringify(data)
-  );
-
-}
-
-
-
-/* =====================================================
-   İŞÇİNİN GÜNLÜK MARŞRUTU
+   İŞÇİNİN MAĞAZA MARŞRUTU
 ===================================================== */
 
 function getWorkerRoute(username, day) {
@@ -1262,7 +1233,9 @@ function getWorkerRoute(username, day) {
   let route = [];
 
 
-  /* Əsas hazır marşrut */
+  /*
+    Əsas marşrut
+  */
 
   if (
     workerRoutes[username] &&
@@ -1276,91 +1249,104 @@ function getWorkerRoute(username, day) {
   }
 
 
-  /* İşçidən silinmiş mağazaları çıxar */
+  /*
+    Müdirin əlavə etdiyi mağazalar
+  */
 
-  const removed =
-    getRemovedAssignments();
+  const addedRoutes =
+    getAddedRoutes();
 
 
   if (
-    removed[username] &&
-    removed[username][day]
+    addedRoutes[username] &&
+    addedRoutes[username][day]
+  ) {
+
+    route = [
+
+      ...route,
+
+      ...addedRoutes[username][day]
+
+    ];
+
+  }
+
+
+  /*
+    Müdirin həmin işçidən sildiyi mağazalar
+  */
+
+  const removedRoutes =
+    getRemovedRoutes();
+
+
+  if (
+    removedRoutes[username] &&
+    removedRoutes[username][day]
   ) {
 
     route =
       route.filter(
         store =>
-          !removed[username][day]
+          !removedRoutes[username][day]
             .includes(store)
       );
 
   }
 
 
-  /* Müdir tərəfindən əlavə olunanlar */
-
-  const added =
-    getAddedRoutes();
-
-
-  if (
-    added[username] &&
-    added[username][day]
-  ) {
-
-    route = [
-
-      ...route,
-
-      ...added[username][day]
-
-    ];
-
-  }
-
-
-  /* Köçürülmüş mağazalar */
-
-  const transfers =
-    getTransferRoutes();
-
-
-  if (
-    transfers[username] &&
-    transfers[username][day]
-  ) {
-
-    route = [
-
-      ...route,
-
-      ...transfers[username][day]
-
-    ];
-
-  }
-
-
-  /* Sistemdən silinmiş mağazaları çıxar */
-
-  const deleted =
-    getDeletedStores();
-
+  /*
+    Sistemdən silinmiş mağazaları
+    bir daha göstərmə
+  */
 
   route =
     route.filter(
       store =>
-        !deleted.includes(store)
+        stores.includes(store)
     );
 
 
-  /* Təkrar mağazaları təmizlə */
+  /*
+    Təkrar mağazaları təmizlə
+  */
 
-  route =
-    [...new Set(route)];
+  return [...new Set(route)];
+
+}
 
 
-  return route;
+
+/* =====================================================
+   İŞÇİNİN BÜTÜN MAĞAZALARINI GÖR
+===================================================== */
+
+function getAllWorkerAssignments(username) {
+
+  const result = {};
+
+
+  for (
+    let day = 1;
+    day <= 6;
+    day++
+  ) {
+
+    const route =
+      getWorkerRoute(username, day);
+
+
+    if (route.length) {
+
+      result[day] = route;
+
+    }
+
+  }
+
+
+  return result;
 
 }
 
@@ -1386,10 +1372,7 @@ function login() {
       .trim();
 
 
-  if (
-    !username ||
-    !password
-  ) {
+  if (!username || !password) {
 
     alert(
       "İstifadəçi adı və şifrəni daxil edin."
@@ -1400,6 +1383,7 @@ function login() {
   }
 
 
+
   /* MÜDİR */
 
   if (
@@ -1407,11 +1391,9 @@ function login() {
     password === "1234"
   ) {
 
-    currentUser =
-      "mudir";
+    currentUser = "mudir";
 
-    currentRole =
-      "admin";
+    currentRole = "admin";
 
 
     document
@@ -1429,11 +1411,12 @@ function login() {
       .classList.remove("hidden");
 
 
-    loadCustomStores();
+    loadStores();
 
     loadAdminStorePanel();
 
     refreshAdmin();
+
 
     return;
 
@@ -1485,6 +1468,7 @@ function login() {
 
     updateWorkerStatus();
 
+
     return;
 
   }
@@ -1508,9 +1492,7 @@ function getActiveVisit() {
 
     const active =
       JSON.parse(
-        localStorage.getItem(
-          "activeVisit"
-        )
+        localStorage.getItem("activeVisit")
       );
 
 
@@ -1675,8 +1657,7 @@ function showStores() {
 
         <div class="info">
 
-          Bu gün üçün sizə təyin edilmiş
-          mağaza yoxdur.
+          Bu gün üçün sizə təyin edilmiş mağaza yoxdur.
 
         </div>
 
@@ -1698,10 +1679,8 @@ function showStores() {
       </h2>
 
       <p>
-
         📅 Gün:
         <b>${today}. gün</b>
-
       </p>
 
   `;
@@ -2268,12 +2247,12 @@ function showReport() {
 
 
 /* =====================================================
-   MÜDİR PANELİ SEÇİMLƏRİ
+   MÜDİR PANELİ — SEÇİMLƏR
 ===================================================== */
 
 function loadAdminStorePanel() {
 
-  loadCustomStores();
+  loadStores();
 
 
   const workerSelect =
@@ -2288,42 +2267,6 @@ function loadAdminStorePanel() {
     );
 
 
-  const removeWorkerSelect =
-    document.getElementById(
-      "removeWorkerSelect"
-    );
-
-
-  const removeStoreSelect =
-    document.getElementById(
-      "removeStoreSelect"
-    );
-
-
-  const transferFromWorker =
-    document.getElementById(
-      "transferFromWorker"
-    );
-
-
-  const transferStore =
-    document.getElementById(
-      "transferStore"
-    );
-
-
-  const transferToWorker =
-    document.getElementById(
-      "transferToWorker"
-    );
-
-
-  const deleteSystemStoreSelect =
-    document.getElementById(
-      "deleteSystemStoreSelect"
-    );
-
-
   if (
     !workerSelect ||
     !storeSelect
@@ -2334,41 +2277,10 @@ function loadAdminStorePanel() {
   }
 
 
-
-  /* =================================================
-     İŞÇİ SİYAHILARI
-  ================================================== */
-
-  const workerOptions = `
+  workerSelect.innerHTML = `
 
     <option value="">
       İşçi seçin
-    </option>
-
-  `;
-
-
-  workerSelect.innerHTML =
-    workerOptions;
-
-
-  removeWorkerSelect.innerHTML =
-    workerOptions;
-
-
-  transferFromWorker.innerHTML = `
-
-    <option value="">
-      Kimdən götürülsün?
-    </option>
-
-  `;
-
-
-  transferToWorker.innerHTML = `
-
-    <option value="">
-      Kimə keçirilsin?
     </option>
 
   `;
@@ -2380,34 +2292,9 @@ function loadAdminStorePanel() {
       workerSelect.innerHTML += `
 
         <option value="${worker.username}">
+
           ${worker.name}
-        </option>
 
-      `;
-
-
-      removeWorkerSelect.innerHTML += `
-
-        <option value="${worker.username}">
-          ${worker.name}
-        </option>
-
-      `;
-
-
-      transferFromWorker.innerHTML += `
-
-        <option value="${worker.username}">
-          ${worker.name}
-        </option>
-
-      `;
-
-
-      transferToWorker.innerHTML += `
-
-        <option value="${worker.username}">
-          ${worker.name}
         </option>
 
       `;
@@ -2416,39 +2303,7 @@ function loadAdminStorePanel() {
   );
 
 
-
-  /* =================================================
-     MAĞAZA SİYAHILARI
-  ================================================== */
-
   storeSelect.innerHTML = `
-
-    <option value="">
-      Mağaza seçin
-    </option>
-
-  `;
-
-
-  removeStoreSelect.innerHTML = `
-
-    <option value="">
-      Mağaza seçin
-    </option>
-
-  `;
-
-
-  transferStore.innerHTML = `
-
-    <option value="">
-      Mağaza seçin
-    </option>
-
-  `;
-
-
-  deleteSystemStoreSelect.innerHTML = `
 
     <option value="">
       Mağaza seçin
@@ -2463,40 +2318,440 @@ function loadAdminStorePanel() {
       storeSelect.innerHTML += `
 
         <option value="${store}">
+
           ${store}
-        </option>
 
-      `;
-
-
-      removeStoreSelect.innerHTML += `
-
-        <option value="${store}">
-          ${store}
-        </option>
-
-      `;
-
-
-      transferStore.innerHTML += `
-
-        <option value="${store}">
-          ${store}
-        </option>
-
-      `;
-
-
-      deleteSystemStoreSelect.innerHTML += `
-
-        <option value="${store}">
-          ${store}
         </option>
 
       `;
 
     }
   );
+
+
+  /*
+    Digər yeni seçimlər
+  */
+
+  loadDeleteStoreSelect();
+
+  loadTransferWorkerSelects();
+
+  loadRemoveWorkerSelect();
+
+}
+
+
+
+/* =====================================================
+   SİLİNƏCƏK MAĞAZALAR SİYAHISI
+===================================================== */
+
+function loadDeleteStoreSelect() {
+
+  const select =
+    document.getElementById(
+      "deleteStoreSelect"
+    );
+
+
+  if (!select) {
+
+    return;
+
+  }
+
+
+  loadStores();
+
+
+  select.innerHTML = `
+
+    <option value="">
+      Silinəcək mağazanı seçin
+    </option>
+
+  `;
+
+
+  stores.forEach(
+    store => {
+
+      select.innerHTML += `
+
+        <option value="${store}">
+
+          ${store}
+
+        </option>
+
+      `;
+
+    }
+  );
+
+}
+
+
+
+/* =====================================================
+   TRANSFER İŞÇİ SEÇİMLƏRİ
+===================================================== */
+
+function loadTransferWorkerSelects() {
+
+  const from =
+    document.getElementById(
+      "transferFromWorker"
+    );
+
+
+  const to =
+    document.getElementById(
+      "transferToWorker"
+    );
+
+
+  if (!from || !to) {
+
+    return;
+
+  }
+
+
+  from.innerHTML = `
+
+    <option value="">
+      İşçi seçin
+    </option>
+
+  `;
+
+
+  to.innerHTML = `
+
+    <option value="">
+      Yeni işçi seçin
+    </option>
+
+  `;
+
+
+  workers.forEach(
+    worker => {
+
+      from.innerHTML += `
+
+        <option value="${worker.username}">
+
+          ${worker.name}
+
+        </option>
+
+      `;
+
+
+      to.innerHTML += `
+
+        <option value="${worker.username}">
+
+          ${worker.name}
+
+        </option>
+
+      `;
+
+    }
+  );
+
+
+  document.getElementById(
+    "transferStore"
+  ).innerHTML = `
+
+    <option value="">
+      Əvvəlcə işçi seçin
+    </option>
+
+  `;
+
+}
+
+
+
+/* =====================================================
+   İŞÇİNİN MAĞAZALARINI TRANSFER ÜÇÜN YÜKLƏ
+===================================================== */
+
+function loadTransferStores() {
+
+  const username =
+    document.getElementById(
+      "transferFromWorker"
+    ).value;
+
+
+  const storeSelect =
+    document.getElementById(
+      "transferStore"
+    );
+
+
+  storeSelect.innerHTML = `
+
+    <option value="">
+      Mağaza seçin
+    </option>
+
+  `;
+
+
+  if (!username) {
+
+    return;
+
+  }
+
+
+  const day =
+    document.getElementById(
+      "transferDay"
+    ).value;
+
+
+  if (!day) {
+
+    storeSelect.innerHTML = `
+
+      <option value="">
+        Əvvəlcə gün seçin
+      </option>
+
+    `;
+
+    return;
+
+  }
+
+
+  const route =
+    getWorkerRoute(
+      username,
+      day
+    );
+
+
+  if (!route.length) {
+
+    storeSelect.innerHTML = `
+
+      <option value="">
+        Bu gün üçün mağaza yoxdur
+      </option>
+
+    `;
+
+    return;
+
+  }
+
+
+  route.forEach(
+    store => {
+
+      storeSelect.innerHTML += `
+
+        <option value="${store}">
+
+          ${store}
+
+        </option>
+
+      `;
+
+    }
+  );
+
+}
+
+
+
+/* Gün dəyişəndə mağaza siyahısını yenilə */
+
+document.addEventListener(
+  "change",
+  function(event) {
+
+    if (
+      event.target.id ===
+      "transferDay"
+    ) {
+
+      loadTransferStores();
+
+    }
+
+  }
+);
+
+
+
+/* =====================================================
+   İŞÇİNİN MAĞAZALARINI YÜKLƏ
+===================================================== */
+
+function loadWorkerAssignedStores() {
+
+  const username =
+    document.getElementById(
+      "removeWorkerSelect"
+    ).value;
+
+
+  const storeSelect =
+    document.getElementById(
+      "removeWorkerStore"
+    );
+
+
+  storeSelect.innerHTML = `
+
+    <option value="">
+      Mağaza seçin
+    </option>
+
+  `;
+
+
+  if (!username) {
+
+    return;
+
+  }
+
+
+  const day =
+    document.getElementById(
+      "removeWorkerDay"
+    ).value;
+
+
+  if (!day) {
+
+    storeSelect.innerHTML = `
+
+      <option value="">
+        Əvvəlcə gün seçin
+      </option>
+
+    `;
+
+    return;
+
+  }
+
+
+  const route =
+    getWorkerRoute(
+      username,
+      day
+    );
+
+
+  route.forEach(
+    store => {
+
+      storeSelect.innerHTML += `
+
+        <option value="${store}">
+
+          ${store}
+
+        </option>
+
+      `;
+
+    }
+  );
+
+}
+
+
+
+/* Gün dəyişəndə işçinin mağazalarını yenilə */
+
+document.addEventListener(
+  "change",
+  function(event) {
+
+    if (
+      event.target.id ===
+      "removeWorkerDay"
+    ) {
+
+      loadWorkerAssignedStores();
+
+    }
+
+  }
+);
+
+
+
+/* =====================================================
+   İŞÇİ SEÇİMİNİ YÜKLƏ
+===================================================== */
+
+function loadRemoveWorkerSelect() {
+
+  const select =
+    document.getElementById(
+      "removeWorkerSelect"
+    );
+
+
+  if (!select) {
+
+    return;
+
+  }
+
+
+  select.innerHTML = `
+
+    <option value="">
+      İşçi seçin
+    </option>
+
+  `;
+
+
+  workers.forEach(
+    worker => {
+
+      select.innerHTML += `
+
+        <option value="${worker.username}">
+
+          ${worker.name}
+
+        </option>
+
+      `;
+
+    }
+  );
+
+
+  document.getElementById(
+    "removeWorkerStore"
+  ).innerHTML = `
+
+    <option value="">
+      Əvvəlcə işçi seçin
+    </option>
+
+  `;
 
 }
 
@@ -2551,15 +2806,11 @@ function adminCreateStore() {
 
 
   const fullStore =
-    code +
-    " — " +
-    name;
+    code + " — " + name;
 
 
   if (
-    stores.includes(
-      fullStore
-    )
+    stores.includes(fullStore)
   ) {
 
     alert(
@@ -2571,28 +2822,7 @@ function adminCreateStore() {
   }
 
 
-  /* Əgər əvvəllər silinibsə,
-     silinmiş siyahıdan çıxar */
-
-  let deleted =
-    getDeletedStores();
-
-
-  deleted =
-    deleted.filter(
-      store =>
-        store !== fullStore
-    );
-
-
-  saveDeletedStores(
-    deleted
-  );
-
-
-  stores.push(
-    fullStore
-  );
+  stores.push(fullStore);
 
 
   let customStores =
@@ -2624,6 +2854,34 @@ function adminCreateStore() {
     "customStores",
     JSON.stringify(
       customStores
+    )
+  );
+
+
+  /*
+    Əgər əvvəllər silinmiş eyni mağaza varsa
+    silinmiş siyahıdan çıxar
+  */
+
+  let deletedStores =
+    JSON.parse(
+      localStorage.getItem(
+        "deletedStores"
+      )
+    ) || [];
+
+
+  deletedStores =
+    deletedStores.filter(
+      store =>
+        store !== fullStore
+    );
+
+
+  localStorage.setItem(
+    "deletedStores",
+    JSON.stringify(
+      deletedStores
     )
   );
 
@@ -2666,8 +2924,9 @@ function adminCreateStore() {
   ).value = "";
 
 
-  loadAdminStorePanel();
+  loadStores();
 
+  loadAdminStorePanel();
 
   refreshAdmin();
 
@@ -2682,27 +2941,21 @@ function adminCreateStore() {
 function adminAddStore() {
 
   const username =
-    document
-      .getElementById(
-        "adminWorkerSelect"
-      )
-      .value;
+    document.getElementById(
+      "adminWorkerSelect"
+    ).value;
 
 
   const store =
-    document
-      .getElementById(
-        "adminStoreSelect"
-      )
-      .value;
+    document.getElementById(
+      "adminStoreSelect"
+    ).value;
 
 
   const day =
-    document
-      .getElementById(
-        "adminDaySelect"
-      )
-      .value;
+    document.getElementById(
+      "adminDaySelect"
+    ).value;
 
 
   if (
@@ -2724,18 +2977,14 @@ function adminAddStore() {
     getAddedRoutes();
 
 
-  if (
-    !addedRoutes[username]
-  ) {
+  if (!addedRoutes[username]) {
 
     addedRoutes[username] = {};
 
   }
 
 
-  if (
-    !addedRoutes[username][day]
-  ) {
+  if (!addedRoutes[username][day]) {
 
     addedRoutes[username][day] = [];
 
@@ -2743,12 +2992,14 @@ function adminAddStore() {
 
 
   if (
-    addedRoutes[username][day]
-      .includes(store)
+    getWorkerRoute(
+      username,
+      day
+    ).includes(store)
   ) {
 
     alert(
-      "Bu mağaza həmin gün üçün artıq əlavə olunub."
+      "Bu mağaza həmin işçinin həmin günündə artıq mövcuddur."
     );
 
     return;
@@ -2769,30 +3020,36 @@ function adminAddStore() {
   );
 
 
-  /* Əgər bu mağaza həmin işçidən
-     əvvəllər silinmişdisə,
-     silinmiş siyahıdan çıxar */
+  /*
+    Əgər əvvəllər həmin işçidən silinmişdisə,
+    silinmiş siyahıdan çıxarırıq.
+  */
 
-  const removed =
-    getRemovedAssignments();
+  const removedRoutes =
+    getRemovedRoutes();
 
 
   if (
-    removed[username] &&
-    removed[username][day]
+    removedRoutes[username] &&
+    removedRoutes[username][day]
   ) {
 
-    removed[username][day] =
-      removed[username][day]
+    removedRoutes[username][day] =
+      removedRoutes[username][day]
         .filter(
-          s => s !== store
+          s =>
+            s !== store
         );
 
-    saveRemovedAssignments(
-      removed
-    );
-
   }
+
+
+  localStorage.setItem(
+    "removedRoutes",
+    JSON.stringify(
+      removedRoutes
+    )
+  );
 
 
   const worker =
@@ -2830,48 +3087,29 @@ function adminAddStore() {
 
   `;
 
+
+  loadWorkerAssignedStores();
+
 }
 
 
 
 /* =====================================================
-   İŞÇİDƏN MAĞAZA SİL
+   1. SİSTEMDƏN MAĞAZA SİL
 ===================================================== */
 
-function removeStoreFromWorker() {
-
-  const username =
-    document
-      .getElementById(
-        "removeWorkerSelect"
-      )
-      .value;
-
+function adminDeleteStore() {
 
   const store =
-    document
-      .getElementById(
-        "removeStoreSelect"
-      )
-      .value;
+    document.getElementById(
+      "deleteStoreSelect"
+    ).value;
 
 
-  const day =
-    document
-      .getElementById(
-        "removeDaySelect"
-      )
-      .value;
-
-
-  if (
-    !username ||
-    !store ||
-    !day
-  ) {
+  if (!store) {
 
     alert(
-      "İşçi, mağaza və günü seçin."
+      "Əvvəlcə silinəcək mağazanı seçin."
     );
 
     return;
@@ -2879,19 +3117,21 @@ function removeStoreFromWorker() {
   }
 
 
-  const route =
-    getWorkerRoute(
-      username,
-      Number(day)
+  const active =
+    JSON.parse(
+      localStorage.getItem(
+        "activeVisit"
+      )
     );
 
 
   if (
-    !route.includes(store)
+    active &&
+    active.store === store
   ) {
 
     alert(
-      "Bu mağaza həmin işçinin seçilmiş günündə yoxdur."
+      "Bu mağaza hazırda aktiv ziyarətdədir. Ziyarət bitdikdən sonra silə bilərsiniz."
     );
 
     return;
@@ -2899,101 +3139,179 @@ function removeStoreFromWorker() {
   }
 
 
-  /* Əlavə edilmiş route-dan sil */
+  const confirmDelete =
+    confirm(
+      "Bu mağazanı sistemdən tamamilə silmək istəyirsiniz?\n\n" +
+      store +
+      "\n\n" +
+      "Mağaza bütün işçilərin marşrutlarından da silinəcək."
+    );
 
-  const added =
-    getAddedRoutes();
+
+  if (!confirmDelete) {
+
+    return;
+
+  }
+
+
+  /*
+    Silinmiş mağazalar siyahısı
+  */
+
+  let deletedStores =
+    JSON.parse(
+      localStorage.getItem(
+        "deletedStores"
+      )
+    ) || [];
 
 
   if (
-    added[username] &&
-    added[username][day]
+    !deletedStores.includes(store)
   ) {
 
-    added[username][day] =
-      added[username][day]
-        .filter(
-          s => s !== store
-        );
+    deletedStores.push(store);
 
   }
 
 
   localStorage.setItem(
-    "addedRoutes",
+    "deletedStores",
     JSON.stringify(
-      added
+      deletedStores
     )
   );
 
 
-  /* Əsas marşrutdan silinməsi üçün
-     removedAssignments yadda saxla */
+  /*
+    Custom mağazadırsa custom siyahıdan da sil
+  */
 
-  const removed =
-    getRemovedAssignments();
-
-
-  if (!removed[username]) {
-
-    removed[username] = {};
-
-  }
+  let customStores =
+    JSON.parse(
+      localStorage.getItem(
+        "customStores"
+      )
+    ) || [];
 
 
-  if (!removed[username][day]) {
-
-    removed[username][day] = [];
-
-  }
-
-
-  if (
-    !removed[username][day]
-      .includes(store)
-  ) {
-
-    removed[username][day]
-      .push(store);
-
-  }
-
-
-  saveRemovedAssignments(
-    removed
-  );
-
-
-  const worker =
-    workers.find(
-      w =>
-        w.username ===
-        username
+  customStores =
+    customStores.filter(
+      item =>
+        item.store !== store
     );
 
 
+  localStorage.setItem(
+    "customStores",
+    JSON.stringify(
+      customStores
+    )
+  );
+
+
+  /*
+    Bütün əlavə marşrutlardan sil
+  */
+
+  const addedRoutes =
+    getAddedRoutes();
+
+
+  Object.keys(
+    addedRoutes
+  ).forEach(
+    username => {
+
+      Object.keys(
+        addedRoutes[username]
+      ).forEach(
+        day => {
+
+          addedRoutes[username][day] =
+            addedRoutes[username][day]
+              .filter(
+                s =>
+                  s !== store
+              );
+
+        }
+      );
+
+    }
+  );
+
+
+  localStorage.setItem(
+    "addedRoutes",
+    JSON.stringify(
+      addedRoutes
+    )
+  );
+
+
+  /*
+    Silinmiş mağaza üçün bütün removed
+    məlumatlarını da təmizləyirik.
+  */
+
+  const removedRoutes =
+    getRemovedRoutes();
+
+
+  Object.keys(
+    removedRoutes
+  ).forEach(
+    username => {
+
+      Object.keys(
+        removedRoutes[username]
+      ).forEach(
+        day => {
+
+          removedRoutes[username][day] =
+            removedRoutes[username][day]
+              .filter(
+                s =>
+                  s !== store
+              );
+
+        }
+
+      );
+
+    }
+  );
+
+
+  localStorage.setItem(
+    "removedRoutes",
+    JSON.stringify(
+      removedRoutes
+    )
+  );
+
+
+  loadStores();
+
+  loadAdminStorePanel();
+
+  refreshAdmin();
+
+
   document.getElementById(
-    "removeStoreResult"
+    "deleteStoreResult"
   ).innerHTML = `
 
     <div class="success">
 
-      ✅ Mağaza işçinin marşrutundan silindi.
+      ✅ Mağaza sistemdən silindi.
 
       <br><br>
 
-      👤 İşçi:
-      <b>${worker.name}</b>
-
-      <br>
-
-      🏪 Mağaza:
+      🏪
       <b>${store}</b>
-
-      <br>
-
-      📅 Gün:
-      <b>${day}-ci gün</b>
 
     </div>
 
@@ -3004,41 +3322,33 @@ function removeStoreFromWorker() {
 
 
 /* =====================================================
-   MAĞAZANI BAŞQA İŞÇİYƏ KEÇİR
+   2. MAĞAZANI BİR İŞÇİDƏN DİGƏRİNƏ KEÇİR
 ===================================================== */
 
-function transferStore() {
+function adminTransferStore() {
 
   const fromWorker =
-    document
-      .getElementById(
-        "transferFromWorker"
-      )
-      .value;
+    document.getElementById(
+      "transferFromWorker"
+    ).value;
 
 
   const store =
-    document
-      .getElementById(
-        "transferStore"
-      )
-      .value;
+    document.getElementById(
+      "transferStore"
+    ).value;
 
 
   const day =
-    document
-      .getElementById(
-        "transferDay"
-      )
-      .value;
+    document.getElementById(
+      "transferDay"
+    ).value;
 
 
   const toWorker =
-    document
-      .getElementById(
-        "transferToWorker"
-      )
-      .value;
+    document.getElementById(
+      "transferToWorker"
+    ).value;
 
 
   if (
@@ -3049,7 +3359,7 @@ function transferStore() {
   ) {
 
     alert(
-      "Kimdən, mağazanı, günü və kimə keçiriləcəyini seçin."
+      "Hazırkı işçini, mağazanı, günü və yeni işçini seçin."
     );
 
     return;
@@ -3058,12 +3368,11 @@ function transferStore() {
 
 
   if (
-    fromWorker ===
-    toWorker
+    fromWorker === toWorker
   ) {
 
     alert(
-      "Eyni işçiyə keçirmək olmaz."
+      "Mağazanı eyni işçiyə keçirə bilməzsiniz."
     );
 
     return;
@@ -3071,12 +3380,10 @@ function transferStore() {
   }
 
 
-  /* Mağazanın mənbə işçidə olub-olmadığını yoxla */
-
   const sourceRoute =
     getWorkerRoute(
       fromWorker,
-      Number(day)
+      day
     );
 
 
@@ -3085,7 +3392,7 @@ function transferStore() {
   ) {
 
     alert(
-      "Bu mağaza seçilmiş gün həmin işçidə yoxdur."
+      "Bu mağaza seçilmiş işçinin həmin günündə yoxdur."
     );
 
     return;
@@ -3093,128 +3400,129 @@ function transferStore() {
   }
 
 
-  /* =================================================
-     1. MƏNBƏ İŞÇİDƏN SİL
-  ================================================== */
-
-  const added =
-    getAddedRoutes();
+  const destinationRoute =
+    getWorkerRoute(
+      toWorker,
+      day
+    );
 
 
   if (
-    added[fromWorker] &&
-    added[fromWorker][day]
+    destinationRoute.includes(store)
   ) {
 
-    added[fromWorker][day] =
-      added[fromWorker][day]
+    alert(
+      "Bu mağaza yeni işçinin həmin günündə artıq mövcuddur."
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Mağazanı köhnə işçidən sil
+  */
+
+  const removedRoutes =
+    getRemovedRoutes();
+
+
+  if (!removedRoutes[fromWorker]) {
+
+    removedRoutes[fromWorker] = {};
+
+  }
+
+
+  if (!removedRoutes[fromWorker][day]) {
+
+    removedRoutes[fromWorker][day] = [];
+
+  }
+
+
+  if (
+    !removedRoutes[fromWorker][day]
+      .includes(store)
+  ) {
+
+    removedRoutes[fromWorker][day].push(
+      store
+    );
+
+  }
+
+
+  localStorage.setItem(
+    "removedRoutes",
+    JSON.stringify(
+      removedRoutes
+    )
+  );
+
+
+  /*
+    Yeni işçiyə əlavə et
+  */
+
+  const addedRoutes =
+    getAddedRoutes();
+
+
+  if (!addedRoutes[toWorker]) {
+
+    addedRoutes[toWorker] = {};
+
+  }
+
+
+  if (!addedRoutes[toWorker][day]) {
+
+    addedRoutes[toWorker][day] = [];
+
+  }
+
+
+  addedRoutes[toWorker][day].push(
+    store
+  );
+
+
+  localStorage.setItem(
+    "addedRoutes",
+    JSON.stringify(
+      addedRoutes
+    )
+  );
+
+
+  /*
+    Yeni işçidə removed siyahısında varsa
+    oradan çıxar
+  */
+
+  if (
+    removedRoutes[toWorker] &&
+    removedRoutes[toWorker][day]
+  ) {
+
+    removedRoutes[toWorker][day] =
+      removedRoutes[toWorker][day]
         .filter(
-          s => s !== store
+          s =>
+            s !== store
         );
 
   }
 
 
   localStorage.setItem(
-    "addedRoutes",
+    "removedRoutes",
     JSON.stringify(
-      added
+      removedRoutes
     )
   );
-
-
-  const removed =
-    getRemovedAssignments();
-
-
-  if (!removed[fromWorker]) {
-
-    removed[fromWorker] = {};
-
-  }
-
-
-  if (!removed[fromWorker][day]) {
-
-    removed[fromWorker][day] = [];
-
-  }
-
-
-  if (
-    !removed[fromWorker][day]
-      .includes(store)
-  ) {
-
-    removed[fromWorker][day]
-      .push(store);
-
-  }
-
-
-  saveRemovedAssignments(
-    removed
-  );
-
-
-  /* =================================================
-     2. YENİ İŞÇİYƏ ƏLAVƏ ET
-  ================================================== */
-
-  const transfers =
-    getTransferRoutes();
-
-
-  if (!transfers[toWorker]) {
-
-    transfers[toWorker] = {};
-
-  }
-
-
-  if (!transfers[toWorker][day]) {
-
-    transfers[toWorker][day] = [];
-
-  }
-
-
-  if (
-    !transfers[toWorker][day]
-      .includes(store)
-  ) {
-
-    transfers[toWorker][day]
-      .push(store);
-
-  }
-
-
-  saveTransferRoutes(
-    transfers
-  );
-
-
-  /* Əgər yeni işçidə həmin mağaza
-     əvvəldən silinmişdisə,
-     silinmiş siyahıdan çıxar */
-
-  if (
-    removed[toWorker] &&
-    removed[toWorker][day]
-  ) {
-
-    removed[toWorker][day] =
-      removed[toWorker][day]
-        .filter(
-          s => s !== store
-        );
-
-    saveRemovedAssignments(
-      removed
-    );
-
-  }
 
 
   const from =
@@ -3248,282 +3556,215 @@ function transferStore() {
 
       <br>
 
-      📅 Gün:
-      <b>${day}-ci gün</b>
-
-      <br>
-
       👤 Köhnə işçi:
       <b>${from.name}</b>
 
       <br>
 
-      🔄 Yeni işçi:
+      ➡️ Yeni işçi:
       <b>${to.name}</b>
+
+      <br>
+
+      📅 Gün:
+      <b>${day}-ci gün</b>
 
     </div>
 
   `;
 
 
-  /* Seçimləri yenilə */
+  loadTransferStores();
 
-  loadAdminStorePanel();
+  loadWorkerAssignedStores();
 
 }
 
 
 
 /* =====================================================
-   MAĞAZANI SİSTEMDƏN TAM SİL
+   3. MAĞAZANI İŞÇİDƏN SİL
 ===================================================== */
 
-function deleteStoreFromSystem() {
+function adminRemoveStoreFromWorker() {
+
+  const username =
+    document.getElementById(
+      "removeWorkerSelect"
+    ).value;
+
 
   const store =
-    document
-      .getElementById(
-        "deleteSystemStoreSelect"
-      )
-      .value;
+    document.getElementById(
+      "removeWorkerStore"
+    ).value;
 
 
-  if (!store) {
-
-    alert(
-      "Əvvəlcə mağaza seçin."
-    );
-
-    return;
-
-  }
-
-
-  const confirmDelete =
-    confirm(
-
-      "⚠️ DİQQƏT!\n\n" +
-
-      "\"" +
-      store +
-      "\"\n\n" +
-
-      "mağazasını sistemdən tam silmək istəyirsiniz?\n\n" +
-
-      "Bu mağaza bütün işçilərin marşrutlarından çıxarılacaq."
-
-    );
-
-
-  if (!confirmDelete) {
-
-    return;
-
-  }
-
-
-  /* =================================================
-     MAĞAZANI ƏSAS SİYAHIDAN SİL
-  ================================================== */
-
-  stores =
-    stores.filter(
-      s =>
-        s !== store
-    );
-
-
-  /* =================================================
-     SİLİNMİŞ MAĞAZALARDA YADDA SAXLA
-  ================================================== */
-
-  const deleted =
-    getDeletedStores();
+  const day =
+    document.getElementById(
+      "removeWorkerDay"
+    ).value;
 
 
   if (
-    !deleted.includes(store)
+    !username ||
+    !store ||
+    !day
   ) {
 
-    deleted.push(store);
+    alert(
+      "İşçini, mağazanı və günü seçin."
+    );
+
+    return;
 
   }
 
 
-  saveDeletedStores(
-    deleted
-  );
-
-
-  /* =================================================
-     CUSTOM STORES-DAN SİL
-  ================================================== */
-
-  let customStores =
-    JSON.parse(
-      localStorage.getItem(
-        "customStores"
-      )
-    ) || [];
-
-
-  customStores =
-    customStores.filter(
-      item =>
-        item.store !== store
+  const route =
+    getWorkerRoute(
+      username,
+      day
     );
 
 
+  if (
+    !route.includes(store)
+  ) {
+
+    alert(
+      "Bu mağaza həmin işçinin həmin günündə yoxdur."
+    );
+
+    return;
+
+  }
+
+
+  const worker =
+    workers.find(
+      w =>
+        w.username ===
+        username
+    );
+
+
+  const confirmRemove =
+    confirm(
+      store +
+      "\n\n" +
+      "mağazasını " +
+      worker.name +
+      " adlı işçidən silmək istəyirsiniz?"
+    );
+
+
+  if (!confirmRemove) {
+
+    return;
+
+  }
+
+
+  const removedRoutes =
+    getRemovedRoutes();
+
+
+  if (!removedRoutes[username]) {
+
+    removedRoutes[username] = {};
+
+  }
+
+
+  if (!removedRoutes[username][day]) {
+
+    removedRoutes[username][day] = [];
+
+  }
+
+
+  if (
+    !removedRoutes[username][day]
+      .includes(store)
+  ) {
+
+    removedRoutes[username][day].push(
+      store
+    );
+
+  }
+
+
   localStorage.setItem(
-    "customStores",
+    "removedRoutes",
     JSON.stringify(
-      customStores
+      removedRoutes
     )
   );
 
 
-  /* =================================================
-     ƏLAVƏ MARŞRUTLARDAN SİL
-  ================================================== */
+  /*
+    Əgər əlavə edilmiş mağazadırsa,
+    əlavə siyahısından da çıxarırıq.
+  */
 
-  const added =
+  const addedRoutes =
     getAddedRoutes();
 
 
-  Object.keys(
-    added
-  ).forEach(
-    username => {
+  if (
+    addedRoutes[username] &&
+    addedRoutes[username][day]
+  ) {
 
-      Object.keys(
-        added[username]
-      ).forEach(
-        day => {
+    addedRoutes[username][day] =
+      addedRoutes[username][day]
+        .filter(
+          s =>
+            s !== store
+        );
 
-          added[username][day] =
-            added[username][day]
-              .filter(
-                s =>
-                  s !== store
-              );
-
-        }
-      );
-
-    }
-  );
+  }
 
 
   localStorage.setItem(
     "addedRoutes",
     JSON.stringify(
-      added
+      addedRoutes
     )
   );
 
 
-  /* =================================================
-     KÖÇÜRÜLMÜŞ MARŞRUTLARDAN SİL
-  ================================================== */
-
-  const transfers =
-    getTransferRoutes();
-
-
-  Object.keys(
-    transfers
-  ).forEach(
-    username => {
-
-      Object.keys(
-        transfers[username]
-      ).forEach(
-        day => {
-
-          transfers[username][day] =
-            transfers[username][day]
-              .filter(
-                s =>
-                  s !== store
-              );
-
-        }
-
-      );
-
-    }
-  );
-
-
-  saveTransferRoutes(
-    transfers
-  );
-
-
-  /* =================================================
-     SİLİNMİŞ TƏYİNATLARDAN DA TƏMİZLƏ
-  ================================================== */
-
-  const removed =
-    getRemovedAssignments();
-
-
-  Object.keys(
-    removed
-  ).forEach(
-    username => {
-
-      Object.keys(
-        removed[username]
-      ).forEach(
-        day => {
-
-          removed[username][day] =
-            removed[username][day]
-              .filter(
-                s =>
-                  s !== store
-              );
-
-        }
-
-      );
-
-    }
-  );
-
-
-  saveRemovedAssignments(
-    removed
-  );
-
-
   document.getElementById(
-    "deleteSystemResult"
+    "removeWorkerResult"
   ).innerHTML = `
 
     <div class="success">
 
-      ✅ Mağaza sistemdən tam silindi.
+      ✅ Mağaza işçidən silindi.
 
       <br><br>
 
-      🏪
+      👤 İşçi:
+      <b>${worker.name}</b>
+
+      <br>
+
+      🏪 Mağaza:
       <b>${store}</b>
 
-      <br><br>
+      <br>
 
-      Mağaza artıq işçilərin
-      marşrutlarında da görünməyəcək.
+      📅 Gün:
+      <b>${day}-ci gün</b>
 
     </div>
 
   `;
 
 
-  loadAdminStorePanel();
-
-  refreshAdmin();
+  loadWorkerAssignedStores();
 
 }
 
@@ -3535,7 +3776,7 @@ function deleteStoreFromSystem() {
 
 function refreshAdmin() {
 
-  loadCustomStores();
+  loadStores();
 
 
   const visits =
@@ -3563,9 +3804,7 @@ function refreshAdmin() {
   document.getElementById(
     "workingWorkers"
   ).innerText =
-    active
-      ? 1
-      : 0;
+    active ? 1 : 0;
 
 
   document.getElementById(
@@ -3581,9 +3820,9 @@ function refreshAdmin() {
 
 
 
-  /* =================================================
+  /* ===================================================
      İŞÇİ SİYAHISI
-  ================================================== */
+  =================================================== */
 
   let workerHTML = "";
 
@@ -3667,9 +3906,9 @@ function refreshAdmin() {
 
 
 
-  /* =================================================
+  /* ===================================================
      SON ZİYARƏTLƏR
-  ================================================== */
+  =================================================== */
 
   const visitList =
     document.getElementById(
@@ -3730,8 +3969,7 @@ function refreshAdmin() {
 
             <br>
 
-            📅
-            ${visit.date}
+            📅 ${visit.date}
 
             <br>
 
@@ -3764,11 +4002,9 @@ function refreshAdmin() {
 
 function logout() {
 
-  currentUser =
-    null;
+  currentUser = null;
 
-  currentRole =
-    null;
+  currentRole = null;
 
 
   document
@@ -3841,6 +4077,7 @@ document
 
 
 </script>
+
 
 </body>
 </html>

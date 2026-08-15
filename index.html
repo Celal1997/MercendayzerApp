@@ -764,9 +764,9 @@ function showStores() {
 
 
   let route =
-    workerRoutes[currentUser]
-      ? workerRoutes[currentUser][day]
-      : null;
+    getworkerRoute[currentUser, day]
+    
+    
 
 
   // Əgər həmin işçinin həmin gün üçün marşrutu yoxdursa

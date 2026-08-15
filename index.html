@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Merçendayzer App</title>
 
 <style>
+
 * {
   box-sizing: border-box;
 }
@@ -39,7 +43,9 @@ body {
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
 
-h1,h2,h3 {
+h1,
+h2,
+h3 {
   margin-top: 0;
 }
 
@@ -112,6 +118,14 @@ button:active {
   margin-top: 10px;
 }
 
+.warning {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
 .stat-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -157,150 +171,307 @@ button:active {
 .finish-btn {
   background: #16a34a;
 }
+
+.delete-btn {
+  background: #dc2626;
+}
+
+.transfer-btn {
+  background: #7c3aed;
+}
+
+.remove-btn {
+  background: #ea580c;
+}
+
+.small-title {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
 </style>
+
 </head>
 
 <body>
 
+
 <div class="header">
+
   <h1>Merçendayzer App</h1>
-  <div>Mağaza ziyarət sistemi</div>
-</div>
 
-<div class="container">
-
-<!-- ================= GİRİŞ ================= -->
-
-<div id="login" class="card">
-
-  <h2>🔐 Giriş</h2>
-
-  <input id="username" type="text" placeholder="İstifadəçi adı">
-
-  <input id="password" type="password" placeholder="Şifrə">
-
-  <button onclick="login()">Daxil ol</button>
-
-  <div class="info">
-    <b>Demo girişləri</b>
-    <br><br>
-    Müdir: <b>mudir / 1234</b>
-    <br><br>
-    Cəlal: <b>mer1 / 1234</b>
-    <br>
-    Digər işçilər: <b>mer2 - mer11 / 1234</b>
+  <div>
+    Mağaza ziyarət sistemi
   </div>
 
 </div>
 
 
-<!-- ================= İŞÇİ PANELİ ================= -->
+<div class="container">
+
+
+<!-- =====================================================
+     GİRİŞ
+===================================================== -->
+
+<div id="login" class="card">
+
+  <h2>🔐 Giriş</h2>
+
+  <input
+    id="username"
+    type="text"
+    placeholder="İstifadəçi adı"
+  >
+
+  <input
+    id="password"
+    type="password"
+    placeholder="Şifrə"
+  >
+
+  <button onclick="login()">
+    Daxil ol
+  </button>
+
+
+  <div class="info">
+
+    <b>Demo girişləri</b>
+
+    <br><br>
+
+    Müdir:
+    <b>mudir / 1234</b>
+
+    <br><br>
+
+    Cəlal:
+    <b>mer1 / 1234</b>
+
+    <br>
+
+    Digər işçilər:
+    <b>mer2 - mer11 / 1234</b>
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     İŞÇİ PANELİ
+===================================================== -->
 
 <div id="workerDashboard" class="hidden">
+
 
   <div class="card">
 
     <h2>
-      Salam, <span id="workerName"></span> 👋
+
+      Salam,
+      <span id="workerName"></span>
+      👋
+
     </h2>
 
     <p>
+
       Bugünkü işlərinizi buradan idarə edə bilərsiniz.
+
     </p>
 
     <div id="workerStatus"></div>
 
   </div>
 
+
   <div class="menu">
 
+
     <button onclick="showStores()">
-      🏪<br>Mağazalar
+
+      🏪
+      <br>
+      Mağazalar
+
     </button>
+
 
     <button onclick="showVisit()">
-      📍<br>Ziyarət
+
+      📍
+      <br>
+      Ziyarət
+
     </button>
+
 
     <button onclick="showReport()">
-      📊<br>Hesabat
+
+      📊
+      <br>
+      Hesabat
+
     </button>
 
+
     <button onclick="logout()">
-      🚪<br>Çıxış
+
+      🚪
+      <br>
+      Çıxış
+
     </button>
+
 
   </div>
 
-  <div id="workerContent" style="margin-top:15px;"></div>
+
+  <div
+    id="workerContent"
+    style="margin-top:15px;"
+  ></div>
+
 
 </div>
 
 
-<!-- ================= MÜDİR PANELİ ================= -->
+
+<!-- =====================================================
+     MÜDİR PANELİ
+===================================================== -->
 
 <div id="adminDashboard" class="hidden">
 
+
   <div class="card">
 
-    <h2>👨‍💼 Müdir Paneli</h2>
+    <h2>
+      👨‍💼 Müdir Paneli
+    </h2>
 
     <p>
-      Bütün merçendayzerlərin iş vəziyyətini buradan izləyə bilərsiniz.
+
+      Bütün merçendayzerlərin iş vəziyyətini
+      buradan izləyə bilərsiniz.
+
     </p>
 
   </div>
 
 
-  <!-- STATİSTİKA -->
+
+  <!-- =================================================
+       STATİSTİKA
+  ================================================== -->
 
   <div class="card">
 
-    <h2>📊 Bugünkü statistika</h2>
+    <h2>
+      📊 Bugünkü statistika
+    </h2>
+
 
     <div class="stat-grid">
 
+
       <div class="stat">
-        <div class="stat-number" id="totalWorkers">11</div>
+
+        <div
+          class="stat-number"
+          id="totalWorkers"
+        >
+          11
+        </div>
+
         👥 İşçi
+
       </div>
 
+
       <div class="stat">
-        <div class="stat-number" id="workingWorkers">0</div>
+
+        <div
+          class="stat-number"
+          id="workingWorkers"
+        >
+          0
+        </div>
+
         🟢 İşdə
+
       </div>
 
+
       <div class="stat">
-        <div class="stat-number" id="finishedVisits">0</div>
+
+        <div
+          class="stat-number"
+          id="finishedVisits"
+        >
+          0
+        </div>
+
         ✅ Ziyarət
+
       </div>
 
+
       <div class="stat">
-        <div class="stat-number" id="storeCount">14</div>
+
+        <div
+          class="stat-number"
+          id="storeCount"
+        >
+          14
+        </div>
+
         🏪 Mağaza
+
       </div>
+
 
     </div>
 
   </div>
 
 
-  <!-- İŞÇİLƏR -->
+
+  <!-- =================================================
+       İŞÇİLƏR
+  ================================================== -->
 
   <div class="card">
 
-    <h2>👥 Merçendayzerlər</h2>
+    <h2>
+      👥 Merçendayzerlər
+    </h2>
 
     <div id="workerList"></div>
 
   </div>
 
 
-  <!-- YENİ MAĞAZA -->
+
+  <!-- =================================================
+       YENİ MAĞAZA YARAT
+  ================================================== -->
 
   <div class="card">
 
-    <h2>🏪 Yeni mağaza yarat</h2>
+    <h2>
+      🏪 Yeni mağaza yarat
+    </h2>
+
 
     <input
       id="newStoreCode"
@@ -308,11 +479,13 @@ button:active {
       placeholder="Mağaza kodu — məsələn: Bravo 5200"
     >
 
+
     <input
       id="newStoreName"
       type="text"
       placeholder="Mağaza adı — məsələn: Bakıxanov"
     >
+
 
     <input
       id="newStoreArea"
@@ -320,76 +493,362 @@ button:active {
       placeholder="Ərazi — məsələn: Sabunçu"
     >
 
+
     <button onclick="adminCreateStore()">
+
       ➕ Mağazanı sistemə əlavə et
+
     </button>
+
 
     <div id="newStoreResult"></div>
 
   </div>
 
 
-  <!-- İŞÇİYƏ MAĞAZA TƏYİN ET -->
+
+  <!-- =================================================
+       İŞÇİYƏ MAĞAZA ƏLAVƏ ET
+  ================================================== -->
 
   <div class="card">
 
-    <h2>➕ İşçiyə mağaza əlavə et</h2>
+    <h2>
+      ➕ İşçiyə mağaza əlavə et
+    </h2>
+
 
     <select id="adminWorkerSelect">
-      <option value="">İşçi seçin</option>
+
+      <option value="">
+        İşçi seçin
+      </option>
+
     </select>
 
+
     <select id="adminStoreSelect">
-      <option value="">Mağaza seçin</option>
+
+      <option value="">
+        Mağaza seçin
+      </option>
+
     </select>
+
 
     <select id="adminDaySelect">
 
-      <option value="">Gün seçin</option>
+      <option value="">
+        Gün seçin
+      </option>
 
-      <option value="1">1-ci gün — Bazar ertəsi</option>
-      <option value="2">2-ci gün — Çərşənbə axşamı</option>
-      <option value="3">3-cü gün — Çərşənbə</option>
-      <option value="4">4-cü gün — Cümə axşamı</option>
-      <option value="5">5-ci gün — Cümə</option>
-      <option value="6">6-cı gün — Şənbə</option>
+      <option value="1">
+        1-ci gün — Bazar ertəsi
+      </option>
+
+      <option value="2">
+        2-ci gün — Çərşənbə axşamı
+      </option>
+
+      <option value="3">
+        3-cü gün — Çərşənbə
+      </option>
+
+      <option value="4">
+        4-cü gün — Cümə axşamı
+      </option>
+
+      <option value="5">
+        5-ci gün — Cümə
+      </option>
+
+      <option value="6">
+        6-cı gün — Şənbə
+      </option>
 
     </select>
 
+
     <button onclick="adminAddStore()">
+
       ➕ Mağazanı işçiyə əlavə et
+
     </button>
+
 
     <div id="adminAddResult"></div>
 
   </div>
 
 
-  <!-- SON ZİYARƏTLƏR -->
+
+  <!-- =================================================
+       MAĞAZANI İŞÇİDƏN SİL
+  ================================================== -->
 
   <div class="card">
 
-    <h2>📋 Son ziyarətlər</h2>
+    <h2>
+      🗑️ İşçidən mağaza sil
+    </h2>
+
+    <div class="warning">
+
+      Buradan mağazanı seçilmiş işçinin
+      seçilmiş günündən silə bilərsiniz.
+
+    </div>
+
+
+    <select id="removeWorkerSelect">
+
+      <option value="">
+        İşçi seçin
+      </option>
+
+    </select>
+
+
+    <select id="removeStoreSelect">
+
+      <option value="">
+        Mağaza seçin
+      </option>
+
+    </select>
+
+
+    <select id="removeDaySelect">
+
+      <option value="">
+        Gün seçin
+      </option>
+
+      <option value="1">
+        1-ci gün — Bazar ertəsi
+      </option>
+
+      <option value="2">
+        2-ci gün — Çərşənbə axşamı
+      </option>
+
+      <option value="3">
+        3-cü gün — Çərşənbə
+      </option>
+
+      <option value="4">
+        4-cü gün — Cümə axşamı
+      </option>
+
+      <option value="5">
+        5-ci gün — Cümə
+      </option>
+
+      <option value="6">
+        6-cı gün — Şənbə
+      </option>
+
+    </select>
+
+
+    <button
+      class="remove-btn"
+      onclick="removeStoreFromWorker()"
+    >
+
+      🗑️ İşçidən mağazanı sil
+
+    </button>
+
+
+    <div id="removeStoreResult"></div>
+
+  </div>
+
+
+
+  <!-- =================================================
+       MAĞAZANI BAŞQA İŞÇİYƏ KEÇİR
+  ================================================== -->
+
+  <div class="card">
+
+    <h2>
+      🔄 Mağazanı başqa işçiyə keçir
+    </h2>
+
+
+    <div class="info">
+
+      Mağazanı bir işçidən silib,
+      eyni gün üçün başqa işçiyə əlavə edir.
+
+    </div>
+
+
+    <select id="transferFromWorker">
+
+      <option value="">
+        Kimdən götürülsün?
+      </option>
+
+    </select>
+
+
+    <select id="transferStore">
+
+      <option value="">
+        Mağaza seçin
+      </option>
+
+    </select>
+
+
+    <select id="transferDay">
+
+      <option value="">
+        Gün seçin
+      </option>
+
+      <option value="1">
+        1-ci gün — Bazar ertəsi
+      </option>
+
+      <option value="2">
+        2-ci gün — Çərşənbə axşamı
+      </option>
+
+      <option value="3">
+        3-cü gün — Çərşənbə
+      </option>
+
+      <option value="4">
+        4-cü gün — Cümə axşamı
+      </option>
+
+      <option value="5">
+        5-ci gün — Cümə
+      </option>
+
+      <option value="6">
+        6-cı gün — Şənbə
+      </option>
+
+    </select>
+
+
+    <select id="transferToWorker">
+
+      <option value="">
+        Kimə keçirilsin?
+      </option>
+
+    </select>
+
+
+    <button
+      class="transfer-btn"
+      onclick="transferStore()"
+    >
+
+      🔄 Mağazanı keçir
+
+    </button>
+
+
+    <div id="transferResult"></div>
+
+  </div>
+
+
+
+  <!-- =================================================
+       SİSTEMDƏN MAĞAZANI TAM SİL
+  ================================================== -->
+
+  <div class="card">
+
+    <h2>
+      🗑️ Mağazanı sistemdən sil
+    </h2>
+
+
+    <div class="danger">
+
+      ⚠️ Diqqət:
+      Bu əməliyyat mağazanı sistemdən silir
+      və bütün işçilərin marşrutlarından çıxarır.
+
+    </div>
+
+
+    <select id="deleteSystemStoreSelect">
+
+      <option value="">
+        Mağaza seçin
+      </option>
+
+    </select>
+
+
+    <button
+      class="delete-btn"
+      onclick="deleteStoreFromSystem()"
+    >
+
+      🗑️ Mağazanı sistemdən TAM SİL
+
+    </button>
+
+
+    <div id="deleteSystemResult"></div>
+
+  </div>
+
+
+
+  <!-- =================================================
+       SON ZİYARƏTLƏR
+  ================================================== -->
+
+  <div class="card">
+
+    <h2>
+      📋 Son ziyarətlər
+    </h2>
 
     <div id="visitList"></div>
 
   </div>
 
 
+
   <button onclick="refreshAdmin()">
+
     🔄 Məlumatları yenilə
+
   </button>
 
-  <button class="logout-btn" onclick="logout()">
+
+  <button
+    class="logout-btn"
+    onclick="logout()"
+  >
+
     🚪 Müdir panelindən çıx
+
   </button>
 
-</div>
 
 </div>
+
+
+</div>
+
 
 
 <script>
+
 
 /* =====================================================
    İŞÇİLƏR
@@ -397,19 +856,63 @@ button:active {
 
 const workers = [
 
-  { username:"mer1", name:"Cəlal Abbasov" },
-  { username:"mer2", name:"Şəhanə" },
-  { username:"mer3", name:"Şəhanə2" },
-  { username:"mer4", name:"Rüfət" },
-  { username:"mer5", name:"Ariz" },
-  { username:"mer6", name:"Sahil" },
-  { username:"mer7", name:"Aytac" },
-  { username:"mer8", name:"Səkinə" },
-  { username:"mer9", name:"Qənirə" },
-  { username:"mer10", name:"Ruhiyyə" },
-  { username:"mer11", name:"Günel" }
+  {
+    username:"mer1",
+    name:"Cəlal Abbasov"
+  },
+
+  {
+    username:"mer2",
+    name:"Şəhanə"
+  },
+
+  {
+    username:"mer3",
+    name:"Şəhanə2"
+  },
+
+  {
+    username:"mer4",
+    name:"Rüfət"
+  },
+
+  {
+    username:"mer5",
+    name:"Ariz"
+  },
+
+  {
+    username:"mer6",
+    name:"Sahil"
+  },
+
+  {
+    username:"mer7",
+    name:"Aytac"
+  },
+
+  {
+    username:"mer8",
+    name:"Səkinə"
+  },
+
+  {
+    username:"mer9",
+    name:"Qənirə"
+  },
+
+  {
+    username:"mer10",
+    name:"Ruhiyyə"
+  },
+
+  {
+    username:"mer11",
+    name:"Günel"
+  }
 
 ];
+
 
 
 /* =====================================================
@@ -419,25 +922,88 @@ const workers = [
 let stores = [
 
   "Bravo 5041 — Sea Breeze",
+
   "Bravo 2004 — Xətai SS Babək prospekti",
+
   "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
+
   "Bravo 4023 — Xətai Sabit Orucov küçəsi",
+
   "Bravo 3077 — Sea Breeze Premium",
+
   "Tamstore 220 — Sea Breeze",
+
   "Bravo 4001 — Amburan Mall",
+
   "Bravo 5004 — Sabunçu",
+
   "Bravo 5021 — Sabunçu",
+
   "Bravo 5120 — Ağ Şəhər",
+
   "Bravo 3013 — Xətai Park Azure",
+
   "Bravo 4072 — Bilgəh yolu",
+
   "Bravo 5179 — Maştağa",
+
   "Tamstore 137 — Savalan"
 
 ];
 
 
+
 /* =====================================================
-   ƏVVƏL ƏLAVƏ EDİLMİŞ MAĞAZALARI YÜKLƏ
+   SİLİNMİŞ MAĞAZALAR
+===================================================== */
+
+function getDeletedStores() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem("deletedStores")
+    ) || [];
+
+  } catch {
+
+    return [];
+
+  }
+
+}
+
+
+function saveDeletedStores(list) {
+
+  localStorage.setItem(
+    "deletedStores",
+    JSON.stringify(list)
+  );
+
+}
+
+
+/* =====================================================
+   ƏVVƏL SİLİNMİŞ MAĞAZALARI ƏSAS SİYAHIDAN ÇIXAR
+===================================================== */
+
+function applyDeletedStores() {
+
+  const deleted =
+    getDeletedStores();
+
+  stores =
+    stores.filter(
+      store =>
+        !deleted.includes(store)
+    );
+
+}
+
+
+/* =====================================================
+   CUSTOM MAĞAZALARI YÜKLƏ
 ===================================================== */
 
 function loadCustomStores() {
@@ -448,6 +1014,7 @@ function loadCustomStores() {
       JSON.parse(
         localStorage.getItem("customStores")
       ) || [];
+
 
     customStores.forEach(item => {
 
@@ -464,15 +1031,22 @@ function loadCustomStores() {
 
   } catch {
 
-    console.log("Custom mağazalar oxunmadı.");
+    console.log(
+      "Custom mağazalar oxunmadı."
+    );
 
   }
+
+
+  applyDeletedStores();
 
 }
 
 
-/* səhifə açılan kimi yüklə */
+/* Səhifə açılan kimi */
+
 loadCustomStores();
+
 
 
 /* =====================================================
@@ -484,52 +1058,94 @@ const workerRoutes = {
   mer1: {
 
     1: [
+
       "Bravo 5041 — Sea Breeze",
+
       "Bravo 2004 — Xətai SS Babək prospekti",
+
       "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
+
       "Bravo 4023 — Xətai Sabit Orucov küçəsi"
+
     ],
+
 
     2: [
+
       "Bravo 5041 — Sea Breeze",
+
       "Bravo 3077 — Sea Breeze Premium",
+
       "Tamstore 220 — Sea Breeze",
+
       "Bravo 4001 — Amburan Mall",
+
       "Bravo 5004 — Sabunçu",
+
       "Bravo 5021 — Sabunçu"
+
     ],
+
 
     3: [
+
       "Bravo 5041 — Sea Breeze",
+
       "Bravo 5120 — Ağ Şəhər",
+
       "Bravo 3013 — Xətai Park Azure",
+
       "Bravo 4023 — Xətai Sabit Orucov küçəsi",
+
       "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi"
+
     ],
+
 
     4: [
+
       "Bravo 5041 — Sea Breeze",
+
       "Bravo 4001 — Amburan Mall",
+
       "Bravo 4072 — Bilgəh yolu",
+
       "Bravo 5179 — Maştağa",
+
       "Tamstore 137 — Savalan",
+
       "Bravo 5021 — Sabunçu"
+
     ],
+
 
     5: [
+
       "Bravo 5041 — Sea Breeze",
+
       "Bravo 2004 — Xətai SS Babək prospekti",
+
       "Bravo 3013 — Xətai Park Azure",
+
       "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
+
       "Bravo 4023 — Xətai Sabit Orucov küçəsi"
+
     ],
 
+
     6: [
+
       "Bravo 5041 — Sea Breeze",
+
       "Bravo 3077 — Sea Breeze Premium",
+
       "Bravo 4001 — Amburan Mall",
+
       "Bravo 5004 — Sabunçu",
+
       "Bravo 5021 — Sabunçu"
+
     ]
 
   }
@@ -537,12 +1153,15 @@ const workerRoutes = {
 };
 
 
+
 /* =====================================================
    DƏYİŞƏNLƏR
 ===================================================== */
 
 let currentUser = null;
+
 let currentRole = null;
+
 
 
 /* =====================================================
@@ -566,9 +1185,84 @@ function getAddedRoutes() {
 }
 
 
+/* =====================================================
+   SİLİNMİŞ TƏYİNATLAR
+===================================================== */
+
+function getRemovedAssignments() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem(
+        "removedAssignments"
+      )
+    ) || {};
+
+  } catch {
+
+    return {};
+
+  }
+
+}
+
+
+function saveRemovedAssignments(data) {
+
+  localStorage.setItem(
+    "removedAssignments",
+    JSON.stringify(data)
+  );
+
+}
+
+
+
+/* =====================================================
+   KÖÇÜRÜLMÜŞ MARŞRUTLAR
+===================================================== */
+
+function getTransferRoutes() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem(
+        "transferRoutes"
+      )
+    ) || {};
+
+  } catch {
+
+    return {};
+
+  }
+
+}
+
+
+function saveTransferRoutes(data) {
+
+  localStorage.setItem(
+    "transferRoutes",
+    JSON.stringify(data)
+  );
+
+}
+
+
+
+/* =====================================================
+   İŞÇİNİN GÜNLÜK MARŞRUTU
+===================================================== */
+
 function getWorkerRoute(username, day) {
 
   let route = [];
+
+
+  /* Əsas hazır marşrut */
 
   if (
     workerRoutes[username] &&
@@ -581,24 +1275,95 @@ function getWorkerRoute(username, day) {
 
   }
 
-  const addedRoutes =
-    getAddedRoutes();
+
+  /* İşçidən silinmiş mağazaları çıxar */
+
+  const removed =
+    getRemovedAssignments();
+
 
   if (
-    addedRoutes[username] &&
-    addedRoutes[username][day]
+    removed[username] &&
+    removed[username][day]
+  ) {
+
+    route =
+      route.filter(
+        store =>
+          !removed[username][day]
+            .includes(store)
+      );
+
+  }
+
+
+  /* Müdir tərəfindən əlavə olunanlar */
+
+  const added =
+    getAddedRoutes();
+
+
+  if (
+    added[username] &&
+    added[username][day]
   ) {
 
     route = [
+
       ...route,
-      ...addedRoutes[username][day]
+
+      ...added[username][day]
+
     ];
 
   }
 
+
+  /* Köçürülmüş mağazalar */
+
+  const transfers =
+    getTransferRoutes();
+
+
+  if (
+    transfers[username] &&
+    transfers[username][day]
+  ) {
+
+    route = [
+
+      ...route,
+
+      ...transfers[username][day]
+
+    ];
+
+  }
+
+
+  /* Sistemdən silinmiş mağazaları çıxar */
+
+  const deleted =
+    getDeletedStores();
+
+
+  route =
+    route.filter(
+      store =>
+        !deleted.includes(store)
+    );
+
+
+  /* Təkrar mağazaları təmizlə */
+
+  route =
+    [...new Set(route)];
+
+
   return route;
 
 }
+
 
 
 /* =====================================================
@@ -608,15 +1373,28 @@ function getWorkerRoute(username, day) {
 function login() {
 
   const username =
-    document.getElementById("username").value.trim();
+    document
+      .getElementById("username")
+      .value
+      .trim();
+
 
   const password =
-    document.getElementById("password").value.trim();
+    document
+      .getElementById("password")
+      .value
+      .trim();
 
 
-  if (!username || !password) {
+  if (
+    !username ||
+    !password
+  ) {
 
-    alert("İstifadəçi adı və şifrəni daxil edin.");
+    alert(
+      "İstifadəçi adı və şifrəni daxil edin."
+    );
+
     return;
 
   }
@@ -629,23 +1407,32 @@ function login() {
     password === "1234"
   ) {
 
-    currentUser = "mudir";
-    currentRole = "admin";
+    currentUser =
+      "mudir";
+
+    currentRole =
+      "admin";
+
 
     document
       .getElementById("login")
       .classList.add("hidden");
 
+
     document
       .getElementById("workerDashboard")
       .classList.add("hidden");
+
 
     document
       .getElementById("adminDashboard")
       .classList.remove("hidden");
 
+
     loadCustomStores();
+
     loadAdminStorePanel();
+
     refreshAdmin();
 
     return;
@@ -653,11 +1440,13 @@ function login() {
   }
 
 
+
   /* İŞÇİ */
 
   const worker =
     workers.find(
-      w => w.username === username
+      w =>
+        w.username === username
     );
 
 
@@ -666,24 +1455,33 @@ function login() {
     password === "1234"
   ) {
 
-    currentUser = worker.username;
-    currentRole = "worker";
+    currentUser =
+      worker.username;
+
+    currentRole =
+      "worker";
+
 
     document
       .getElementById("login")
       .classList.add("hidden");
 
+
     document
       .getElementById("adminDashboard")
       .classList.add("hidden");
+
 
     document
       .getElementById("workerDashboard")
       .classList.remove("hidden");
 
+
     document.getElementById(
       "workerName"
-    ).innerText = worker.name;
+    ).innerText =
+      worker.name;
+
 
     updateWorkerStatus();
 
@@ -692,9 +1490,12 @@ function login() {
   }
 
 
-  alert("İstifadəçi adı və ya şifrə yanlışdır.");
+  alert(
+    "İstifadəçi adı və ya şifrə yanlışdır."
+  );
 
 }
+
 
 
 /* =====================================================
@@ -707,14 +1508,28 @@ function getActiveVisit() {
 
     const active =
       JSON.parse(
-        localStorage.getItem("activeVisit")
+        localStorage.getItem(
+          "activeVisit"
+        )
       );
 
-    if (!active) return null;
 
-    if (active.username !== currentUser) {
+    if (!active) {
+
       return null;
+
     }
+
+
+    if (
+      active.username !==
+      currentUser
+    ) {
+
+      return null;
+
+    }
+
 
     return active;
 
@@ -727,6 +1542,7 @@ function getActiveVisit() {
 }
 
 
+
 /* =====================================================
    İŞÇİ STATUSU
 ===================================================== */
@@ -734,11 +1550,21 @@ function getActiveVisit() {
 function updateWorkerStatus() {
 
   const element =
-    document.getElementById("workerStatus");
+    document.getElementById(
+      "workerStatus"
+    );
 
-  if (!element) return;
 
-  const active = getActiveVisit();
+  if (!element) {
+
+    return;
+
+  }
+
+
+  const active =
+    getActiveVisit();
+
 
   if (active) {
 
@@ -764,7 +1590,9 @@ function updateWorkerStatus() {
           class="finish-btn"
           onclick="finishVisit()"
         >
+
           ⏹️ Ziyarəti bitir
+
         </button>
 
       </div>
@@ -776,7 +1604,9 @@ function updateWorkerStatus() {
     element.innerHTML = `
 
       <div class="info">
+
         🔵 Hazırda aktiv ziyarət yoxdur.
+
       </div>
 
     `;
@@ -786,13 +1616,16 @@ function updateWorkerStatus() {
 }
 
 
+
 /* =====================================================
    BUGÜNKÜ MAĞAZALAR
 ===================================================== */
 
 function showStores() {
 
-  const today = new Date().getDay();
+  const today =
+    new Date().getDay();
+
 
   if (today === 0) {
 
@@ -802,10 +1635,14 @@ function showStores() {
 
       <div class="card">
 
-        <h2>🏪 Bugünkü mağazalar</h2>
+        <h2>
+          🏪 Bugünkü mağazalar
+        </h2>
 
         <div class="info">
+
           📅 Bu gün istirahət günüdür.
+
         </div>
 
       </div>
@@ -818,7 +1655,10 @@ function showStores() {
 
 
   const route =
-    getWorkerRoute(currentUser, today);
+    getWorkerRoute(
+      currentUser,
+      today
+    );
 
 
   if (!route.length) {
@@ -829,10 +1669,15 @@ function showStores() {
 
       <div class="card">
 
-        <h2>🏪 Bugünkü mağazalar</h2>
+        <h2>
+          🏪 Bugünkü mağazalar
+        </h2>
 
         <div class="info">
-          Bu gün üçün sizə təyin edilmiş mağaza yoxdur.
+
+          Bu gün üçün sizə təyin edilmiş
+          mağaza yoxdur.
+
         </div>
 
       </div>
@@ -848,54 +1693,79 @@ function showStores() {
 
     <div class="card">
 
-      <h2>🏪 Bugünkü mağazalar</h2>
+      <h2>
+        🏪 Bugünkü mağazalar
+      </h2>
 
-      <p>📅 Gün: <b>${today}. gün</b></p>
+      <p>
+
+        📅 Gün:
+        <b>${today}. gün</b>
+
+      </p>
 
   `;
 
 
-  route.forEach((store,index) => {
+  route.forEach(
+    (store,index) => {
 
-    html += `
+      html += `
 
-      <div class="store">
+        <div class="store">
 
-        <b>
-          ${index + 1}. ${store}
-        </b>
+          <b>
 
-        <p>Mağaza ziyarəti</p>
+            ${index + 1}.
+            ${store}
 
-        <button
-          onclick="visitStore(${JSON.stringify(store)})"
-        >
-          📍 Ziyarətə başla
-        </button>
+          </b>
 
-      </div>
+          <p>
+            Mağaza ziyarəti
+          </p>
 
-    `;
+          <button
+            onclick="visitStore(${JSON.stringify(store)})"
+          >
 
-  });
+            📍 Ziyarətə başla
+
+          </button>
+
+        </div>
+
+      `;
+
+    }
+  );
 
 
-  html += `</div>`;
+  html += `
+
+    </div>
+
+  `;
+
 
   document.getElementById(
     "workerContent"
-  ).innerHTML = html;
+  ).innerHTML =
+    html;
 
 }
 
 
+
 /* =====================================================
-   ZİYARƏT
+   ZİYARƏT SƏHİFƏSİ
 ===================================================== */
 
 function showVisit() {
 
-  const today = new Date().getDay();
+  const today =
+    new Date().getDay();
+
 
   if (today === 0) {
 
@@ -905,10 +1775,14 @@ function showVisit() {
 
       <div class="card">
 
-        <h2>📍 Mağaza ziyarəti</h2>
+        <h2>
+          📍 Mağaza ziyarəti
+        </h2>
 
         <div class="info">
+
           📅 Bu gün istirahət günüdür.
+
         </div>
 
       </div>
@@ -921,7 +1795,10 @@ function showVisit() {
 
 
   const route =
-    getWorkerRoute(currentUser,today);
+    getWorkerRoute(
+      currentUser,
+      today
+    );
 
 
   if (!route.length) {
@@ -932,10 +1809,14 @@ function showVisit() {
 
       <div class="card">
 
-        <h2>📍 Mağaza ziyarəti</h2>
+        <h2>
+          📍 Mağaza ziyarəti
+        </h2>
 
         <div class="info">
+
           Bu gün üçün mağaza təyin edilməyib.
+
         </div>
 
       </div>
@@ -948,18 +1829,24 @@ function showVisit() {
 
 
   let options =
-    `<option value="">Mağaza seçin</option>`;
+    `<option value="">
+      Mağaza seçin
+    </option>`;
 
 
-  route.forEach(store => {
+  route.forEach(
+    store => {
 
-    options += `
-      <option value="${store}">
-        ${store}
-      </option>
-    `;
+      options += `
 
-  });
+        <option value="${store}">
+          ${store}
+        </option>
+
+      `;
+
+    }
+  );
 
 
   document.getElementById(
@@ -968,15 +1855,23 @@ function showVisit() {
 
     <div class="card">
 
-      <h2>📍 Mağaza ziyarəti</h2>
+      <h2>
+        📍 Mağaza ziyarəti
+      </h2>
 
       <select id="storeSelect">
+
         ${options}
+
       </select>
 
+
       <button onclick="startVisit()">
+
         ▶️ Ziyarəti başlat
+
       </button>
+
 
       <div id="visitResult"></div>
 
@@ -987,6 +1882,7 @@ function showVisit() {
 }
 
 
+
 /* =====================================================
    ZİYARƏTƏ BAŞLA
 ===================================================== */
@@ -994,22 +1890,37 @@ function showVisit() {
 function startVisit() {
 
   const select =
-    document.getElementById("storeSelect");
+    document.getElementById(
+      "storeSelect"
+    );
 
-  if (!select) return;
 
-  const store = select.value;
+  if (!select) {
+
+    return;
+
+  }
+
+
+  const store =
+    select.value;
+
 
   if (!store) {
 
-    alert("Əvvəlcə mağaza seçin.");
+    alert(
+      "Əvvəlcə mağaza seçin."
+    );
+
     return;
 
   }
 
 
   if (
-    localStorage.getItem("activeVisit")
+    localStorage.getItem(
+      "activeVisit"
+    )
   ) {
 
     alert(
@@ -1025,11 +1936,18 @@ function startVisit() {
 
 }
 
+
+
+/* =====================================================
+   MAĞAZADAN ZİYARƏTƏ BAŞLA
+===================================================== */
 
 function visitStore(store) {
 
   if (
-    localStorage.getItem("activeVisit")
+    localStorage.getItem(
+      "activeVisit"
+    )
   ) {
 
     alert(
@@ -1040,28 +1958,48 @@ function visitStore(store) {
 
   }
 
+
   createVisit(store);
 
 }
 
 
+
+/* =====================================================
+   ZİYARƏT YARAT
+===================================================== */
+
 function createVisit(store) {
 
-  const now = new Date();
+  const now =
+    new Date();
+
 
   const time =
-    now.toLocaleTimeString("az-AZ");
+    now.toLocaleTimeString(
+      "az-AZ"
+    );
+
 
   const date =
-    now.toLocaleDateString("az-AZ");
+    now.toLocaleDateString(
+      "az-AZ"
+    );
 
 
   const visit = {
 
-    username: currentUser,
-    store: store,
-    startTime: time,
-    date: date
+    username:
+      currentUser,
+
+    store:
+      store,
+
+    startTime:
+      time,
+
+    date:
+      date
 
   };
 
@@ -1081,7 +2019,10 @@ function createVisit(store) {
 
     <div class="card">
 
-      <h2>📍 ${store}</h2>
+      <h2>
+        📍 ${store}
+      </h2>
+
 
       <div class="success">
 
@@ -1089,19 +2030,24 @@ function createVisit(store) {
 
         <br>
 
-        📅 Tarix: ${date}
+        📅 Tarix:
+        ${date}
 
         <br>
 
-        🕐 Başlama: ${time}
+        🕐 Başlama:
+        ${time}
 
       </div>
+
 
       <button
         class="finish-btn"
         onclick="finishVisit()"
       >
+
         ⏹️ Ziyarəti bitir
+
       </button>
 
     </div>
@@ -1109,6 +2055,7 @@ function createVisit(store) {
   `;
 
 }
+
 
 
 /* =====================================================
@@ -1120,34 +2067,54 @@ function finishVisit() {
   const active =
     getActiveVisit();
 
+
   if (!active) {
 
-    alert("Aktiv ziyarət tapılmadı.");
+    alert(
+      "Aktiv ziyarət tapılmadı."
+    );
+
     updateWorkerStatus();
+
     return;
 
   }
 
 
-  const now = new Date();
+  const now =
+    new Date();
+
 
   const endTime =
-    now.toLocaleTimeString("az-AZ");
+    now.toLocaleTimeString(
+      "az-AZ"
+    );
 
 
   const visits =
     JSON.parse(
-      localStorage.getItem("visits")
+      localStorage.getItem(
+        "visits"
+      )
     ) || [];
 
 
   visits.unshift({
 
-    username: currentUser,
-    store: active.store,
-    startTime: active.startTime,
-    endTime: endTime,
-    date: active.date
+    username:
+      currentUser,
+
+    store:
+      active.store,
+
+    startTime:
+      active.startTime,
+
+    endTime:
+      endTime,
+
+    date:
+      active.date
 
   });
 
@@ -1172,7 +2139,10 @@ function finishVisit() {
 
     <div class="card">
 
-      <h2>✅ Ziyarət tamamlandı</h2>
+      <h2>
+        ✅ Ziyarət tamamlandı
+      </h2>
+
 
       <div class="success">
 
@@ -1198,6 +2168,7 @@ function finishVisit() {
 }
 
 
+
 /* =====================================================
    İŞÇİ HESABATI
 ===================================================== */
@@ -1206,13 +2177,17 @@ function showReport() {
 
   const visits =
     JSON.parse(
-      localStorage.getItem("visits")
+      localStorage.getItem(
+        "visits"
+      )
     ) || [];
 
 
   const myVisits =
     visits.filter(
-      v => v.username === currentUser
+      v =>
+        v.username ===
+        currentUser
     );
 
 
@@ -1220,7 +2195,9 @@ function showReport() {
 
     <div class="card">
 
-      <h2>📊 Mənim hesabatım</h2>
+      <h2>
+        📊 Mənim hesabatım
+      </h2>
 
   `;
 
@@ -1230,63 +2207,80 @@ function showReport() {
     html += `
 
       <div class="info">
+
         Hələ tamamlanmış ziyarət yoxdur.
+
       </div>
 
     `;
 
   } else {
 
-    myVisits.forEach(visit => {
+    myVisits.forEach(
+      visit => {
 
-      html += `
+        html += `
 
-        <div class="visit-item">
+          <div class="visit-item">
 
-          🏪 <b>${visit.store}</b>
+            🏪
+            <b>${visit.store}</b>
 
-          <br>
+            <br>
 
-          📅 ${visit.date}
+            📅
+            ${visit.date}
 
-          <br>
+            <br>
 
-          ▶️ Başlama:
-          ${visit.startTime}
+            ▶️ Başlama:
+            ${visit.startTime}
 
-          <br>
+            <br>
 
-          ⏹️ Bitmə:
-          ${visit.endTime}
+            ⏹️ Bitmə:
+            ${visit.endTime}
 
-        </div>
+          </div>
 
-      `;
+        `;
 
-    });
+      }
+    );
 
   }
 
 
-  html += `</div>`;
+  html += `
+
+    </div>
+
+  `;
+
 
   document.getElementById(
     "workerContent"
-  ).innerHTML = html;
+  ).innerHTML =
+    html;
 
 }
 
 
+
 /* =====================================================
-   MÜDİR PANELİ — SEÇİMLƏR
+   MÜDİR PANELİ SEÇİMLƏRİ
 ===================================================== */
 
 function loadAdminStorePanel() {
+
+  loadCustomStores();
+
 
   const workerSelect =
     document.getElementById(
       "adminWorkerSelect"
     );
+
 
   const storeSelect =
     document.getElementById(
@@ -1294,45 +2288,218 @@ function loadAdminStorePanel() {
     );
 
 
-  if (!workerSelect || !storeSelect) {
+  const removeWorkerSelect =
+    document.getElementById(
+      "removeWorkerSelect"
+    );
+
+
+  const removeStoreSelect =
+    document.getElementById(
+      "removeStoreSelect"
+    );
+
+
+  const transferFromWorker =
+    document.getElementById(
+      "transferFromWorker"
+    );
+
+
+  const transferStore =
+    document.getElementById(
+      "transferStore"
+    );
+
+
+  const transferToWorker =
+    document.getElementById(
+      "transferToWorker"
+    );
+
+
+  const deleteSystemStoreSelect =
+    document.getElementById(
+      "deleteSystemStoreSelect"
+    );
+
+
+  if (
+    !workerSelect ||
+    !storeSelect
+  ) {
+
     return;
+
   }
 
 
+
+  /* =================================================
+     İŞÇİ SİYAHILARI
+  ================================================== */
+
+  const workerOptions = `
+
+    <option value="">
+      İşçi seçin
+    </option>
+
+  `;
+
+
   workerSelect.innerHTML =
-    `<option value="">İşçi seçin</option>`;
+    workerOptions;
 
 
-  workers.forEach(worker => {
-
-    workerSelect.innerHTML += `
-
-      <option value="${worker.username}">
-        ${worker.name}
-      </option>
-
-    `;
-
-  });
+  removeWorkerSelect.innerHTML =
+    workerOptions;
 
 
-  storeSelect.innerHTML =
-    `<option value="">Mağaza seçin</option>`;
+  transferFromWorker.innerHTML = `
+
+    <option value="">
+      Kimdən götürülsün?
+    </option>
+
+  `;
 
 
-  stores.forEach(store => {
+  transferToWorker.innerHTML = `
 
-    storeSelect.innerHTML += `
+    <option value="">
+      Kimə keçirilsin?
+    </option>
 
-      <option value="${store}">
-        ${store}
-      </option>
+  `;
 
-    `;
 
-  });
+  workers.forEach(
+    worker => {
+
+      workerSelect.innerHTML += `
+
+        <option value="${worker.username}">
+          ${worker.name}
+        </option>
+
+      `;
+
+
+      removeWorkerSelect.innerHTML += `
+
+        <option value="${worker.username}">
+          ${worker.name}
+        </option>
+
+      `;
+
+
+      transferFromWorker.innerHTML += `
+
+        <option value="${worker.username}">
+          ${worker.name}
+        </option>
+
+      `;
+
+
+      transferToWorker.innerHTML += `
+
+        <option value="${worker.username}">
+          ${worker.name}
+        </option>
+
+      `;
+
+    }
+  );
+
+
+
+  /* =================================================
+     MAĞAZA SİYAHILARI
+  ================================================== */
+
+  storeSelect.innerHTML = `
+
+    <option value="">
+      Mağaza seçin
+    </option>
+
+  `;
+
+
+  removeStoreSelect.innerHTML = `
+
+    <option value="">
+      Mağaza seçin
+    </option>
+
+  `;
+
+
+  transferStore.innerHTML = `
+
+    <option value="">
+      Mağaza seçin
+    </option>
+
+  `;
+
+
+  deleteSystemStoreSelect.innerHTML = `
+
+    <option value="">
+      Mağaza seçin
+    </option>
+
+  `;
+
+
+  stores.forEach(
+    store => {
+
+      storeSelect.innerHTML += `
+
+        <option value="${store}">
+          ${store}
+        </option>
+
+      `;
+
+
+      removeStoreSelect.innerHTML += `
+
+        <option value="${store}">
+          ${store}
+        </option>
+
+      `;
+
+
+      transferStore.innerHTML += `
+
+        <option value="${store}">
+          ${store}
+        </option>
+
+      `;
+
+
+      deleteSystemStoreSelect.innerHTML += `
+
+        <option value="${store}">
+          ${store}
+        </option>
+
+      `;
+
+    }
+  );
 
 }
+
 
 
 /* =====================================================
@@ -1343,26 +2510,36 @@ function adminCreateStore() {
 
   const code =
     document
-      .getElementById("newStoreCode")
+      .getElementById(
+        "newStoreCode"
+      )
       .value
       .trim();
 
 
   const name =
     document
-      .getElementById("newStoreName")
+      .getElementById(
+        "newStoreName"
+      )
       .value
       .trim();
 
 
   const area =
     document
-      .getElementById("newStoreArea")
+      .getElementById(
+        "newStoreArea"
+      )
       .value
       .trim();
 
 
-  if (!code || !name || !area) {
+  if (
+    !code ||
+    !name ||
+    !area
+  ) {
 
     alert(
       "Mağaza kodu, adı və ərazisini daxil edin."
@@ -1374,10 +2551,16 @@ function adminCreateStore() {
 
 
   const fullStore =
-    code + " — " + name;
+    code +
+    " — " +
+    name;
 
 
-  if (stores.includes(fullStore)) {
+  if (
+    stores.includes(
+      fullStore
+    )
+  ) {
 
     alert(
       "Bu mağaza artıq sistemdə mövcuddur."
@@ -1388,32 +2571,60 @@ function adminCreateStore() {
   }
 
 
-  /* Əsas siyahıya əlavə */
+  /* Əgər əvvəllər silinibsə,
+     silinmiş siyahıdan çıxar */
 
-  stores.push(fullStore);
+  let deleted =
+    getDeletedStores();
 
 
-  /* LocalStorage-a yadda saxla */
+  deleted =
+    deleted.filter(
+      store =>
+        store !== fullStore
+    );
+
+
+  saveDeletedStores(
+    deleted
+  );
+
+
+  stores.push(
+    fullStore
+  );
+
 
   let customStores =
     JSON.parse(
-      localStorage.getItem("customStores")
+      localStorage.getItem(
+        "customStores"
+      )
     ) || [];
 
 
   customStores.push({
 
-    store: fullStore,
-    code: code,
-    name: name,
-    area: area
+    store:
+      fullStore,
+
+    code:
+      code,
+
+    name:
+      name,
+
+    area:
+      area
 
   });
 
 
   localStorage.setItem(
     "customStores",
-    JSON.stringify(customStores)
+    JSON.stringify(
+      customStores
+    )
   );
 
 
@@ -1444,26 +2655,24 @@ function adminCreateStore() {
     "newStoreCode"
   ).value = "";
 
+
   document.getElementById(
     "newStoreName"
   ).value = "";
+
 
   document.getElementById(
     "newStoreArea"
   ).value = "";
 
 
-  document.getElementById(
-    "storeCount"
-  ).innerText =
-    stores.length;
-
-
-  /* Mağaza seçim siyahısını yenilə */
-
   loadAdminStorePanel();
 
+
+  refreshAdmin();
+
 }
+
 
 
 /* =====================================================
@@ -1473,24 +2682,34 @@ function adminCreateStore() {
 function adminAddStore() {
 
   const username =
-    document.getElementById(
-      "adminWorkerSelect"
-    ).value;
+    document
+      .getElementById(
+        "adminWorkerSelect"
+      )
+      .value;
 
 
   const store =
-    document.getElementById(
-      "adminStoreSelect"
-    ).value;
+    document
+      .getElementById(
+        "adminStoreSelect"
+      )
+      .value;
 
 
   const day =
-    document.getElementById(
-      "adminDaySelect"
-    ).value;
+    document
+      .getElementById(
+        "adminDaySelect"
+      )
+      .value;
 
 
-  if (!username || !store || !day) {
+  if (
+    !username ||
+    !store ||
+    !day
+  ) {
 
     alert(
       "İşçi, mağaza və günü seçin."
@@ -1505,13 +2724,21 @@ function adminAddStore() {
     getAddedRoutes();
 
 
-  if (!addedRoutes[username]) {
+  if (
+    !addedRoutes[username]
+  ) {
+
     addedRoutes[username] = {};
+
   }
 
 
-  if (!addedRoutes[username][day]) {
+  if (
+    !addedRoutes[username][day]
+  ) {
+
     addedRoutes[username][day] = [];
+
   }
 
 
@@ -1529,18 +2756,50 @@ function adminAddStore() {
   }
 
 
-  addedRoutes[username][day].push(store);
+  addedRoutes[username][day].push(
+    store
+  );
 
 
   localStorage.setItem(
     "addedRoutes",
-    JSON.stringify(addedRoutes)
+    JSON.stringify(
+      addedRoutes
+    )
   );
+
+
+  /* Əgər bu mağaza həmin işçidən
+     əvvəllər silinmişdisə,
+     silinmiş siyahıdan çıxar */
+
+  const removed =
+    getRemovedAssignments();
+
+
+  if (
+    removed[username] &&
+    removed[username][day]
+  ) {
+
+    removed[username][day] =
+      removed[username][day]
+        .filter(
+          s => s !== store
+        );
+
+    saveRemovedAssignments(
+      removed
+    );
+
+  }
 
 
   const worker =
     workers.find(
-      w => w.username === username
+      w =>
+        w.username ===
+        username
     );
 
 
@@ -1574,6 +2833,702 @@ function adminAddStore() {
 }
 
 
+
+/* =====================================================
+   İŞÇİDƏN MAĞAZA SİL
+===================================================== */
+
+function removeStoreFromWorker() {
+
+  const username =
+    document
+      .getElementById(
+        "removeWorkerSelect"
+      )
+      .value;
+
+
+  const store =
+    document
+      .getElementById(
+        "removeStoreSelect"
+      )
+      .value;
+
+
+  const day =
+    document
+      .getElementById(
+        "removeDaySelect"
+      )
+      .value;
+
+
+  if (
+    !username ||
+    !store ||
+    !day
+  ) {
+
+    alert(
+      "İşçi, mağaza və günü seçin."
+    );
+
+    return;
+
+  }
+
+
+  const route =
+    getWorkerRoute(
+      username,
+      Number(day)
+    );
+
+
+  if (
+    !route.includes(store)
+  ) {
+
+    alert(
+      "Bu mağaza həmin işçinin seçilmiş günündə yoxdur."
+    );
+
+    return;
+
+  }
+
+
+  /* Əlavə edilmiş route-dan sil */
+
+  const added =
+    getAddedRoutes();
+
+
+  if (
+    added[username] &&
+    added[username][day]
+  ) {
+
+    added[username][day] =
+      added[username][day]
+        .filter(
+          s => s !== store
+        );
+
+  }
+
+
+  localStorage.setItem(
+    "addedRoutes",
+    JSON.stringify(
+      added
+    )
+  );
+
+
+  /* Əsas marşrutdan silinməsi üçün
+     removedAssignments yadda saxla */
+
+  const removed =
+    getRemovedAssignments();
+
+
+  if (!removed[username]) {
+
+    removed[username] = {};
+
+  }
+
+
+  if (!removed[username][day]) {
+
+    removed[username][day] = [];
+
+  }
+
+
+  if (
+    !removed[username][day]
+      .includes(store)
+  ) {
+
+    removed[username][day]
+      .push(store);
+
+  }
+
+
+  saveRemovedAssignments(
+    removed
+  );
+
+
+  const worker =
+    workers.find(
+      w =>
+        w.username ===
+        username
+    );
+
+
+  document.getElementById(
+    "removeStoreResult"
+  ).innerHTML = `
+
+    <div class="success">
+
+      ✅ Mağaza işçinin marşrutundan silindi.
+
+      <br><br>
+
+      👤 İşçi:
+      <b>${worker.name}</b>
+
+      <br>
+
+      🏪 Mağaza:
+      <b>${store}</b>
+
+      <br>
+
+      📅 Gün:
+      <b>${day}-ci gün</b>
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =====================================================
+   MAĞAZANI BAŞQA İŞÇİYƏ KEÇİR
+===================================================== */
+
+function transferStore() {
+
+  const fromWorker =
+    document
+      .getElementById(
+        "transferFromWorker"
+      )
+      .value;
+
+
+  const store =
+    document
+      .getElementById(
+        "transferStore"
+      )
+      .value;
+
+
+  const day =
+    document
+      .getElementById(
+        "transferDay"
+      )
+      .value;
+
+
+  const toWorker =
+    document
+      .getElementById(
+        "transferToWorker"
+      )
+      .value;
+
+
+  if (
+    !fromWorker ||
+    !store ||
+    !day ||
+    !toWorker
+  ) {
+
+    alert(
+      "Kimdən, mağazanı, günü və kimə keçiriləcəyini seçin."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    fromWorker ===
+    toWorker
+  ) {
+
+    alert(
+      "Eyni işçiyə keçirmək olmaz."
+    );
+
+    return;
+
+  }
+
+
+  /* Mağazanın mənbə işçidə olub-olmadığını yoxla */
+
+  const sourceRoute =
+    getWorkerRoute(
+      fromWorker,
+      Number(day)
+    );
+
+
+  if (
+    !sourceRoute.includes(store)
+  ) {
+
+    alert(
+      "Bu mağaza seçilmiş gün həmin işçidə yoxdur."
+    );
+
+    return;
+
+  }
+
+
+  /* =================================================
+     1. MƏNBƏ İŞÇİDƏN SİL
+  ================================================== */
+
+  const added =
+    getAddedRoutes();
+
+
+  if (
+    added[fromWorker] &&
+    added[fromWorker][day]
+  ) {
+
+    added[fromWorker][day] =
+      added[fromWorker][day]
+        .filter(
+          s => s !== store
+        );
+
+  }
+
+
+  localStorage.setItem(
+    "addedRoutes",
+    JSON.stringify(
+      added
+    )
+  );
+
+
+  const removed =
+    getRemovedAssignments();
+
+
+  if (!removed[fromWorker]) {
+
+    removed[fromWorker] = {};
+
+  }
+
+
+  if (!removed[fromWorker][day]) {
+
+    removed[fromWorker][day] = [];
+
+  }
+
+
+  if (
+    !removed[fromWorker][day]
+      .includes(store)
+  ) {
+
+    removed[fromWorker][day]
+      .push(store);
+
+  }
+
+
+  saveRemovedAssignments(
+    removed
+  );
+
+
+  /* =================================================
+     2. YENİ İŞÇİYƏ ƏLAVƏ ET
+  ================================================== */
+
+  const transfers =
+    getTransferRoutes();
+
+
+  if (!transfers[toWorker]) {
+
+    transfers[toWorker] = {};
+
+  }
+
+
+  if (!transfers[toWorker][day]) {
+
+    transfers[toWorker][day] = [];
+
+  }
+
+
+  if (
+    !transfers[toWorker][day]
+      .includes(store)
+  ) {
+
+    transfers[toWorker][day]
+      .push(store);
+
+  }
+
+
+  saveTransferRoutes(
+    transfers
+  );
+
+
+  /* Əgər yeni işçidə həmin mağaza
+     əvvəldən silinmişdisə,
+     silinmiş siyahıdan çıxar */
+
+  if (
+    removed[toWorker] &&
+    removed[toWorker][day]
+  ) {
+
+    removed[toWorker][day] =
+      removed[toWorker][day]
+        .filter(
+          s => s !== store
+        );
+
+    saveRemovedAssignments(
+      removed
+    );
+
+  }
+
+
+  const from =
+    workers.find(
+      w =>
+        w.username ===
+        fromWorker
+    );
+
+
+  const to =
+    workers.find(
+      w =>
+        w.username ===
+        toWorker
+    );
+
+
+  document.getElementById(
+    "transferResult"
+  ).innerHTML = `
+
+    <div class="success">
+
+      ✅ Mağaza uğurla keçirildi.
+
+      <br><br>
+
+      🏪 Mağaza:
+      <b>${store}</b>
+
+      <br>
+
+      📅 Gün:
+      <b>${day}-ci gün</b>
+
+      <br>
+
+      👤 Köhnə işçi:
+      <b>${from.name}</b>
+
+      <br>
+
+      🔄 Yeni işçi:
+      <b>${to.name}</b>
+
+    </div>
+
+  `;
+
+
+  /* Seçimləri yenilə */
+
+  loadAdminStorePanel();
+
+}
+
+
+
+/* =====================================================
+   MAĞAZANI SİSTEMDƏN TAM SİL
+===================================================== */
+
+function deleteStoreFromSystem() {
+
+  const store =
+    document
+      .getElementById(
+        "deleteSystemStoreSelect"
+      )
+      .value;
+
+
+  if (!store) {
+
+    alert(
+      "Əvvəlcə mağaza seçin."
+    );
+
+    return;
+
+  }
+
+
+  const confirmDelete =
+    confirm(
+
+      "⚠️ DİQQƏT!\n\n" +
+
+      "\"" +
+      store +
+      "\"\n\n" +
+
+      "mağazasını sistemdən tam silmək istəyirsiniz?\n\n" +
+
+      "Bu mağaza bütün işçilərin marşrutlarından çıxarılacaq."
+
+    );
+
+
+  if (!confirmDelete) {
+
+    return;
+
+  }
+
+
+  /* =================================================
+     MAĞAZANI ƏSAS SİYAHIDAN SİL
+  ================================================== */
+
+  stores =
+    stores.filter(
+      s =>
+        s !== store
+    );
+
+
+  /* =================================================
+     SİLİNMİŞ MAĞAZALARDA YADDA SAXLA
+  ================================================== */
+
+  const deleted =
+    getDeletedStores();
+
+
+  if (
+    !deleted.includes(store)
+  ) {
+
+    deleted.push(store);
+
+  }
+
+
+  saveDeletedStores(
+    deleted
+  );
+
+
+  /* =================================================
+     CUSTOM STORES-DAN SİL
+  ================================================== */
+
+  let customStores =
+    JSON.parse(
+      localStorage.getItem(
+        "customStores"
+      )
+    ) || [];
+
+
+  customStores =
+    customStores.filter(
+      item =>
+        item.store !== store
+    );
+
+
+  localStorage.setItem(
+    "customStores",
+    JSON.stringify(
+      customStores
+    )
+  );
+
+
+  /* =================================================
+     ƏLAVƏ MARŞRUTLARDAN SİL
+  ================================================== */
+
+  const added =
+    getAddedRoutes();
+
+
+  Object.keys(
+    added
+  ).forEach(
+    username => {
+
+      Object.keys(
+        added[username]
+      ).forEach(
+        day => {
+
+          added[username][day] =
+            added[username][day]
+              .filter(
+                s =>
+                  s !== store
+              );
+
+        }
+      );
+
+    }
+  );
+
+
+  localStorage.setItem(
+    "addedRoutes",
+    JSON.stringify(
+      added
+    )
+  );
+
+
+  /* =================================================
+     KÖÇÜRÜLMÜŞ MARŞRUTLARDAN SİL
+  ================================================== */
+
+  const transfers =
+    getTransferRoutes();
+
+
+  Object.keys(
+    transfers
+  ).forEach(
+    username => {
+
+      Object.keys(
+        transfers[username]
+      ).forEach(
+        day => {
+
+          transfers[username][day] =
+            transfers[username][day]
+              .filter(
+                s =>
+                  s !== store
+              );
+
+        }
+
+      );
+
+    }
+  );
+
+
+  saveTransferRoutes(
+    transfers
+  );
+
+
+  /* =================================================
+     SİLİNMİŞ TƏYİNATLARDAN DA TƏMİZLƏ
+  ================================================== */
+
+  const removed =
+    getRemovedAssignments();
+
+
+  Object.keys(
+    removed
+  ).forEach(
+    username => {
+
+      Object.keys(
+        removed[username]
+      ).forEach(
+        day => {
+
+          removed[username][day] =
+            removed[username][day]
+              .filter(
+                s =>
+                  s !== store
+              );
+
+        }
+
+      );
+
+    }
+  );
+
+
+  saveRemovedAssignments(
+    removed
+  );
+
+
+  document.getElementById(
+    "deleteSystemResult"
+  ).innerHTML = `
+
+    <div class="success">
+
+      ✅ Mağaza sistemdən tam silindi.
+
+      <br><br>
+
+      🏪
+      <b>${store}</b>
+
+      <br><br>
+
+      Mağaza artıq işçilərin
+      marşrutlarında da görünməyəcək.
+
+    </div>
+
+  `;
+
+
+  loadAdminStorePanel();
+
+  refreshAdmin();
+
+}
+
+
+
 /* =====================================================
    MÜDİR PANELİNİ YENİLƏ
 ===================================================== */
@@ -1585,13 +3540,17 @@ function refreshAdmin() {
 
   const visits =
     JSON.parse(
-      localStorage.getItem("visits")
+      localStorage.getItem(
+        "visits"
+      )
     ) || [];
 
 
   const active =
     JSON.parse(
-      localStorage.getItem("activeVisit")
+      localStorage.getItem(
+        "activeVisit"
+      )
     );
 
 
@@ -1604,7 +3563,9 @@ function refreshAdmin() {
   document.getElementById(
     "workingWorkers"
   ).innerText =
-    active ? 1 : 0;
+    active
+      ? 1
+      : 0;
 
 
   document.getElementById(
@@ -1619,70 +3580,84 @@ function refreshAdmin() {
     stores.length;
 
 
-  /* İŞÇİ SİYAHISI */
+
+  /* =================================================
+     İŞÇİ SİYAHISI
+  ================================================== */
 
   let workerHTML = "";
 
 
-  workers.forEach(worker => {
+  workers.forEach(
+    worker => {
 
-    const isActive =
-      active &&
-      active.username === worker.username;
+      const isActive =
+        active &&
+        active.username ===
+        worker.username;
 
 
-    if (isActive) {
+      if (isActive) {
 
-      workerHTML += `
+        workerHTML += `
 
-        <div class="worker">
+          <div class="worker">
 
-          <b>${worker.name}</b>
+            <b>
+              ${worker.name}
+            </b>
 
-          <div class="online">
-            🟢 İŞDƏDİR
+            <div class="online">
+
+              🟢 İŞDƏDİR
+
+            </div>
+
+            <div>
+
+              🏪 Mağaza:
+              ${active.store}
+
+              <br>
+
+              🕐 Başlama:
+              ${active.startTime}
+
+              <br>
+
+              📅 Tarix:
+              ${active.date}
+
+            </div>
+
           </div>
 
-          <div>
+        `;
 
-            🏪 Mağaza:
-            ${active.store}
+      } else {
 
-            <br>
+        workerHTML += `
 
-            🕐 Başlama:
-            ${active.startTime}
+          <div class="worker">
 
-            <br>
+            <b>
+              ${worker.name}
+            </b>
 
-            📅 Tarix:
-            ${active.date}
+            <div class="offline">
+
+              🔴 İşdə deyil
+
+            </div>
 
           </div>
 
-        </div>
+        `;
 
-      `;
-
-    } else {
-
-      workerHTML += `
-
-        <div class="worker">
-
-          <b>${worker.name}</b>
-
-          <div class="offline">
-            🔴 İşdə deyil
-          </div>
-
-        </div>
-
-      `;
+      }
 
     }
-
-  });
+  );
 
 
   document.getElementById(
@@ -1691,10 +3666,15 @@ function refreshAdmin() {
     workerHTML;
 
 
-  /* SON ZİYARƏTLƏR */
+
+  /* =================================================
+     SON ZİYARƏTLƏR
+  ================================================== */
 
   const visitList =
-    document.getElementById("visitList");
+    document.getElementById(
+      "visitList"
+    );
 
 
   if (!visits.length) {
@@ -1702,7 +3682,9 @@ function refreshAdmin() {
     visitList.innerHTML = `
 
       <div class="info">
+
         Hələ heç bir ziyarət tamamlanmayıb.
+
       </div>
 
     `;
@@ -1717,50 +3699,56 @@ function refreshAdmin() {
 
   visits
     .slice(0,20)
-    .forEach(visit => {
+    .forEach(
+      visit => {
 
-      const worker =
-        workers.find(
-          w => w.username === visit.username
-        );
-
-
-      const name =
-        worker
-          ? worker.name
-          : visit.username;
+        const worker =
+          workers.find(
+            w =>
+              w.username ===
+              visit.username
+          );
 
 
-      visitHTML += `
+        const name =
+          worker
+            ? worker.name
+            : visit.username;
 
-        <div class="visit-item">
 
-          👤 <b>${name}</b>
+        visitHTML += `
 
-          <br>
+          <div class="visit-item">
 
-          🏪 Mağaza:
-          <b>${visit.store}</b>
+            👤
+            <b>${name}</b>
 
-          <br>
+            <br>
 
-          📅 ${visit.date}
+            🏪 Mağaza:
+            <b>${visit.store}</b>
 
-          <br>
+            <br>
 
-          ▶️ Başlama:
-          ${visit.startTime}
+            📅
+            ${visit.date}
 
-          <br>
+            <br>
 
-          ⏹️ Bitmə:
-          ${visit.endTime}
+            ▶️ Başlama:
+            ${visit.startTime}
 
-        </div>
+            <br>
 
-      `;
+            ⏹️ Bitmə:
+            ${visit.endTime}
 
-    });
+          </div>
+
+        `;
+
+      }
+    );
 
 
   visitList.innerHTML =
@@ -1769,29 +3757,45 @@ function refreshAdmin() {
 }
 
 
+
 /* =====================================================
    ÇIXIŞ
 ===================================================== */
 
 function logout() {
 
-  currentUser = null;
-  currentRole = null;
+  currentUser =
+    null;
+
+  currentRole =
+    null;
 
 
   document
-    .getElementById("workerDashboard")
-    .classList.add("hidden");
+    .getElementById(
+      "workerDashboard"
+    )
+    .classList.add(
+      "hidden"
+    );
 
 
   document
-    .getElementById("adminDashboard")
-    .classList.add("hidden");
+    .getElementById(
+      "adminDashboard"
+    )
+    .classList.add(
+      "hidden"
+    );
 
 
   document
-    .getElementById("login")
-    .classList.remove("hidden");
+    .getElementById(
+      "login"
+    )
+    .classList.remove(
+      "hidden"
+    );
 
 
   document.getElementById(
@@ -1811,22 +3815,30 @@ function logout() {
 }
 
 
+
 /* =====================================================
    ENTER İLƏ GİRİŞ
 ===================================================== */
 
 document
-  .getElementById("password")
+  .getElementById(
+    "password"
+  )
   .addEventListener(
     "keydown",
     function(event) {
 
-      if (event.key === "Enter") {
+      if (
+        event.key === "Enter"
+      ) {
+
         login();
+
       }
 
     }
   );
+
 
 </script>
 

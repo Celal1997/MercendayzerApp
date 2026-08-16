@@ -1171,12 +1171,54 @@ const workerRoutes = {
 
 
 /* =====================================================
-   DƏYİŞƏNLƏR
+   DƏYİŞƏNLƏR VA AVTO-GİRİŞİ YOXLAMAQ
 ===================================================== */
 
-let currentUser = null;
+let currentUser = localStorage.getItem("appCurrentUser") || null;
 
-let currentRole = null;
+let currentRole = localStorage.getItem("appCurrentRole") || null;
+
+
+/* Səhifə yüklənəndə avtomatik müdir/işçi panelinə keç */
+window.addEventListener("DOMContentLoaded", function() {
+
+  if (currentUser && currentRole) {
+
+    if (currentRole === "admin") {
+
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("workerDashboard").classList.add("hidden");
+      document.getElementById("adminDashboard").classList.remove("hidden");
+
+      loadStores();
+      loadAdminStorePanel();
+      refreshAdmin();
+
+    } else if (currentRole === "worker") {
+
+      const worker = workers.find(w => w.username === currentUser);
+
+      if (worker) {
+
+        document.getElementById("login").classList.add("hidden");
+        document.getElementById("adminDashboard").classList.add("hidden");
+        document.getElementById("workerDashboard").classList.remove("hidden");
+
+        document.getElementById("workerName").innerText = worker.name;
+        updateWorkerStatus();
+        showStores();
+
+      } else {
+
+        logout();
+
+      }
+
+    }
+
+  }
+
+});
 
 
 
@@ -1395,6 +1437,10 @@ function login() {
 
     currentRole = "admin";
 
+    localStorage.setItem("appCurrentUser", currentUser);
+
+    localStorage.setItem("appCurrentRole", currentRole);
+
 
     document
       .getElementById("login")
@@ -1444,6 +1490,10 @@ function login() {
     currentRole =
       "worker";
 
+    localStorage.setItem("appCurrentUser", currentUser);
+
+    localStorage.setItem("appCurrentRole", currentRole);
+
 
     document
       .getElementById("login")
@@ -1467,6 +1517,8 @@ function login() {
 
 
     updateWorkerStatus();
+
+    showStores();
 
 
     return;
@@ -4005,6 +4057,10 @@ function logout() {
   currentUser = null;
 
   currentRole = null;
+
+  localStorage.removeItem("appCurrentUser");
+
+  localStorage.removeItem("appCurrentRole");
 
 
   document

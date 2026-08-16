@@ -3,462 +3,345 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Merçendayzer</title>
-
+<title>Merçendayzer App</title>
 <style>
-
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f1f4f8;
-}
-
-.header{
-    background:#1769aa;
-    color:white;
-    text-align:center;
-    padding:22px;
-    font-size:25px;
-    font-weight:bold;
-}
-
-.container{
-    max-width:500px;
-    margin:auto;
-    padding:20px;
-}
-
-.card{
-    background:white;
-    padding:22px;
-    border-radius:15px;
-    box-shadow:0 3px 12px rgba(0,0,0,.15);
-}
-
-h2{
-    text-align:center;
-}
-
-label{
-    display:block;
-    margin-top:15px;
-    font-weight:bold;
-}
-
-select,
-input{
-    width:100%;
-    padding:15px;
-    margin-top:7px;
-    border:1px solid #ccc;
-    border-radius:10px;
-    font-size:17px;
-    box-sizing:border-box;
-}
-
-button{
-    width:100%;
-    padding:15px;
-    margin-top:15px;
-    border:0;
-    border-radius:10px;
-    background:#1769aa;
-    color:white;
-    font-size:17px;
-    font-weight:bold;
-}
-
-.green{
-    background:#2e7d32;
-}
-
-.red{
-    background:#c62828;
-}
-
-.gray{
-    background:#555;
-}
-
-.hidden{
-    display:none;
-}
-
-.message{
-    margin-top:15px;
-    padding:12px;
-    text-align:center;
-    border-radius:10px;
-    font-weight:bold;
-}
-
-.error{
-    background:#ffebee;
-    color:#c62828;
-}
-
-.success{
-    background:#e8f5e9;
-    color:#2e7d32;
-}
-
-.item{
-    background:#f7f7f7;
-    padding:15px;
-    margin-top:10px;
-    border-radius:10px;
-    border:1px solid #ddd;
-}
-
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#222}
+.header{background:#1f2937;color:#fff;padding:20px;text-align:center}
+.container{padding:20px;max-width:700px;margin:auto}
+.card{background:#fff;border-radius:15px;padding:20px;margin-bottom:15px;box-shadow:0 3px 10px rgba(0,0,0,.08)}
+h1,h2,h3{margin-top:0}
+input,select,textarea,button{width:100%;padding:13px;margin-top:10px;border-radius:10px;border:1px solid #ccc;font-size:16px}
+textarea{min-height:90px;resize:vertical}
+button{background:#2563eb;color:#fff;border:none;font-weight:bold;cursor:pointer}
+button:active{transform:scale(.98)}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.menu button{min-height:85px}
+.hidden{display:none!important}
+.store,.worker{border:1px solid #ddd;border-radius:12px;padding:15px;margin-top:10px}
+.success,.danger,.info,.warning{padding:12px;border-radius:10px;margin-top:10px}
+.success{background:#dcfce7;color:#166534}
+.danger{background:#fee2e2;color:#991b1b}
+.info{background:#dbeafe;color:#1e40af}
+.warning{background:#fef3c7;color:#92400e}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{background:#f8fafc;border-radius:12px;padding:18px;text-align:center;border:1px solid #e5e7eb}
+.stat-number{font-size:30px;font-weight:bold;margin-bottom:5px}
+.online{color:#16a34a;font-weight:bold}
+.offline{color:#dc2626;font-weight:bold}
+.visit-item{border-left:4px solid #2563eb;background:#f8fafc;padding:12px;margin-top:10px;border-radius:8px}
+.logout-btn{background:#dc2626}
+.finish-btn{background:#16a34a}
+.delete-btn{background:#dc2626}
+.transfer-btn{background:#7c3aed}
+.remove-worker-btn{background:#ea580c}
+.location-btn{background:#0891b2}
+.photo-btn{background:#9333ea}
+.small-title{margin-top:15px;margin-bottom:5px;font-weight:bold}
+hr{border:0;border-top:1px solid #e5e7eb;margin:20px 0}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#e5e7eb;font-size:13px}
+.photo-preview{width:100%;max-height:300px;object-fit:cover;border-radius:10px;margin-top:10px}
+.check-row{display:flex;align-items:center;gap:10px;margin-top:10px;padding:10px;background:#f8fafc;border-radius:8px}
+.check-row input{width:auto;margin:0}
 </style>
 </head>
-
 <body>
 
 <div class="header">
-MERÇENDAYZER
+<h1>Merçendayzer App</h1>
+<div>Mağaza ziyarət və iş izləmə sistemi</div>
 </div>
 
 <div class="container">
 
-<!-- GİRİŞ -->
-
 <div id="login" class="card">
-
 <h2>🔐 Giriş</h2>
+<input id="username" type="text" placeholder="İstifadəçi adı">
+<input id="password" type="password" placeholder="Şifrə">
+<button onclick="login()">Daxil ol</button>
+<div class="info">
+🔐 İstifadəçi adı və şifrənizi müdirinizdən alın.
+</div>
+</div>
 
-<label>İstifadəçi</label>
+<div id="workerDashboard" class="hidden">
+<div class="card">
+<h2>Salam, <span id="workerName"></span> 👋</h2>
+<p>Bugünkü işlərinizi buradan idarə edə bilərsiniz.</p>
+<div id="workerStatus"></div>
+</div>
 
-<select id="user">
+<div class="menu">
+<button onclick="showStores()">🏪<br>Mağazalar</button>
+<button onclick="showVisit()">📍<br>Ziyarət</button>
+<button onclick="showReport()">📊<br>Hesabat</button>
+<button onclick="showProfile()">👤<br>Profil</button>
+<button onclick="startWork()">🟢<br>İşə başla</button>
+<button onclick="endWork()">🔴<br>İşi bitir</button>
+<button onclick="showTodaySummary()">📋<br>Bugünkü iş</button>
+<button onclick="logout()">🚪<br>Çıxış</button>
+</div>
 
-<option value="mudir">Müdir</option>
+<div id="workerContent" style="margin-top:15px"></div>
+</div>
 
-<option value="mer1">Mer 1</option>
-<option value="mer2">Mer 2</option>
-<option value="mer3">Mer 3</option>
-<option value="mer4">Mer 4</option>
-<option value="mer5">Mer 5</option>
-<option value="mer6">Mer 6</option>
-<option value="mer7">Mer 7</option>
-<option value="mer8">Mer 8</option>
-<option value="mer9">Mer 9</option>
-<option value="mer10">Mer 10</option>
-<option value="mer11">Mer 11</option>
+<div id="adminDashboard" class="hidden">
 
+<div class="card">
+<h2>👨‍💼 Müdir Paneli</h2>
+<p>Bütün merçendayzerlərin iş vəziyyətini və mağaza ziyarətlərini buradan idarə edə bilərsiniz.</p>
+</div>
+
+<div class="card">
+<h2>📊 Bugünkü statistika</h2>
+<div class="stat-grid">
+<div class="stat"><div class="stat-number" id="totalWorkers">11</div>👥 İşçi</div>
+<div class="stat"><div class="stat-number" id="workingWorkers">0</div>🟢 İşdə</div>
+<div class="stat"><div class="stat-number" id="finishedVisits">0</div>✅ Ziyarət</div>
+<div class="stat"><div class="stat-number" id="storeCount">0</div>🏪 Mağaza</div>
+</div>
+</div>
+
+<div class="card">
+<h2>👥 Merçendayzerlər</h2>
+<div id="workerList"></div>
+</div>
+
+<div class="card">
+<h2>🔑 Şifrə idarəetməsi</h2>
+<p>İşçinin və ya müdir hesabının şifrəsini buradan dəyişə bilərsiniz.</p>
+<select id="adminPasswordWorker">
+<option value="">Hesab seçin</option>
+</select>
+<input id="adminNewPassword" type="password" placeholder="Yeni şifrə">
+<input id="adminNewPassword2" type="password" placeholder="Yeni şifrəni təkrar yazın">
+<button onclick="adminChangeWorkerPassword()">🔐 Şifrəni dəyiş</button>
+<div id="adminPasswordResult"></div>
+</div>
+
+<div class="card">
+<h2>📍 İşçini xəritədə yoxla</h2>
+<select id="adminLocationWorker">
+<option value="">İşçi seçin</option>
+</select>
+<button class="location-btn" onclick="adminShowLocation()">📍 Son məkanı göstər</button>
+<div id="adminLocationResult"></div>
+</div>
+
+<div class="card">
+<h2>🏪 Yeni mağaza yarat</h2>
+<input id="newStoreCode" placeholder="Mağaza kodu — Bravo 5200">
+<input id="newStoreName" placeholder="Mağaza adı — Bakıxanov">
+<input id="newStoreArea" placeholder="Ərazi — Sabunçu">
+<button onclick="adminCreateStore()">➕ Mağazanı sistemə əlavə et</button>
+<div id="newStoreResult"></div>
+</div>
+
+<div class="card">
+<h2>➕ İşçiyə mağaza əlavə et</h2>
+<select id="adminWorkerSelect">
+<option value="">İşçi seçin</option>
 </select>
 
-<label>Şifrə</label>
+<select id="adminStoreSelect">
+<option value="">Mağaza seçin</option>
+</select>
 
-<input
-id="pass"
-type="password"
-inputmode="numeric"
-placeholder="1234"
->
+<select id="adminDaySelect">
+<option value="">Gün seçin</option>
+<option value="1">1-ci gün — Bazar ertəsi</option>
+<option value="2">2-ci gün — Çərşənbə axşamı</option>
+<option value="3">3-cü gün — Çərşənbə</option>
+<option value="4">4-cü gün — Cümə axşamı</option>
+<option value="5">5-ci gün — Cümə</option>
+<option value="6">6-cı gün — Şənbə</option>
+</select>
 
-<button onclick="giris()">
-DAXİL OL
-</button>
-
-<div id="error" class="message error hidden">
-Şifrə yanlışdır!
+<button onclick="adminAddStore()">➕ Mağazanı işçiyə əlavə et</button>
+<div id="adminAddResult"></div>
 </div>
-
-</div>
-
-
-<!-- MÜDİR PANELİ -->
-
-<div id="mudir" class="hidden">
 
 <div class="card">
+<h2>🗑️ Sistemdən mağaza sil</h2>
+<div class="danger">⚠️ Mağaza bütün işçilərin marşrutlarından silinəcək.</div>
 
-<h2>👨‍💼 Müdir Paneli</h2>
+<select id="deleteStoreSelect">
+<option value="">Silinəcək mağazanı seçin</option>
+</select>
 
-<div class="message success">
-Müdir panelinə xoş gəlmisiniz.
+<button class="delete-btn" onclick="adminDeleteStore()">🗑️ Mağazanı tamamilə sil</button>
+<div id="deleteStoreResult"></div>
 </div>
-
-<button onclick="mercendayzerler()">
-👥 Merçendayzerlər
-</button>
-
-<button onclick="magazalar()">
-🏪 Mağazalar
-</button>
-
-<button onclick="hesabat()">
-📊 Hesabatlar
-</button>
-
-<button class="red" onclick="cixis()">
-🚪 ÇIXIŞ
-</button>
-
-</div>
-
-<div id="mudirContent"></div>
-
-</div>
-
-
-<!-- MERÇENDAYZER PANELİ -->
-
-<div id="mer" class="hidden">
 
 <div class="card">
+<h2>🔄 Mağazanı başqa işçiyə keçir</h2>
 
-<h2 id="merAdi">
-Merçendayzer
-</h2>
+<select id="transferFromWorker" onchange="loadTransferStores()">
+<option value="">Hazırkı işçi</option>
+</select>
 
-<button class="green" onclick="magazayaGiris()">
-📍 MAĞAZAYA GİRİŞ
-</button>
+<select id="transferDay" onchange="loadTransferStores()">
+<option value="">Gün seçin</option>
+<option value="1">1-ci gün — Bazar ertəsi</option>
+<option value="2">2-ci gün — Çərşənbə axşamı</option>
+<option value="3">3-cü gün — Çərşənbə</option>
+<option value="4">4-cü gün — Cümə axşamı</option>
+<option value="5">5-ci gün — Cümə</option>
+<option value="6">6-cı gün — Şənbə</option>
+</select>
 
-<div id="girisStatus"></div>
+<select id="transferStore">
+<option value="">Əvvəlcə işçi və gün seçin</option>
+</select>
 
-<button class="red" onclick="magazadanCixis()">
-🚪 MAĞAZADAN ÇIXIŞ
-</button>
+<select id="transferToWorker">
+<option value="">Yeni işçi seçin</option>
+</select>
 
-<div id="cixisStatus"></div>
-
+<button class="transfer-btn" onclick="adminTransferStore()">🔄 Mağazanı digər işçiyə keçir</button>
+<div id="transferResult"></div>
 </div>
-
 
 <div class="card">
+<h2>📋 İşçinin mağazalarını idarə et</h2>
 
-<h2>🏪 Mağazalar</h2>
+<select id="removeWorkerSelect" onchange="loadWorkerAssignedStores()">
+<option value="">İşçi seçin</option>
+</select>
 
-<div class="item">
-<b>Bravo 5041</b><br>
-Sea Breeze
+<select id="removeWorkerDay" onchange="loadWorkerAssignedStores()">
+<option value="">Gün seçin</option>
+<option value="1">1-ci gün — Bazar ertəsi</option>
+<option value="2">2-ci gün — Çərşənbə axşamı</option>
+<option value="3">3-cü gün — Çərşənbə</option>
+<option value="4">4-cü gün — Cümə axşamı</option>
+<option value="5">5-ci gün — Cümə</option>
+<option value="6">6-cı gün — Şənbə</option>
+</select>
+
+<select id="removeWorkerStore">
+<option value="">Əvvəlcə işçi və gün seçin</option>
+</select>
+
+<button class="remove-worker-btn" onclick="adminRemoveStoreFromWorker()">➖ Mağazanı bu işçidən sil</button>
+<div id="removeWorkerResult"></div>
 </div>
-
-<div class="item">
-<b>Bravo 3077</b><br>
-Sea Breeze Premium
-</div>
-
-<div class="item">
-<b>Tamstore 220</b><br>
-Sea Breeze
-</div>
-
-<div class="item">
-<b>Bravo 4001</b><br>
-Amburan
-</div>
-
-</div>
-
 
 <div class="card">
-
-<h2>📸 Şəkil</h2>
-
-<input
-type="file"
-accept="image/*"
-capture="environment"
->
-
+<h2>📋 Son ziyarətlər</h2>
+<div id="visitList"></div>
 </div>
-
 
 <div class="card">
-
-<button class="gray" onclick="cixis()">
-🚪 ÇIXIŞ
-</button>
-
+<h2>📷 Foto hesabatları</h2>
+<div id="photoReportList"></div>
 </div>
 
-</div>
+<button onclick="refreshAdmin()">🔄 Məlumatları yenilə</button>
+<button class="logout-btn" onclick="logout()">🚪 Müdir panelindən çıx</button>
 
 </div>
-
+</div>
 
 <script>
 
-function giris(){
+const DEFAULT_PASSWORDS={
+mudir:"1234",
+mer1:"1234",
+mer2:"1234",
+mer3:"1234",
+mer4:"1234",
+mer5:"1234",
+mer6:"1234",
+mer7:"1234",
+mer8:"1234",
+mer9:"1234",
+mer10:"1234",
+mer11:"1234"
+};
 
-var user =
-document.getElementById("user").value;
+function getPasswords(){
+const saved=read("passwords",null);
+const passwords={...DEFAULT_PASSWORDS};
 
-var pass =
-document.getElementById("pass").value;
-
-if(pass !== "1234"){
-
-document
-.getElementById("error")
-.classList.remove("hidden");
-
-return;
-
+if(saved&&typeof saved==="object"){
+Object.keys(DEFAULT_PASSWORDS).forEach(k=>{
+if(typeof saved[k]==="string"&&saved[k].trim()!==""){
+passwords[k]=saved[k];
+}
+});
 }
 
-document
-.getElementById("error")
-.classList.add("hidden");
-
-document
-.getElementById("login")
-.classList.add("hidden");
-
-
-if(user === "mudir"){
-
-document
-.getElementById("mudir")
-.classList.remove("hidden");
-
-}else{
-
-document
-.getElementById("mer")
-.classList.remove("hidden");
-
-document
-.getElementById("merAdi")
-.innerHTML =
-"👤 " + user.toUpperCase();
-
+write("passwords",passwords);
+return passwords;
 }
 
+function setPassword(username,password){
+const passwords=getPasswords();
+passwords[username]=password;
+write("passwords",passwords);
 }
 
+const workers=[
+{username:"mer1",name:"Cəlal Abbasov"},
+{username:"mer2",name:"Şəhanə"},
+{username:"mer3",name:"Şəhanə2"},
+{username:"mer4",name:"Rüfət"},
+{username:"mer5",name:"Ariz"},
+{username:"mer6",name:"Sahil"},
+{username:"mer7",name:"Aytac"},
+{username:"mer8",name:"Səkinə"},
+{username:"mer9",name:"Qənirə"},
+{username:"mer10",name:"Ruhiyyə"},
+{username:"mer11",name:"Günel"}
+];
 
-function cixis(){
+const defaultStores=[
+"Bravo 5041 — Sea Breeze",
+"Bravo 2004 — Xətai SS Babək prospekti",
+"Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
+"Bravo 4023 — Xətai Sabit Orucov küçəsi",
+"Bravo 3077 — Sea Breeze Premium",
+"Tamstore 220 — Sea Breeze",
+"Bravo 4001 — Amburan Mall",
+"Bravo 5004 — Sabunçu",
+"Bravo 5021 — Sabunçu",
+"Bravo 5120 — Ağ Şəhər",
+"Bravo 3013 — Xətai Park Azure",
+"Bravo 4072 — Bilgəh yolu",
+"Bravo 5179 — Maştağa",
+"Tamstore 137 — Savalan"
+];
 
-document
-.getElementById("mudir")
-.classList.add("hidden");
+let stores=[];
+let currentUser=null;
+let currentRole=null;
 
-document
-.getElementById("mer")
-.classList.add("hidden");
-
-document
-.getElementById("login")
-.classList.remove("hidden");
-
-document
-.getElementById("pass")
-.value="";
-
-document
-.getElementById("mudirContent")
-.innerHTML="";
-
-}
-
-
-function mercendayzerler(){
-
-var html =
-'<div class="card">'+
-'<h2>👥 Merçendayzerlər</h2>';
-
-for(var i=1;i<=11;i++){
-
-html +=
-'<div class="item">'+
-'<b>Mer '+i+'</b><br>'+
-'Status: Aktiv<br>'+
-'Şifrə: 1234'+
-'</div>';
-
-}
-
-html += '</div>';
-
-document
-.getElementById("mudirContent")
-.innerHTML=html;
-
-}
-
-
-function magazalar(){
-
-document
-.getElementById("mudirContent")
-.innerHTML=
-
-'<div class="card">'+
-
-'<h2>🏪 Mağazalar</h2>'+
-
-'<div class="item"><b>Bravo 5041</b><br>Sea Breeze</div>'+
-
-'<div class="item"><b>Bravo 3077</b><br>Sea Breeze Premium</div>'+
-
-'<div class="item"><b>Tamstore 220</b><br>Sea Breeze</div>'+
-
-'<div class="item"><b>Bravo 4001</b><br>Amburan</div>'+
-
-'</div>';
-
-}
-
-
-function hesabat(){
-
-document
-.getElementById("mudirContent")
-.innerHTML=
-
-'<div class="card">'+
-
-'<h2>📊 Hesabatlar</h2>'+
-
-'<div class="message">'+
-'Hələ hesabat yoxdur.'+
-'</div>'+
-
-'</div>';
-
-}
-
-
-function magazayaGiris(){
-
-var saat =
-new Date().toLocaleTimeString();
-
-document
-.getElementById("girisStatus")
-.innerHTML=
-
-'<div class="message success">'+
-'🟢 Mağazaya giriş edildi<br>'+
-'⏰ '+saat+
-'</div>';
-
-}
-
-
-function magazadanCixis(){
-
-var saat =
-new Date().toLocaleTimeString();
-
-document
-.getElementById("cixisStatus")
-.innerHTML=
-
-'<div class="message error">'+
-'🔴 Mağazadan çıxış edildi<br>'+
-'⏰ '+saat+
-'</div>';
-
-}
-
-</script>
-
-</body>
-</html>
+const workerRoutes={
+mer1:{
+1:[
+"Bravo 5041 — Sea Breeze",
+"Bravo 2004 — Xətai SS Babək prospekti",
+"Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
+"Bravo 4023 — Xətai Sabit Orucov küçəsi"
+],
+2:[
+"Bravo 5041 — Sea Breeze",
+"Bravo 3077 — Sea Breeze Premium",
+"Tamstore 220 — Sea Breeze",
+"Bravo 4001 — Amburan Mall",
+"Bravo 5004 — Sabunçu",
+"Bravo 5021 — Sabunçu"
+],
+3:[
+"Bravo 5041 — Sea Breeze",
+"Bravo 5120 — Ağ Şəhər",
+"Bravo 3013 — Xətai Park Azure",
+"Bravo 4023 — Xətai Sabit Orucov küçəsi",
+"Bravo 5096 — Xətai Süleyman Vəzirov küçəsi"
+],
+4:[
+"Bravo 5041 — Sea Breeze",
+"Bravo 4001 — Amburan Mall",
+"Bravo 4072 — Bilgəh yolu",
+"Bravo 5179 — Maştağa",

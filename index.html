@@ -13,7 +13,8 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f2f4f7;
+    background: #f1f4f8;
+    color: #222;
 }
 
 .header {
@@ -26,7 +27,7 @@ body {
 }
 
 .container {
-    max-width: 500px;
+    max-width: 520px;
     margin: auto;
     padding: 20px;
 }
@@ -35,8 +36,8 @@ body {
     background: white;
     border-radius: 16px;
     padding: 22px;
-    margin-bottom: 20px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    margin-bottom: 18px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.12);
 }
 
 h2 {
@@ -53,23 +54,28 @@ label {
 select,
 input {
     width: 100%;
-    padding: 14px;
+    padding: 15px;
     margin-top: 7px;
     border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 17px;
+    background: white;
 }
 
 button {
     width: 100%;
-    padding: 14px;
+    padding: 15px;
     margin-top: 15px;
     border: 0;
     border-radius: 10px;
-    background: #1769aa;
-    color: white;
     font-size: 17px;
     font-weight: bold;
+    color: white;
+    background: #1769aa;
+}
+
+button:active {
+    transform: scale(.98);
 }
 
 .green {
@@ -80,22 +86,34 @@ button {
     background: #c62828;
 }
 
+.orange {
+    background: #ef6c00;
+}
+
+.gray {
+    background: #555;
+}
+
 .hidden {
-    display: none;
+    display: none !important;
+}
+
+.message {
+    margin-top: 14px;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
 }
 
 .error {
-    color: #d00000;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 15px;
+    background: #ffebee;
+    color: #c62828;
 }
 
 .success {
+    background: #e8f5e9;
     color: #2e7d32;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 15px;
 }
 
 .info {
@@ -106,11 +124,35 @@ button {
 }
 
 .item {
-    background: #f7f7f7;
+    background: #f8f8f8;
     border: 1px solid #ddd;
-    border-radius: 10px;
     padding: 15px;
     margin-top: 10px;
+    border-radius: 10px;
+}
+
+.status {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.photoBox {
+    border: 2px dashed #aaa;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.photoBox input {
+    border: 0;
+}
+
+img.preview {
+    width: 100%;
+    margin-top: 12px;
+    border-radius: 10px;
 }
 </style>
 </head>
@@ -124,13 +166,13 @@ button {
 <div class="container">
 
     <!-- GİRİŞ -->
-    <div id="login" class="card">
+    <section id="loginPage" class="card">
 
         <h2>🔐 Giriş</h2>
 
-        <label>İstifadəçi</label>
+        <label for="userSelect">İstifadəçi</label>
 
-        <select id="user">
+        <select id="userSelect">
             <option value="mudir">Müdir</option>
             <option value="mer1">Mer 1</option>
             <option value="mer2">Mer 2</option>
@@ -145,84 +187,641 @@ button {
             <option value="mer11">Mer 11</option>
         </select>
 
-        <label>Şifrə</label>
+        <label for="password">Şifrə</label>
 
         <input
             id="password"
             type="password"
-            placeholder="1234"
             inputmode="numeric"
+            autocomplete="off"
+            placeholder="Şifrəni daxil edin"
         >
 
-        <button onclick="login()">
+        <button id="loginButton">
             DAXİL OL
         </button>
 
-        <div id="error" class="error hidden">
-            Şifrə yanlışdır!
+        <div id="loginMessage" class="message error hidden">
+            İstifadəçi və ya şifrə yanlışdır.
         </div>
 
-    </div>
+    </section>
 
 
-    <!-- MÜDİR PANELİ -->
-    <div id="admin" class="hidden">
+    <!-- MÜDİR -->
+    <section id="adminPage" class="hidden">
 
         <div class="card">
 
             <h2>👨‍💼 Müdir Paneli</h2>
 
             <div class="info">
-                Müdir hesabına daxil oldunuz.
+                Xoş gəlmisiniz, Müdir.
             </div>
 
-            <button onclick="workers()">
+            <button id="workersButton">
                 👥 Merçendayzerlər
             </button>
 
-            <button onclick="stores()">
+            <button id="storesButton">
                 🏪 Mağazalar
             </button>
 
-            <button onclick="reports()">
+            <button id="reportsButton">
                 📊 Hesabatlar
             </button>
 
-            <button class="red" onclick="logout()">
-                ÇIXIŞ
+            <button id="adminLogout" class="red">
+                🚪 ÇIXIŞ
             </button>
 
         </div>
 
         <div id="adminContent"></div>
 
-    </div>
+    </section>
 
 
-    <!-- MER PANELİ -->
-    <div id="worker" class="hidden">
+    <!-- MER -->
+    <section id="workerPage" class="hidden">
 
         <div class="card">
 
-            <h2 id="workerTitle">
+            <h2 id="workerName">
                 Merçendayzer
             </h2>
 
             <div class="info">
-                Mağazaya daxil olduğunuz zaman
-                "Mağazaya giriş" düyməsini basın.
+                Mağazaya daxil olduqda giriş düyməsini basın.
             </div>
 
-            <button class="green" onclick="enterStore()">
+            <button id="enterButton" class="green">
                 📍 MAĞAZAYA GİRİŞ
             </button>
 
-            <div id="entry" class="success"></div>
+            <div id="entryStatus"></div>
 
-            <button class="red" onclick="exitStore()">
+            <button id="exitButton" class="red">
                 🚪 MAĞAZADAN ÇIXIŞ
             </button>
 
-            <div id="exit" class="error"></div>
+            <div id="exitStatus"></div>
 
-            <button onclick
+        </div>
+
+
+        <div class="card">
+
+            <h2>🏪 Mağazalar</h2>
+
+            <div class="item">
+                <b>Bravo 5041</b><br>
+                Sea Breeze
+            </div>
+
+            <div class="item">
+                <b>Bravo 3077</b><br>
+                Sea Breeze Premium
+            </div>
+
+            <div class="item">
+                <b>Tamstore 220</b><br>
+                Sea Breeze
+            </div>
+
+            <div class="item">
+                <b>Bravo 4001</b><br>
+                Amburan
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>📸 Şəkil</h2>
+
+            <div class="photoBox">
+
+                <input
+                    id="photoInput"
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                >
+
+                <img
+                    id="photoPreview"
+                    class="preview hidden"
+                    alt="Şəkil"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <button id="workerLogout" class="gray">
+                🚪 ÇIXIŞ
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+(function () {
+
+    "use strict";
+
+    /*
+       İSTİFADƏÇİLƏR
+       Hamısının ilkin şifrəsi: 1234
+    */
+
+    const users = {
+
+        mudir: {
+            name: "Müdir",
+            password: "1234",
+            type: "admin"
+        },
+
+        mer1: {
+            name: "Mer 1",
+            password: "1234",
+            type: "worker"
+        },
+
+        mer2: {
+            name: "Mer 2",
+            password: "1234",
+            type: "worker"
+        },
+
+        mer3: {
+            name: "Mer 3",
+            password: "1234",
+            type: "worker"
+        },
+
+        mer4: {
+            name: "Mer 4",
+            password: "1234",
+            type: "worker"
+        },
+
+        mer5: {
+            name: "Mer 5",
+            password: "1234",
+            type: "worker"
+        },
+
+        mer6: {
+            name: "Mer 6",
+            password: "1234",
+            type: "worker"
+        },
+
+        mer7: {
+            name: "Mer 7",
+            password: "1234",
+            type: "worker"
+        },
+
+        mer8: {
+            name: "Mer 8",
+            password: "1234",
+            type: "worker"
+        },
+
+        mer9: {
+            name: "Mer 9",
+            password: "1234",
+            type: "worker"
+        },
+
+        mer10: {
+            name: "Mer 10",
+            password: "1234",
+            type: "worker"
+        },
+
+        mer11: {
+            name: "Mer 11",
+            password: "1234",
+            type: "worker"
+        }
+
+    };
+
+
+    /*
+       ELEMENTLƏR
+    */
+
+    const loginPage =
+        document.getElementById("loginPage");
+
+    const adminPage =
+        document.getElementById("adminPage");
+
+    const workerPage =
+        document.getElementById("workerPage");
+
+    const userSelect =
+        document.getElementById("userSelect");
+
+    const password =
+        document.getElementById("password");
+
+    const loginButton =
+        document.getElementById("loginButton");
+
+    const loginMessage =
+        document.getElementById("loginMessage");
+
+    const workerName =
+        document.getElementById("workerName");
+
+    const adminContent =
+        document.getElementById("adminContent");
+
+    const entryStatus =
+        document.getElementById("entryStatus");
+
+    const exitStatus =
+        document.getElementById("exitStatus");
+
+    const photoInput =
+        document.getElementById("photoInput");
+
+    const photoPreview =
+        document.getElementById("photoPreview");
+
+
+    /*
+       GİRİŞ FUNKSİYASI
+    */
+
+    function login() {
+
+        const selected =
+            userSelect.value;
+
+        const enteredPassword =
+            password.value.trim();
+
+        const account =
+            users[selected];
+
+        if (!account) {
+
+            showLoginError();
+
+            return;
+        }
+
+        if (enteredPassword !== account.password) {
+
+            showLoginError();
+
+            return;
+        }
+
+        loginMessage.classList.add("hidden");
+
+        loginPage.classList.add("hidden");
+
+        password.value = "";
+
+        if (account.type === "admin") {
+
+            adminPage.classList.remove("hidden");
+
+            workerPage.classList.add("hidden");
+
+        } else {
+
+            workerPage.classList.remove("hidden");
+
+            adminPage.classList.add("hidden");
+
+            workerName.textContent =
+                "👤 " + account.name;
+        }
+
+    }
+
+
+    function showLoginError() {
+
+        loginMessage.classList.remove("hidden");
+
+    }
+
+
+    /*
+       ENTER İLƏ DƏ GİRİŞ
+    */
+
+    password.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                login();
+
+            }
+
+        }
+    );
+
+
+    /*
+       MÜDİR - İŞÇİLƏR
+    */
+
+    function showWorkers() {
+
+        let html = "";
+
+        html +=
+            '<div class="card">' +
+            '<h2>👥 Merçendayzerlər</h2>';
+
+        for (let i = 1; i <= 11; i++) {
+
+            html +=
+                '<div class="item">' +
+                '<b>Mer ' + i + '</b><br>' +
+                'Status: Aktiv<br>' +
+                'İlkin şifrə: 1234' +
+                '</div>';
+
+        }
+
+        html += "</div>";
+
+        adminContent.innerHTML = html;
+
+    }
+
+
+    /*
+       MÜDİR - MAĞAZALAR
+    */
+
+    function showStores() {
+
+        adminContent.innerHTML =
+
+            '<div class="card">' +
+
+            '<h2>🏪 Mağazalar</h2>' +
+
+            '<div class="item">' +
+            '<b>Bravo 5041</b><br>' +
+            'Sea Breeze' +
+            '</div>' +
+
+            '<div class="item">' +
+            '<b>Bravo 3077</b><br>' +
+            'Sea Breeze Premium' +
+            '</div>' +
+
+            '<div class="item">' +
+            '<b>Tamstore 220</b><br>' +
+            'Sea Breeze' +
+            '</div>' +
+
+            '<div class="item">' +
+            '<b>Bravo 4001</b><br>' +
+            'Amburan' +
+            '</div>' +
+
+            '</div>';
+
+    }
+
+
+    /*
+       MÜDİR - HESABAT
+    */
+
+    function showReports() {
+
+        adminContent.innerHTML =
+
+            '<div class="card">' +
+
+            '<h2>📊 Hesabatlar</h2>' +
+
+            '<div class="info">' +
+            'Hələ heç bir ziyarət məlumatı yoxdur.' +
+            '</div>' +
+
+            '</div>';
+
+    }
+
+
+    /*
+       MAĞAZAYA GİRİŞ
+    */
+
+    function enterStore() {
+
+        const now =
+            new Date();
+
+        const time =
+            now.toLocaleTimeString(
+                "az-AZ",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit"
+                }
+            );
+
+        entryStatus.innerHTML =
+            '<div class="message success">' +
+            '🟢 Mağazaya giriş edildi<br>' +
+            '⏰ Saat: ' + time +
+            '</div>';
+
+        exitStatus.innerHTML = "";
+
+    }
+
+
+    /*
+       MAĞAZADAN ÇIXIŞ
+    */
+
+    function exitStore() {
+
+        const now =
+            new Date();
+
+        const time =
+            now.toLocaleTimeString(
+                "az-AZ",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit"
+                }
+            );
+
+        exitStatus.innerHTML =
+            '<div class="message error">' +
+            '🔴 Mağazadan çıxış edildi<br>' +
+            '⏰ Saat: ' + time +
+            '</div>';
+
+    }
+
+
+    /*
+       ŞƏKİL
+    */
+
+    photoInput.addEventListener(
+        "change",
+        function () {
+
+            const file =
+                photoInput.files[0];
+
+            if (!file) {
+
+                photoPreview.classList.add("hidden");
+
+                return;
+            }
+
+            const reader =
+                new FileReader();
+
+            reader.onload =
+                function (event) {
+
+                    photoPreview.src =
+                        event.target.result;
+
+                    photoPreview.classList.remove(
+                        "hidden"
+                    );
+
+                };
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+
+    /*
+       ÇIXIŞ
+    */
+
+    function logout() {
+
+        adminPage.classList.add("hidden");
+
+        workerPage.classList.add("hidden");
+
+        loginPage.classList.remove("hidden");
+
+        password.value = "";
+
+        adminContent.innerHTML = "";
+
+        entryStatus.innerHTML = "";
+
+        exitStatus.innerHTML = "";
+
+        photoPreview.src = "";
+
+        photoPreview.classList.add("hidden");
+
+        loginMessage.classList.add("hidden");
+
+    }
+
+
+    /*
+       DÜYMƏLƏR
+    */
+
+    loginButton.addEventListener(
+        "click",
+        login
+    );
+
+    document
+        .getElementById("workersButton")
+        .addEventListener(
+            "click",
+            showWorkers
+        );
+
+    document
+        .getElementById("storesButton")
+        .addEventListener(
+            "click",
+            showStores
+        );
+
+    document
+        .getElementById("reportsButton")
+        .addEventListener(
+            "click",
+            showReports
+        );
+
+    document
+        .getElementById("enterButton")
+        .addEventListener(
+            "click",
+            enterStore
+        );
+
+    document
+        .getElementById("exitButton")
+        .addEventListener(
+            "click",
+            exitStore
+        );
+
+    document
+        .getElementById("adminLogout")
+        .addEventListener(
+            "click",
+            logout
+        );
+
+    document
+        .getElementById("workerLogout")
+        .addEventListener(
+            "click",
+            logout
+        );
+
+
+})();
+</script>
+
+</body>
+</html>

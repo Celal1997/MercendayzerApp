@@ -3,824 +3,461 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Merçendayzer</title>
 
 <style>
-* {
-    box-sizing: border-box;
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f4f8;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f1f4f8;
-    color: #222;
+.header{
+    background:#1769aa;
+    color:white;
+    text-align:center;
+    padding:22px;
+    font-size:25px;
+    font-weight:bold;
 }
 
-.header {
-    background: #1769aa;
-    color: white;
-    text-align: center;
-    padding: 22px 10px;
-    font-size: 25px;
-    font-weight: bold;
+.container{
+    max-width:500px;
+    margin:auto;
+    padding:20px;
 }
 
-.container {
-    max-width: 520px;
-    margin: auto;
-    padding: 20px;
+.card{
+    background:white;
+    padding:22px;
+    border-radius:15px;
+    box-shadow:0 3px 12px rgba(0,0,0,.15);
 }
 
-.card {
-    background: white;
-    border-radius: 16px;
-    padding: 22px;
-    margin-bottom: 18px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.12);
+h2{
+    text-align:center;
 }
 
-h2 {
-    text-align: center;
-    margin-top: 0;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    margin-top: 15px;
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
 }
 
 select,
-input {
-    width: 100%;
-    padding: 15px;
-    margin-top: 7px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 17px;
-    background: white;
+input{
+    width:100%;
+    padding:15px;
+    margin-top:7px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:17px;
+    box-sizing:border-box;
 }
 
-button {
-    width: 100%;
-    padding: 15px;
-    margin-top: 15px;
-    border: 0;
-    border-radius: 10px;
-    font-size: 17px;
-    font-weight: bold;
-    color: white;
-    background: #1769aa;
+button{
+    width:100%;
+    padding:15px;
+    margin-top:15px;
+    border:0;
+    border-radius:10px;
+    background:#1769aa;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
 }
 
-button:active {
-    transform: scale(.98);
+.green{
+    background:#2e7d32;
 }
 
-.green {
-    background: #2e7d32;
+.red{
+    background:#c62828;
 }
 
-.red {
-    background: #c62828;
+.gray{
+    background:#555;
 }
 
-.orange {
-    background: #ef6c00;
+.hidden{
+    display:none;
 }
 
-.gray {
-    background: #555;
+.message{
+    margin-top:15px;
+    padding:12px;
+    text-align:center;
+    border-radius:10px;
+    font-weight:bold;
 }
 
-.hidden {
-    display: none !important;
+.error{
+    background:#ffebee;
+    color:#c62828;
 }
 
-.message {
-    margin-top: 14px;
-    padding: 12px;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: bold;
+.success{
+    background:#e8f5e9;
+    color:#2e7d32;
 }
 
-.error {
-    background: #ffebee;
-    color: #c62828;
+.item{
+    background:#f7f7f7;
+    padding:15px;
+    margin-top:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
 }
 
-.success {
-    background: #e8f5e9;
-    color: #2e7d32;
-}
-
-.info {
-    background: #eef5ff;
-    padding: 14px;
-    border-radius: 10px;
-    margin-top: 10px;
-}
-
-.item {
-    background: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-top: 10px;
-    border-radius: 10px;
-}
-
-.status {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 12px;
-}
-
-.photoBox {
-    border: 2px dashed #aaa;
-    border-radius: 12px;
-    padding: 15px;
-    margin-top: 15px;
-    text-align: center;
-}
-
-.photoBox input {
-    border: 0;
-}
-
-img.preview {
-    width: 100%;
-    margin-top: 12px;
-    border-radius: 10px;
-}
 </style>
 </head>
 
 <body>
 
 <div class="header">
-    MERÇENDAYZER
+MERÇENDAYZER
 </div>
 
 <div class="container">
 
-    <!-- GİRİŞ -->
-    <section id="loginPage" class="card">
+<!-- GİRİŞ -->
 
-        <h2>🔐 Giriş</h2>
+<div id="login" class="card">
 
-        <label for="userSelect">İstifadəçi</label>
+<h2>🔐 Giriş</h2>
 
-        <select id="userSelect">
-            <option value="mudir">Müdir</option>
-            <option value="mer1">Mer 1</option>
-            <option value="mer2">Mer 2</option>
-            <option value="mer3">Mer 3</option>
-            <option value="mer4">Mer 4</option>
-            <option value="mer5">Mer 5</option>
-            <option value="mer6">Mer 6</option>
-            <option value="mer7">Mer 7</option>
-            <option value="mer8">Mer 8</option>
-            <option value="mer9">Mer 9</option>
-            <option value="mer10">Mer 10</option>
-            <option value="mer11">Mer 11</option>
-        </select>
+<label>İstifadəçi</label>
 
-        <label for="password">Şifrə</label>
+<select id="user">
 
-        <input
-            id="password"
-            type="password"
-            inputmode="numeric"
-            autocomplete="off"
-            placeholder="Şifrəni daxil edin"
-        >
+<option value="mudir">Müdir</option>
 
-        <button id="loginButton">
-            DAXİL OL
-        </button>
+<option value="mer1">Mer 1</option>
+<option value="mer2">Mer 2</option>
+<option value="mer3">Mer 3</option>
+<option value="mer4">Mer 4</option>
+<option value="mer5">Mer 5</option>
+<option value="mer6">Mer 6</option>
+<option value="mer7">Mer 7</option>
+<option value="mer8">Mer 8</option>
+<option value="mer9">Mer 9</option>
+<option value="mer10">Mer 10</option>
+<option value="mer11">Mer 11</option>
 
-        <div id="loginMessage" class="message error hidden">
-            İstifadəçi və ya şifrə yanlışdır.
-        </div>
+</select>
 
-    </section>
+<label>Şifrə</label>
 
+<input
+id="pass"
+type="password"
+inputmode="numeric"
+placeholder="1234"
+>
 
-    <!-- MÜDİR -->
-    <section id="adminPage" class="hidden">
+<button onclick="giris()">
+DAXİL OL
+</button>
 
-        <div class="card">
+<div id="error" class="message error hidden">
+Şifrə yanlışdır!
+</div>
 
-            <h2>👨‍💼 Müdir Paneli</h2>
-
-            <div class="info">
-                Xoş gəlmisiniz, Müdir.
-            </div>
-
-            <button id="workersButton">
-                👥 Merçendayzerlər
-            </button>
-
-            <button id="storesButton">
-                🏪 Mağazalar
-            </button>
-
-            <button id="reportsButton">
-                📊 Hesabatlar
-            </button>
-
-            <button id="adminLogout" class="red">
-                🚪 ÇIXIŞ
-            </button>
-
-        </div>
-
-        <div id="adminContent"></div>
-
-    </section>
+</div>
 
 
-    <!-- MER -->
-    <section id="workerPage" class="hidden">
+<!-- MÜDİR PANELİ -->
 
-        <div class="card">
+<div id="mudir" class="hidden">
 
-            <h2 id="workerName">
-                Merçendayzer
-            </h2>
+<div class="card">
 
-            <div class="info">
-                Mağazaya daxil olduqda giriş düyməsini basın.
-            </div>
+<h2>👨‍💼 Müdir Paneli</h2>
 
-            <button id="enterButton" class="green">
-                📍 MAĞAZAYA GİRİŞ
-            </button>
+<div class="message success">
+Müdir panelinə xoş gəlmisiniz.
+</div>
 
-            <div id="entryStatus"></div>
+<button onclick="mercendayzerler()">
+👥 Merçendayzerlər
+</button>
 
-            <button id="exitButton" class="red">
-                🚪 MAĞAZADAN ÇIXIŞ
-            </button>
+<button onclick="magazalar()">
+🏪 Mağazalar
+</button>
 
-            <div id="exitStatus"></div>
+<button onclick="hesabat()">
+📊 Hesabatlar
+</button>
 
-        </div>
+<button class="red" onclick="cixis()">
+🚪 ÇIXIŞ
+</button>
 
+</div>
 
-        <div class="card">
+<div id="mudirContent"></div>
 
-            <h2>🏪 Mağazalar</h2>
-
-            <div class="item">
-                <b>Bravo 5041</b><br>
-                Sea Breeze
-            </div>
-
-            <div class="item">
-                <b>Bravo 3077</b><br>
-                Sea Breeze Premium
-            </div>
-
-            <div class="item">
-                <b>Tamstore 220</b><br>
-                Sea Breeze
-            </div>
-
-            <div class="item">
-                <b>Bravo 4001</b><br>
-                Amburan
-            </div>
-
-        </div>
+</div>
 
 
-        <div class="card">
+<!-- MERÇENDAYZER PANELİ -->
 
-            <h2>📸 Şəkil</h2>
+<div id="mer" class="hidden">
 
-            <div class="photoBox">
+<div class="card">
 
-                <input
-                    id="photoInput"
-                    type="file"
-                    accept="image/*"
-                    capture="environment"
-                >
+<h2 id="merAdi">
+Merçendayzer
+</h2>
 
-                <img
-                    id="photoPreview"
-                    class="preview hidden"
-                    alt="Şəkil"
-                >
+<button class="green" onclick="magazayaGiris()">
+📍 MAĞAZAYA GİRİŞ
+</button>
 
-            </div>
+<div id="girisStatus"></div>
 
-        </div>
+<button class="red" onclick="magazadanCixis()">
+🚪 MAĞAZADAN ÇIXIŞ
+</button>
+
+<div id="cixisStatus"></div>
+
+</div>
 
 
-        <div class="card">
+<div class="card">
 
-            <button id="workerLogout" class="gray">
-                🚪 ÇIXIŞ
-            </button>
+<h2>🏪 Mağazalar</h2>
 
-        </div>
+<div class="item">
+<b>Bravo 5041</b><br>
+Sea Breeze
+</div>
 
-    </section>
+<div class="item">
+<b>Bravo 3077</b><br>
+Sea Breeze Premium
+</div>
+
+<div class="item">
+<b>Tamstore 220</b><br>
+Sea Breeze
+</div>
+
+<div class="item">
+<b>Bravo 4001</b><br>
+Amburan
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📸 Şəkil</h2>
+
+<input
+type="file"
+accept="image/*"
+capture="environment"
+>
+
+</div>
+
+
+<div class="card">
+
+<button class="gray" onclick="cixis()">
+🚪 ÇIXIŞ
+</button>
+
+</div>
+
+</div>
 
 </div>
 
 
 <script>
 
-(function () {
-
-    "use strict";
-
-    /*
-       İSTİFADƏÇİLƏR
-       Hamısının ilkin şifrəsi: 1234
-    */
-
-    const users = {
-
-        mudir: {
-            name: "Müdir",
-            password: "1234",
-            type: "admin"
-        },
-
-        mer1: {
-            name: "Mer 1",
-            password: "1234",
-            type: "worker"
-        },
-
-        mer2: {
-            name: "Mer 2",
-            password: "1234",
-            type: "worker"
-        },
-
-        mer3: {
-            name: "Mer 3",
-            password: "1234",
-            type: "worker"
-        },
+function giris(){
 
-        mer4: {
-            name: "Mer 4",
-            password: "1234",
-            type: "worker"
-        },
+var user =
+document.getElementById("user").value;
 
-        mer5: {
-            name: "Mer 5",
-            password: "1234",
-            type: "worker"
-        },
+var pass =
+document.getElementById("pass").value;
 
-        mer6: {
-            name: "Mer 6",
-            password: "1234",
-            type: "worker"
-        },
+if(pass !== "1234"){
 
-        mer7: {
-            name: "Mer 7",
-            password: "1234",
-            type: "worker"
-        },
+document
+.getElementById("error")
+.classList.remove("hidden");
 
-        mer8: {
-            name: "Mer 8",
-            password: "1234",
-            type: "worker"
-        },
+return;
 
-        mer9: {
-            name: "Mer 9",
-            password: "1234",
-            type: "worker"
-        },
+}
 
-        mer10: {
-            name: "Mer 10",
-            password: "1234",
-            type: "worker"
-        },
+document
+.getElementById("error")
+.classList.add("hidden");
 
-        mer11: {
-            name: "Mer 11",
-            password: "1234",
-            type: "worker"
-        }
+document
+.getElementById("login")
+.classList.add("hidden");
 
-    };
 
+if(user === "mudir"){
 
-    /*
-       ELEMENTLƏR
-    */
+document
+.getElementById("mudir")
+.classList.remove("hidden");
 
-    const loginPage =
-        document.getElementById("loginPage");
+}else{
 
-    const adminPage =
-        document.getElementById("adminPage");
+document
+.getElementById("mer")
+.classList.remove("hidden");
 
-    const workerPage =
-        document.getElementById("workerPage");
+document
+.getElementById("merAdi")
+.innerHTML =
+"👤 " + user.toUpperCase();
 
-    const userSelect =
-        document.getElementById("userSelect");
+}
 
-    const password =
-        document.getElementById("password");
+}
 
-    const loginButton =
-        document.getElementById("loginButton");
 
-    const loginMessage =
-        document.getElementById("loginMessage");
+function cixis(){
 
-    const workerName =
-        document.getElementById("workerName");
+document
+.getElementById("mudir")
+.classList.add("hidden");
 
-    const adminContent =
-        document.getElementById("adminContent");
+document
+.getElementById("mer")
+.classList.add("hidden");
 
-    const entryStatus =
-        document.getElementById("entryStatus");
+document
+.getElementById("login")
+.classList.remove("hidden");
 
-    const exitStatus =
-        document.getElementById("exitStatus");
+document
+.getElementById("pass")
+.value="";
 
-    const photoInput =
-        document.getElementById("photoInput");
+document
+.getElementById("mudirContent")
+.innerHTML="";
 
-    const photoPreview =
-        document.getElementById("photoPreview");
+}
 
 
-    /*
-       GİRİŞ FUNKSİYASI
-    */
+function mercendayzerler(){
 
-    function login() {
+var html =
+'<div class="card">'+
+'<h2>👥 Merçendayzerlər</h2>';
 
-        const selected =
-            userSelect.value;
+for(var i=1;i<=11;i++){
 
-        const enteredPassword =
-            password.value.trim();
+html +=
+'<div class="item">'+
+'<b>Mer '+i+'</b><br>'+
+'Status: Aktiv<br>'+
+'Şifrə: 1234'+
+'</div>';
 
-        const account =
-            users[selected];
+}
 
-        if (!account) {
+html += '</div>';
 
-            showLoginError();
+document
+.getElementById("mudirContent")
+.innerHTML=html;
 
-            return;
-        }
+}
 
-        if (enteredPassword !== account.password) {
 
-            showLoginError();
+function magazalar(){
 
-            return;
-        }
+document
+.getElementById("mudirContent")
+.innerHTML=
 
-        loginMessage.classList.add("hidden");
+'<div class="card">'+
 
-        loginPage.classList.add("hidden");
+'<h2>🏪 Mağazalar</h2>'+
 
-        password.value = "";
+'<div class="item"><b>Bravo 5041</b><br>Sea Breeze</div>'+
 
-        if (account.type === "admin") {
+'<div class="item"><b>Bravo 3077</b><br>Sea Breeze Premium</div>'+
 
-            adminPage.classList.remove("hidden");
+'<div class="item"><b>Tamstore 220</b><br>Sea Breeze</div>'+
 
-            workerPage.classList.add("hidden");
+'<div class="item"><b>Bravo 4001</b><br>Amburan</div>'+
 
-        } else {
+'</div>';
 
-            workerPage.classList.remove("hidden");
+}
 
-            adminPage.classList.add("hidden");
 
-            workerName.textContent =
-                "👤 " + account.name;
-        }
+function hesabat(){
 
-    }
+document
+.getElementById("mudirContent")
+.innerHTML=
 
+'<div class="card">'+
 
-    function showLoginError() {
+'<h2>📊 Hesabatlar</h2>'+
 
-        loginMessage.classList.remove("hidden");
+'<div class="message">'+
+'Hələ hesabat yoxdur.'+
+'</div>'+
 
-    }
+'</div>';
 
+}
 
-    /*
-       ENTER İLƏ DƏ GİRİŞ
-    */
 
-    password.addEventListener(
-        "keydown",
-        function (event) {
+function magazayaGiris(){
 
-            if (event.key === "Enter") {
+var saat =
+new Date().toLocaleTimeString();
 
-                event.preventDefault();
+document
+.getElementById("girisStatus")
+.innerHTML=
 
-                login();
+'<div class="message success">'+
+'🟢 Mağazaya giriş edildi<br>'+
+'⏰ '+saat+
+'</div>';
 
-            }
+}
 
-        }
-    );
 
+function magazadanCixis(){
 
-    /*
-       MÜDİR - İŞÇİLƏR
-    */
+var saat =
+new Date().toLocaleTimeString();
 
-    function showWorkers() {
+document
+.getElementById("cixisStatus")
+.innerHTML=
 
-        let html = "";
+'<div class="message error">'+
+'🔴 Mağazadan çıxış edildi<br>'+
+'⏰ '+saat+
+'</div>';
 
-        html +=
-            '<div class="card">' +
-            '<h2>👥 Merçendayzerlər</h2>';
+}
 
-        for (let i = 1; i <= 11; i++) {
-
-            html +=
-                '<div class="item">' +
-                '<b>Mer ' + i + '</b><br>' +
-                'Status: Aktiv<br>' +
-                'İlkin şifrə: 1234' +
-                '</div>';
-
-        }
-
-        html += "</div>";
-
-        adminContent.innerHTML = html;
-
-    }
-
-
-    /*
-       MÜDİR - MAĞAZALAR
-    */
-
-    function showStores() {
-
-        adminContent.innerHTML =
-
-            '<div class="card">' +
-
-            '<h2>🏪 Mağazalar</h2>' +
-
-            '<div class="item">' +
-            '<b>Bravo 5041</b><br>' +
-            'Sea Breeze' +
-            '</div>' +
-
-            '<div class="item">' +
-            '<b>Bravo 3077</b><br>' +
-            'Sea Breeze Premium' +
-            '</div>' +
-
-            '<div class="item">' +
-            '<b>Tamstore 220</b><br>' +
-            'Sea Breeze' +
-            '</div>' +
-
-            '<div class="item">' +
-            '<b>Bravo 4001</b><br>' +
-            'Amburan' +
-            '</div>' +
-
-            '</div>';
-
-    }
-
-
-    /*
-       MÜDİR - HESABAT
-    */
-
-    function showReports() {
-
-        adminContent.innerHTML =
-
-            '<div class="card">' +
-
-            '<h2>📊 Hesabatlar</h2>' +
-
-            '<div class="info">' +
-            'Hələ heç bir ziyarət məlumatı yoxdur.' +
-            '</div>' +
-
-            '</div>';
-
-    }
-
-
-    /*
-       MAĞAZAYA GİRİŞ
-    */
-
-    function enterStore() {
-
-        const now =
-            new Date();
-
-        const time =
-            now.toLocaleTimeString(
-                "az-AZ",
-                {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit"
-                }
-            );
-
-        entryStatus.innerHTML =
-            '<div class="message success">' +
-            '🟢 Mağazaya giriş edildi<br>' +
-            '⏰ Saat: ' + time +
-            '</div>';
-
-        exitStatus.innerHTML = "";
-
-    }
-
-
-    /*
-       MAĞAZADAN ÇIXIŞ
-    */
-
-    function exitStore() {
-
-        const now =
-            new Date();
-
-        const time =
-            now.toLocaleTimeString(
-                "az-AZ",
-                {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit"
-                }
-            );
-
-        exitStatus.innerHTML =
-            '<div class="message error">' +
-            '🔴 Mağazadan çıxış edildi<br>' +
-            '⏰ Saat: ' + time +
-            '</div>';
-
-    }
-
-
-    /*
-       ŞƏKİL
-    */
-
-    photoInput.addEventListener(
-        "change",
-        function () {
-
-            const file =
-                photoInput.files[0];
-
-            if (!file) {
-
-                photoPreview.classList.add("hidden");
-
-                return;
-            }
-
-            const reader =
-                new FileReader();
-
-            reader.onload =
-                function (event) {
-
-                    photoPreview.src =
-                        event.target.result;
-
-                    photoPreview.classList.remove(
-                        "hidden"
-                    );
-
-                };
-
-            reader.readAsDataURL(file);
-
-        }
-    );
-
-
-    /*
-       ÇIXIŞ
-    */
-
-    function logout() {
-
-        adminPage.classList.add("hidden");
-
-        workerPage.classList.add("hidden");
-
-        loginPage.classList.remove("hidden");
-
-        password.value = "";
-
-        adminContent.innerHTML = "";
-
-        entryStatus.innerHTML = "";
-
-        exitStatus.innerHTML = "";
-
-        photoPreview.src = "";
-
-        photoPreview.classList.add("hidden");
-
-        loginMessage.classList.add("hidden");
-
-    }
-
-
-    /*
-       DÜYMƏLƏR
-    */
-
-    loginButton.addEventListener(
-        "click",
-        login
-    );
-
-    document
-        .getElementById("workersButton")
-        .addEventListener(
-            "click",
-            showWorkers
-        );
-
-    document
-        .getElementById("storesButton")
-        .addEventListener(
-            "click",
-            showStores
-        );
-
-    document
-        .getElementById("reportsButton")
-        .addEventListener(
-            "click",
-            showReports
-        );
-
-    document
-        .getElementById("enterButton")
-        .addEventListener(
-            "click",
-            enterStore
-        );
-
-    document
-        .getElementById("exitButton")
-        .addEventListener(
-            "click",
-            exitStore
-        );
-
-    document
-        .getElementById("adminLogout")
-        .addEventListener(
-            "click",
-            logout
-        );
-
-    document
-        .getElementById("workerLogout")
-        .addEventListener(
-            "click",
-            logout
-        );
-
-
-})();
 </script>
 
 </body>

@@ -1,3 +1,7 @@
+name = "mercendayzerapp"
+main = "worker.js"
+compatibility_date = "2026-08-17"
+
 [[d1_databases]]
 binding = "DB"
 database_name = "mercendayzer-db"

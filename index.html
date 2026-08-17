@@ -1945,4 +1945,2087 @@ function showVisit(){
    id="c4">
 
   <label for="c4">
-  Rəf foto
+  Rəf fotoşəkli çəkildi
+  </label>
+
+  </div>
+
+  <textarea
+   id="visitNote"
+   placeholder="Qeyd">
+  </textarea>
+
+  <button
+   class="photo-btn"
+   onclick="takePhoto()">
+   📷 Foto çək
+  </button>
+
+  <input
+   id="photoInput"
+   type="file"
+   accept="image/*"
+   capture="environment"
+   class="hidden"
+   onchange="handlePhoto(event)">
+
+  <div id="photoPreview"></div>
+
+  <button
+   class="location-btn"
+   onclick="getLocation()">
+   📍 GPS-i yenilə
+  </button>
+
+  <button
+   class="finish-btn"
+   onclick="finishVisit()">
+   ✅ Ziyarəti bitir
+  </button>
+
+  </div>
+
+  `;
+
+ if(active.photo){
+
+  document
+   .getElementById(
+    "photoPreview"
+   )
+   .innerHTML=`
+
+   <img
+    class="photo-preview"
+    src="${active.photo}">
+
+   `;
+
+ }
+
+}
+
+
+/* =====================================================
+   FOTO
+===================================================== */
+
+function takePhoto(){
+
+ document
+  .getElementById(
+   "photoInput"
+  )
+  .click();
+
+}
+
+
+function compressImage(
+ file
+){
+
+ return new Promise(
+  resolve=>{
+
+   const reader=
+    new FileReader();
+
+   reader.onload=
+    function(e){
+
+     const img=
+      new Image();
+
+     img.onload=
+      function(){
+
+       const max=1000;
+
+       let w=img.width;
+
+       let h=img.height;
+
+       if(w>max){
+
+        h=
+         Math.round(
+          h*max/w
+         );
+
+        w=max;
+
+       }
+
+       const canvas=
+        document.createElement(
+         "canvas"
+        );
+
+       canvas.width=w;
+
+       canvas.height=h;
+
+       const ctx=
+        canvas.getContext(
+         "2d"
+        );
+
+       ctx.drawImage(
+        img,
+        0,
+        0,
+        w,
+        h
+       );
+
+       resolve(
+        canvas.toDataURL(
+         "image/jpeg",
+         .65
+        )
+       );
+
+      };
+
+     img.src=e.target.result;
+
+    };
+
+   reader.readAsDataURL(file);
+
+  }
+ );
+
+
+}
+
+
+async function handlePhoto(event){
+
+ const file=
+  event.target.files[0];
+
+ if(!file)return;
+
+ const active=
+  getActiveVisit();
+
+ if(!active)return;
+
+ const photo=
+  await compressImage(file);
+
+ active.photo=photo;
+
+ write(
+  "activeVisit_"+currentUser,
+  active
+ );
+
+ document
+  .getElementById(
+   "photoPreview"
+  )
+  .innerHTML=`
+
+  <img
+   class="photo-preview"
+   src="${photo}">
+
+  <div class="success">
+  ✅ Foto yadda saxlanıldı.
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   GPS
+===================================================== */
+
+function getLocation(){
+
+ if(!navigator.geolocation){
+
+  alert(
+   "Bu telefonda GPS dəstəklənmir."
+  );
+
+  return;
+
+ }
+
+ navigator.geolocation.getCurrentPosition(
+
+  function(pos){
+
+   const lat=
+    pos.coords.latitude;
+
+   const lng=
+    pos.coords.longitude;
+
+   const active=
+    getActiveVisit();
+
+   if(active){
+
+    active.lat=lat;
+
+    active.lng=lng;
+
+    write(
+     "activeVisit_"+currentUser,
+     active
+    );
+
+   }
+
+   const work=
+    getWorkStatus();
+
+   if(work){
+
+    work.lat=lat;
+
+    work.lng=lng;
+
+    write(
+     "workStatus_"+currentUser,
+     work
+    );
+
+   }
+
+   const el=
+    document.getElementById(
+     "visitResult"
+    );
+
+   if(el){
+
+    el.innerHTML=`
+
+    <div class="success">
+
+    📍 Məkan alındı.
+
+    <br>
+    Enlik:
+    ${lat.toFixed(6)}
+
+    <br>
+    Uzunluq:
+    ${lng.toFixed(6)}
+
+    </div>
+
+    `;
+
+   }
+
+  },
+
+  function(){
+
+   const el=
+    document.getElementById(
+     "visitResult"
+    );
+
+   if(el){
+
+    el.innerHTML=`
+
+    <div class="warning">
+
+    ⚠️ GPS məkanı alınmadı.
+    Ziyarəti yenə də bitirə bilərsiniz.
+
+    </div>
+
+    `;
+
+   }
+
+  },
+
+  {
+   enableHighAccuracy:true,
+   timeout:10000,
+   maximumAge:0
+  }
+
+ );
+
+}
+
+
+/* =====================================================
+   ZİYARƏTİ BİTİR
+===================================================== */
+
+function finishVisit(){
+
+ const active=
+  getActiveVisit();
+
+ if(!active){
+
+  alert(
+   "Aktiv ziyarət yoxdur."
+  );
+
+  return;
+
+ }
+
+ const note=
+  document.getElementById(
+   "visitNote"
+  );
+
+ if(note)
+  active.note=
+   note.value || "";
+
+ active.checks=[
+  "c1",
+  "c2",
+  "c3",
+  "c4"
+ ].filter(
+  id=>{
+   const e=
+    document.getElementById(id);
+
+   return e ?
+    e.checked :
+    false;
+  }
+ );
+
+ active.endTime=
+  new Date()
+  .toLocaleTimeString(
+   "az-AZ"
+  );
+
+ active.createdAt=
+  Date.now();
+
+ /*
+  Hər ziyarət ayrıca obyekt kimi
+  visits massivinə əlavə edilir.
+ */
+
+ const visits=
+  read(
+   "visits",
+   []
+  );
+
+ const history=
+  Array.isArray(visits)
+  ?
+  visits
+  :
+  [];
+
+ history.unshift(active);
+
+ /*
+  Son 500 ziyarəti saxla.
+ */
+
+ const limited=
+  history.slice(
+   0,
+   500
+  );
+
+ write(
+  "visits",
+  limited
+ );
+
+ write(
+  "activeVisit_"+currentUser,
+  null
+ );
+
+ updateWorkerStatus();
+
+ document
+  .getElementById(
+   "workerContent"
+  )
+  .innerHTML=`
+
+  <div class="card">
+
+  <h2>✅ Ziyarət tamamlandı</h2>
+
+  <div class="success">
+
+  🏪 ${escapeHTML(active.store)}
+
+  <br>
+
+  ▶️ ${escapeHTML(active.startTime)}
+
+  <br>
+
+  ⏹️ ${escapeHTML(active.endTime)}
+
+  <br>
+
+  ${
+   active.lat!==null
+   ?
+   "📍 GPS qeyd edildi"
+   :
+   "📍 GPS qeyd edilmədi"
+  }
+
+  </div>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   HESABAT
+===================================================== */
+
+function showReport(){
+
+ const visits=
+  read(
+   "visits",
+   []
+  ).filter(
+   v=>v.username===currentUser
+  );
+
+ let html=`
+
+ <div class="card">
+
+ <h2>📊 Mənim hesabatım</h2>
+
+ `;
+
+ if(!visits.length){
+
+  html+=`
+
+  <div class="info">
+  Hələ tamamlanmış ziyarət yoxdur.
+  </div>
+
+  `;
+
+ }
+
+ visits.forEach(
+  v=>{
+   html+=visitHTML(v);
+  }
+ );
+
+ html+=`
+
+ </div>
+
+ `;
+
+ document
+  .getElementById(
+   "workerContent"
+  )
+  .innerHTML=html;
+
+}
+
+
+function visitHTML(v){
+
+ const worker=
+  workers.find(
+   w=>w.username===v.username
+  );
+
+ return `
+
+ <div class="visit-item">
+
+ <b>
+ ${escapeHTML(v.store)}
+ </b>
+
+ <br>
+
+ 👤
+ ${escapeHTML(
+  worker?.name ||
+  v.username ||
+  ""
+ )}
+
+ <br>
+
+ 📅
+ ${escapeHTML(v.date || "")}
+
+ <br>
+
+ ▶️
+ ${escapeHTML(v.startTime || "")}
+
+ <br>
+
+ ⏹️
+ ${escapeHTML(v.endTime || "")}
+
+ ${
+  v.note
+  ?
+  `<br>📝 ${escapeHTML(v.note)}`
+  :
+  ""
+ }
+
+ ${
+  v.lat!==null &&
+  v.lng!==null
+  ?
+  `
+  <br>
+
+  📍 GPS
+
+  <br>
+
+  <a
+   class="map-link"
+   target="_blank"
+   href="https://www.google.com/maps?q=${v.lat},${v.lng}">
+   🗺️ Xəritədə aç
+  </a>
+  `
+  :
+  ""
+ }
+
+ ${
+  v.photo
+  ?
+  `
+  <img
+   class="photo-preview"
+   src="${v.photo}">
+  `
+  :
+  ""
+ }
+
+ </div>
+
+ `;
+
+}
+
+
+/* =====================================================
+   BUGÜNKÜ İŞ
+===================================================== */
+
+function showTodaySummary(){
+
+ const today=
+  new Date()
+  .toLocaleDateString(
+   "az-AZ"
+  );
+
+ const visits=
+  read(
+   "visits",
+   []
+  ).filter(
+   v=>
+    v.username===currentUser &&
+    v.date===today
+  );
+
+ const work=
+  getWorkStatus();
+
+ const active=
+  getActiveVisit();
+
+ document
+  .getElementById(
+   "workerContent"
+  )
+  .innerHTML=`
+
+  <div class="card">
+
+  <h2>📋 Bugünkü iş</h2>
+
+  <div class="info">
+
+  ${
+   work
+   ?
+   "🟢 İş statusu aktivdir"
+   :
+   "🔴 İş statusu aktiv deyil"
+  }
+
+  <br>
+
+  Tamamlanmış ziyarət:
+  <b>${visits.length}</b>
+
+  <br>
+
+  Aktiv ziyarət:
+  <b>${active ? "Bəli":"Xeyr"}</b>
+
+  </div>
+
+  ${
+   visits.length
+   ?
+   visits.map(visitHTML).join("")
+   :
+   `
+   <div class="warning">
+   Bu gün hələ ziyarət tamamlanmayıb.
+   </div>
+   `
+  }
+
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   PROFİL
+===================================================== */
+
+function showProfile(){
+
+ const w=
+  workers.find(
+   x=>x.username===currentUser
+  );
+
+ document
+  .getElementById(
+   "workerContent"
+  )
+  .innerHTML=`
+
+  <div class="card">
+
+  <h2>👤 Profil</h2>
+
+  <div class="info">
+
+  <b>Ad:</b>
+  ${escapeHTML(w?.name || "")}
+
+  <br><br>
+
+  <b>İstifadəçi:</b>
+  ${escapeHTML(currentUser)}
+
+  </div>
+
+  <h3>🔑 Şifrəni dəyiş</h3>
+
+  <input
+   id="myOldPassword"
+   type="password"
+   placeholder="Köhnə şifrə">
+
+  <input
+   id="myNewPassword"
+   type="password"
+   placeholder="Yeni şifrə">
+
+  <input
+   id="myNewPassword2"
+   type="password"
+   placeholder="Yeni şifrə təkrar">
+
+  <button
+   onclick="changeMyPassword()">
+   🔐 Şifrəni dəyiş
+  </button>
+
+  <div id="myPasswordResult"></div>
+
+  </div>
+
+  `;
+
+}
+
+
+function changeMyPassword(){
+
+ const oldP=
+  document.getElementById(
+   "myOldPassword"
+  ).value;
+
+ const newP=
+  document.getElementById(
+   "myNewPassword"
+  ).value;
+
+ const newP2=
+  document.getElementById(
+   "myNewPassword2"
+  ).value;
+
+ const passwords=
+  getPasswords();
+
+ if(
+  oldP!==passwords[currentUser]
+ ){
+
+  alert(
+   "Köhnə şifrə yanlışdır."
+  );
+
+  return;
+
+ }
+
+ if(!newP){
+
+  alert(
+   "Yeni şifrəni yazın."
+  );
+
+  return;
+
+ }
+
+ if(newP!==newP2){
+
+  alert(
+   "Yeni şifrələr eyni deyil."
+  );
+
+  return;
+
+ }
+
+ setPassword(
+  currentUser,
+  newP
+ );
+
+ document
+  .getElementById(
+   "myPasswordResult"
+  )
+  .innerHTML=`
+
+  <div class="success">
+  ✅ Şifrə dəyişdirildi.
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   ADMIN PANEL
+===================================================== */
+
+function loadAdminPanel(){
+
+ const ids=[
+  "adminPasswordWorker",
+  "adminLocationWorker",
+  "adminWorkerSelect",
+  "transferFromWorker",
+  "transferToWorker",
+  "removeWorkerSelect"
+ ];
+
+ ids.forEach(
+  id=>{
+   const e=
+    document.getElementById(id);
+
+   if(e){
+
+    e.innerHTML=
+     `<option value="">
+      İşçi seçin
+      </option>`;
+
+    workers.forEach(w=>{
+
+     e.innerHTML+=`
+
+     <option value="${w.username}">
+     ${escapeHTML(w.name)}
+     (${w.username})
+     </option>
+
+     `;
+
+    });
+
+   }
+
+  }
+ );
+
+ fillStoreSelects();
+
+}
+
+
+function fillStoreSelects(){
+
+ const selectIds=[
+  "adminStoreSelect",
+  "deleteStoreSelect"
+ ];
+
+ selectIds.forEach(
+  id=>{
+
+   const e=
+    document.getElementById(id);
+
+   if(!e)return;
+
+   const first=
+    e.options[0]
+    ?
+    e.options[0].text
+    :
+    "Mağaza seçin";
+
+   e.innerHTML=
+    `<option value="">
+    ${first}
+    </option>`;
+
+   stores.forEach(s=>{
+
+    e.innerHTML+=`
+
+    <option value="${escapeHTML(s)}">
+    ${escapeHTML(s)}
+    </option>
+
+    `;
+
+   });
+
+  }
+ );
+
+}
+
+
+/* =====================================================
+   ADMIN ŞİFRƏ
+===================================================== */
+
+function adminChangeWorkerPassword(){
+
+ const u=
+  document
+   .getElementById(
+    "adminPasswordWorker"
+   ).value;
+
+ const p1=
+  document
+   .getElementById(
+    "adminNewPassword"
+   ).value;
+
+ const p2=
+  document
+   .getElementById(
+    "adminNewPassword2"
+   ).value;
+
+ if(!u){
+
+  alert(
+   "Hesab seçin."
+  );
+
+  return;
+
+ }
+
+ if(!p1){
+
+  alert(
+   "Yeni şifrəni yazın."
+  );
+
+  return;
+
+ }
+
+ if(p1!==p2){
+
+  alert(
+   "Şifrələr eyni deyil."
+  );
+
+  return;
+
+ }
+
+ setPassword(
+  u,
+  p1
+ );
+
+ document
+  .getElementById(
+   "adminPasswordResult"
+  )
+  .innerHTML=`
+
+  <div class="success">
+
+  ✅
+  ${escapeHTML(u)}
+  hesabının şifrəsi dəyişdirildi.
+
+  <br>
+
+  ☁️ D1-ə yadda saxlanıldı.
+
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   YENİ MAĞAZA
+===================================================== */
+
+function adminCreateStore(){
+
+ const code=
+  document
+   .getElementById(
+    "newStoreCode"
+   ).value
+   .trim();
+
+ const name=
+  document
+   .getElementById(
+    "newStoreName"
+   ).value
+   .trim();
+
+ const area=
+  document
+   .getElementById(
+    "newStoreArea"
+   ).value
+   .trim();
+
+ if(!code || !name){
+
+  alert(
+   "Mağaza kodu və adı lazımdır."
+  );
+
+  return;
+
+ }
+
+ const store=
+  code+
+  " — "+
+  name+
+  (
+   area
+   ?
+   " — "+area
+   :
+   ""
+  );
+
+ if(stores.includes(store)){
+
+  alert(
+   "Bu mağaza artıq mövcuddur."
+  );
+
+  return;
+
+ }
+
+ const custom=
+  read(
+   "customStores",
+   []
+  );
+
+ custom.push({
+  store:store,
+  createdAt:Date.now()
+ });
+
+ write(
+  "customStores",
+  custom
+ );
+
+ const deleted=
+  read(
+   "deletedStores",
+   []
+  ).filter(
+   x=>x!==store
+  );
+
+ write(
+  "deletedStores",
+  deleted
+ );
+
+ loadStores();
+
+ fillStoreSelects();
+
+ document
+  .getElementById(
+   "newStoreResult"
+  )
+  .innerHTML=`
+
+  <div class="success">
+
+  ✅ Mağaza yaradıldı:
+
+  <br>
+
+  <b>${escapeHTML(store)}</b>
+
+  </div>
+
+  `;
+
+ document
+  .getElementById(
+   "newStoreCode"
+  ).value="";
+
+ document
+  .getElementById(
+   "newStoreName"
+  ).value="";
+
+ document
+  .getElementById(
+   "newStoreArea"
+  ).value="";
+
+}
+
+
+/* =====================================================
+   İŞÇİYƏ MAĞAZA
+===================================================== */
+
+function adminAddStore(){
+
+ const u=
+  document
+   .getElementById(
+    "adminWorkerSelect"
+   ).value;
+
+ const s=
+  document
+   .getElementById(
+    "adminStoreSelect"
+   ).value;
+
+ const d=
+  document
+   .getElementById(
+    "adminDaySelect"
+   ).value;
+
+ if(!u || !s || !d){
+
+  alert(
+   "İşçi, mağaza və gün seçin."
+  );
+
+  return;
+
+ }
+
+ const route=
+  getWorkerRoute(
+   u,
+   d
+  );
+
+ if(route.includes(s)){
+
+  alert(
+   "Bu mağaza həmin işçidə artıq var."
+  );
+
+  return;
+
+ }
+
+ const added=
+  getAddedRoutes();
+
+ added[u] ??={};
+
+ added[u][d] ??=[];
+
+ added[u][d].push(s);
+
+ write(
+  "addedRoutes",
+  added
+ );
+
+ const removed=
+  getRemovedRoutes();
+
+ if(removed[u]?.[d]){
+
+  removed[u][d]=
+   removed[u][d]
+   .filter(
+    x=>x!==s
+   );
+
+ }
+
+ write(
+  "removedRoutes",
+  removed
+ );
+
+ document
+  .getElementById(
+   "adminAddResult"
+  )
+  .innerHTML=`
+
+  <div class="success">
+
+  ✅ Mağaza işçiyə əlavə edildi.
+
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   MAĞAZA SİL
+===================================================== */
+
+function adminDeleteStore(){
+
+ const s=
+  document
+   .getElementById(
+    "deleteStoreSelect"
+   ).value;
+
+ if(!s){
+
+  alert(
+   "Mağaza seçin."
+  );
+
+  return;
+
+ }
+
+ if(
+  !confirm(
+   "Mağaza sistemdən tamamilə silinsin?\n\n"+
+   s
+  )
+ ){
+
+  return;
+
+ }
+
+ const deleted=
+  read(
+   "deletedStores",
+   []
+  );
+
+ if(!deleted.includes(s))
+  deleted.push(s);
+
+ write(
+  "deletedStores",
+  deleted
+ );
+
+ const custom=
+  read(
+   "customStores",
+   []
+  );
+
+ write(
+  "customStores",
+  custom.filter(
+   x=>x.store!==s
+  )
+ );
+
+ const added=
+  getAddedRoutes();
+
+ Object.keys(
+  added
+ ).forEach(u=>{
+
+  Object.keys(
+   added[u]
+  ).forEach(d=>{
+
+   added[u][d]=
+    added[u][d]
+    .filter(
+     x=>x!==s
+    );
+
+  });
+
+ });
+
+ write(
+  "addedRoutes",
+  added
+ );
+
+ loadStores();
+
+ fillStoreSelects();
+
+ refreshAdmin();
+
+ document
+  .getElementById(
+   "deleteStoreResult"
+  )
+  .innerHTML=`
+
+  <div class="success">
+  ✅ Mağaza silindi.
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   MAĞAZA KEÇİR
+===================================================== */
+
+function loadTransferStores(){
+
+ const u=
+  document
+   .getElementById(
+    "transferFromWorker"
+   ).value;
+
+ const d=
+  document
+   .getElementById(
+    "transferDay"
+   ).value;
+
+ const sel=
+  document
+   .getElementById(
+    "transferStore"
+   );
+
+ sel.innerHTML=`
+
+ <option value="">
+ Mağaza seçin
+ </option>
+
+ `;
+
+ if(!u || !d)
+  return;
+
+ getWorkerRoute(
+  u,
+  d
+ ).forEach(s=>{
+
+  sel.innerHTML+=`
+
+  <option value="${escapeHTML(s)}">
+  ${escapeHTML(s)}
+  </option>
+
+  `;
+
+ });
+
+}
+
+
+function adminTransferStore(){
+
+ const from=
+  document
+   .getElementById(
+    "transferFromWorker"
+   ).value;
+
+ const d=
+  document
+   .getElementById(
+    "transferDay"
+   ).value;
+
+ const s=
+  document
+   .getElementById(
+    "transferStore"
+   ).value;
+
+ const to=
+  document
+   .getElementById(
+    "transferToWorker"
+   ).value;
+
+ if(!from || !d || !s || !to){
+
+  alert(
+   "Bütün seçimləri edin."
+  );
+
+  return;
+
+ }
+
+ if(from===to){
+
+  alert(
+   "Eyni işçini seçmək olmaz."
+  );
+
+  return;
+
+ }
+
+ const fromRoute=
+  getWorkerRoute(
+   from,
+   d
+  );
+
+ if(!fromRoute.includes(s)){
+
+  alert(
+   "Mağaza tapılmadı."
+  );
+
+  return;
+
+ }
+
+ const toRoute=
+  getWorkerRoute(
+   to,
+   d
+  );
+
+ if(toRoute.includes(s)){
+
+  alert(
+   "Yeni işçidə bu mağaza artıq var."
+  );
+
+  return;
+
+ }
+
+ const rem=
+  getRemovedRoutes();
+
+ rem[from] ??={};
+
+ rem[from][d] ??=[];
+
+ if(!rem[from][d].includes(s))
+  rem[from][d].push(s);
+
+ write(
+  "removedRoutes",
+  rem
+ );
+
+ const add=
+  getAddedRoutes();
+
+ add[to] ??={};
+
+ add[to][d] ??=[];
+
+ if(!add[to][d].includes(s))
+  add[to][d].push(s);
+
+ write(
+  "addedRoutes",
+  add
+ );
+
+ document
+  .getElementById(
+   "transferResult"
+  )
+  .innerHTML=`
+
+  <div class="success">
+
+  ✅ Mağaza digər işçiyə keçirildi.
+
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   İŞÇİDƏN MAĞAZA SİL
+===================================================== */
+
+function loadWorkerAssignedStores(){
+
+ const u=
+  document
+   .getElementById(
+    "removeWorkerSelect"
+   ).value;
+
+ const d=
+  document
+   .getElementById(
+    "removeWorkerDay"
+   ).value;
+
+ const sel=
+  document
+   .getElementById(
+    "removeWorkerStore"
+   );
+
+ sel.innerHTML=`
+
+ <option value="">
+ Mağaza seçin
+ </option>
+
+ `;
+
+ if(!u || !d)
+  return;
+
+ getWorkerRoute(
+  u,
+  d
+ ).forEach(s=>{
+
+  sel.innerHTML+=`
+
+  <option value="${escapeHTML(s)}">
+  ${escapeHTML(s)}
+  </option>
+
+  `;
+
+ });
+
+}
+
+
+function adminRemoveStoreFromWorker(){
+
+ const u=
+  document
+   .getElementById(
+    "removeWorkerSelect"
+   ).value;
+
+ const d=
+  document
+   .getElementById(
+    "removeWorkerDay"
+   ).value;
+
+ const s=
+  document
+   .getElementById(
+    "removeWorkerStore"
+   ).value;
+
+ if(!u || !d || !s){
+
+  alert(
+   "İşçi, gün və mağaza seçin."
+  );
+
+  return;
+
+ }
+
+ const removed=
+  getRemovedRoutes();
+
+ removed[u] ??={};
+
+ removed[u][d] ??=[];
+
+ if(
+  !removed[u][d].includes(s)
+ ){
+
+  removed[u][d].push(s);
+
+ }
+
+ write(
+  "removedRoutes",
+  removed
+ );
+
+ loadWorkerAssignedStores();
+
+ refreshAdmin();
+
+ document
+  .getElementById(
+   "removeWorkerResult"
+  )
+  .innerHTML=`
+
+  <div class="success">
+
+  ✅ Mağaza bu işçidən silindi.
+
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   ADMIN GPS
+===================================================== */
+
+function adminShowLocation(){
+
+ const u=
+  document
+   .getElementById(
+    "adminLocationWorker"
+   ).value;
+
+ if(!u){
+
+  alert(
+   "İşçi seçin."
+  );
+
+  return;
+
+ }
+
+ const active=
+  getWorkerActiveVisit(u);
+
+ const work=
+  getWorkerWorkStatus(u);
+
+ const data=
+  active || work;
+
+ const result=
+  document
+   .getElementById(
+    "adminLocationResult"
+   );
+
+ if(
+  !data ||
+  data.lat===null ||
+  data.lng===null
+ ){
+
+  result.innerHTML=`
+
+  <div class="warning">
+
+  ⚠️ Bu işçinin GPS məlumatı yoxdur.
+
+  </div>
+
+  `;
+
+  return;
+
+ }
+
+ const worker=
+  workers.find(
+   w=>w.username===u
+  );
+
+ result.innerHTML=`
+
+ <div class="success">
+
+ <b>
+ ${escapeHTML(
+  worker?.name || u
+ )}
+ </b>
+
+ <br>
+
+ 📍 Enlik:
+ ${data.lat}
+
+ <br>
+
+ 📍 Uzunluq:
+ ${data.lng}
+
+ <br>
+
+ <a
+  class="map-link"
+  target="_blank"
+  href="https://www.google.com/maps?q=${data.lat},${data.lng}">
+  🗺️ Google Maps-də aç
+ </a>
+
+ </div>
+
+ `;
+
+}
+
+
+/* =====================================================
+   ADMIN REFRESH
+===================================================== */
+
+function refreshAdmin(){
+
+ if(currentRole!=="admin")
+  return;
+
+ loadStores();
+
+ document
+  .getElementById(
+   "totalWorkers"
+  ).innerText=
+   workers.length;
+
+ document
+  .getElementById(
+   "storeCount"
+  ).innerText=
+   stores.length;
+
+ let working=0;
+
+ workers.forEach(w=>{
+
+  if(
+   getWorkerWorkStatus(
+    w.username
+   )
+  ){
+
+   working++;
+
+  }
+
+ });
+
+ document
+  .getElementById(
+   "workingWorkers"
+  ).innerText=
+   working;
+
+ const visits=
+  read(
+   "visits",
+   []
+  );
+
+ document
+  .getElementById(
+   "finishedVisits"
+  ).innerText=
+   visits.length;
+
+ let html="";
+
+ workers.forEach(w=>{
+
+  const work=
+   getWorkerWorkStatus(
+    w.username
+   );
+
+  const active=
+   getWorkerActiveVisit(
+    w.username
+   );
+
+  html+=`
+
+  <div class="worker">
+
+  <b>
+  ${escapeHTML(w.name)}
+  </b>
+
+  <br>
+
+  <span class="${
+   work
+   ?
+   "online"
+   :
+   "offline"
+  }">
+
+  ${
+   work
+   ?
+   "🟢 İŞDƏDİR"
+   :
+   "🔴 İşdə deyil"
+  }
+
+  </span>
+
+  ${
+   work
+   ?
+   `
+   <br>
+   🕐 ${escapeHTML(work.startTime)}
+   `
+   :
+   ""
+  }
+
+  ${
+   active
+   ?
+   `
+   <br><br>
+
+   🏪
+   <b>
+   ${escapeHTML(active.store)}
+   </b>
+
+   <br>
+
+   🕐
+   ${escapeHTML(active.startTime)}
+   `
+   :
+   ""
+  }
+
+  ${
+   (
+    work &&
+    work.lat!==null
+   )
+   ?
+   `
+   <br>
+   📍 GPS mövcuddur
+   `
+   :
+   ""
+  }
+
+  </div>
+
+  `;
+
+ });
+
+ document
+  .getElementById(
+   "workerList"
+  )
+  .innerHTML=html;
+
+
+ /*
+  Son ziyarətlər.
+ */
+
+ document
+  .getElementById(
+   "visitList"
+  )
+  .innerHTML=
+   visits.length
+   ?
+   visits
+    .slice(0,30)
+    .map(visitHTML)
+    .join("")
+   :
+   `
+   <div class="info">
+   Hələ ziyarət yoxdur.
+   </div>
+   `;
+
+
+ const photos=
+  visits
+   .filter(
+    v=>v.photo
+   )
+   .slice(0,30);
+
+ document
+  .getElementById(
+   "photoReportList"
+  )
+  .innerHTML=
+   photos.length
+   ?
+   photos.map(v=>`
+
+    <div class="visit-item">
+
+    <b>
+    ${escapeHTML(v.store)}
+    </b>
+
+    <br>
+
+    ${escapeHTML(v.date || "")}
+    —
+    ${escapeHTML(v.startTime || "")}
+
+    <img
+     class="photo-preview"
+     src="${v.photo}">
+
+    </div>
+
+   `).join("")
+   :
+   `
+   <div class="info">
+   Hələ foto hesabatı yoxdur.
+   </div>
+   `;
+
+}
+
+
+/* =====================================================
+   ÇIXIŞ
+===================================================== */
+
+function logout(){
+
+ currentUser=null;
+
+ currentRole=null;
+
+ document
+  .getElementById(
+   "workerDashboard"
+  )
+  .classList.add("hidden");
+
+ document
+  .getElementById(
+   "adminDashboard"
+  )
+  .classList.add("hidden");
+
+ document
+  .getElementById(
+   "login"
+  )
+  .classList.remove("hidden");
+
+ document
+  .getElementById(
+   "username"
+  ).value="";
+
+ document
+  .getElementById(
+   "password"
+  ).value="";
+
+ document
+  .getElementById(
+   "workerContent"
+  ).innerHTML="";
+
+}
+
+
+/* =====================================================
+   TƏMİZ HTML
+===================================================== */
+
+function escapeHTML(s){
+
+ return String(
+  s ?? ""
+ ).replace(
+  /[&<>"']/g,
+  m=>({
+
+   "&":"&amp;",
+   "<":"&lt;",
+   ">":"&gt;",
+   '"':"&quot;",
+   "'":"&#039;"
+
+  }[m])
+ );
+
+}
+
+
+function escapeJS(s){
+
+ return String(
+  s ?? ""
+ )
+ .replace(
+  /\\/g,
+  "\\\\"
+ )
+ .replace(
+  /'/g,
+  "\\'"
+ )
+ .replace(
+  /\n/g,
+  "\\n"
+ );
+
+}
+
+
+/* =====================================================
+   ENTER İLƏ GİRİŞ
+===================================================== */
+
+document
+ .getElementById(
+  "password"
+ )
+ .addEventListener(
+  "keydown",
+  e=>{
+
+   if(e.key==="Enter")
+    login();
+
+  }
+ );
+
+
+document
+ .getElementById(
+  "username"
+ )
+ .addEventListener(
+  "keydown",
+  e=>{
+
+   if(e.key==="Enter")
+    login();
+
+  }
+ );
+
+
+/* =====================================================
+   BAŞLANĞIC
+===================================================== */
+
+loadCentralState();
+
+</script>
+
+</body>
+</html>

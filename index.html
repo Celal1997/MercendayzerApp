@@ -2,156 +2,258 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#2563eb">
 <title>Merçendayzer App</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4f6f8;
-  color:#222
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f4f6f8;
+ color:#222
 }
+
 .header{
-  background:#1f2937;
-  color:#fff;
-  padding:22px 15px;
-  text-align:center
+ background:#1f2937;
+ color:#fff;
+ padding:22px 15px;
+ text-align:center
 }
-.header h1{margin:0 0 8px;font-size:32px}
+
+.header h1{
+ margin:0 0 8px;
+ font-size:30px
+}
+
 .container{
-  padding:20px;
-  max-width:700px;
-  margin:auto
+ padding:15px;
+ max-width:760px;
+ margin:auto
 }
+
 .card{
-  background:#fff;
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:15px;
-  box-shadow:0 3px 12px rgba(0,0,0,.08)
+ background:#fff;
+ border-radius:16px;
+ padding:18px;
+ margin-bottom:15px;
+ box-shadow:0 3px 12px rgba(0,0,0,.08)
 }
-h1,h2,h3{margin-top:0}
+
+h1,h2,h3{
+ margin-top:0
+}
 
 input,select,textarea,button{
-  width:100%;
-  padding:14px;
-  margin-top:10px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  font-size:16px
+ width:100%;
+ padding:14px;
+ margin-top:10px;
+ border-radius:10px;
+ border:1px solid #ccc;
+ font-size:16px
 }
+
 textarea{
-  min-height:90px;
-  resize:vertical
+ min-height:90px;
+ resize:vertical
 }
+
 button{
-  background:#2563eb;
-  color:#fff;
-  border:0;
-  font-weight:bold;
-  cursor:pointer
+ background:#2563eb;
+ color:#fff;
+ border:0;
+ font-weight:bold;
+ cursor:pointer
 }
-button:active{transform:scale(.98)}
+
+button:active{
+ transform:scale(.98)
+}
 
 .menu{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px
 }
-.menu button{min-height:85px}
 
-.hidden{display:none!important}
+.menu button{
+ min-height:78px
+}
+
+.hidden{
+ display:none!important
+}
 
 .store,.worker{
-  border:1px solid #ddd;
-  border-radius:12px;
-  padding:15px;
-  margin-top:10px
+ border:1px solid #ddd;
+ border-radius:12px;
+ padding:14px;
+ margin-top:10px;
+ background:#fff
 }
 
 .success,.danger,.info,.warning{
-  padding:13px;
-  border-radius:10px;
-  margin-top:10px
+ padding:13px;
+ border-radius:10px;
+ margin-top:10px
 }
-.success{background:#dcfce7;color:#166534}
-.danger{background:#fee2e2;color:#991b1b}
-.info{background:#dbeafe;color:#1e40af}
-.warning{background:#fef3c7;color:#92400e}
+
+.success{
+ background:#dcfce7;
+ color:#166534
+}
+
+.danger{
+ background:#fee2e2;
+ color:#991b1b
+}
+
+.info{
+ background:#dbeafe;
+ color:#1e40af
+}
+
+.warning{
+ background:#fef3c7;
+ color:#92400e
+}
 
 .stat-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px
-}
-.stat{
-  background:#f8fafc;
-  border-radius:12px;
-  padding:18px;
-  text-align:center;
-  border:1px solid #e5e7eb
-}
-.stat-number{
-  font-size:30px;
-  font-weight:bold
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px
 }
 
-.online{color:#16a34a;font-weight:bold}
-.offline{color:#dc2626;font-weight:bold}
+.stat{
+ background:#f8fafc;
+ border-radius:12px;
+ padding:15px;
+ text-align:center;
+ border:1px solid #e5e7eb
+}
+
+.stat-number{
+ font-size:28px;
+ font-weight:bold
+}
+
+.online{
+ color:#16a34a;
+ font-weight:bold
+}
+
+.offline{
+ color:#dc2626;
+ font-weight:bold
+}
 
 .visit-item{
-  border-left:4px solid #2563eb;
-  background:#f8fafc;
-  padding:12px;
-  margin-top:10px;
-  border-radius:8px
+ border-left:4px solid #2563eb;
+ background:#f8fafc;
+ padding:12px;
+ margin-top:10px;
+ border-radius:8px
 }
 
-.logout-btn{background:#dc2626}
-.finish-btn{background:#16a34a}
-.delete-btn{background:#dc2626}
-.transfer-btn{background:#7c3aed}
-.remove-worker-btn{background:#ea580c}
-.location-btn{background:#0891b2}
-.photo-btn{background:#9333ea}
+.logout-btn{
+ background:#dc2626
+}
+
+.finish-btn{
+ background:#16a34a
+}
+
+.delete-btn{
+ background:#dc2626
+}
+
+.transfer-btn{
+ background:#7c3aed
+}
+
+.remove-worker-btn{
+ background:#ea580c
+}
+
+.location-btn{
+ background:#0891b2
+}
+
+.photo-btn{
+ background:#9333ea
+}
 
 .badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  background:#e5e7eb;
-  font-size:13px
+ display:inline-block;
+ padding:5px 9px;
+ border-radius:20px;
+ background:#e5e7eb;
+ font-size:13px
 }
 
 .photo-preview{
-  width:100%;
-  max-height:300px;
-  object-fit:cover;
-  border-radius:10px;
-  margin-top:10px
+ width:100%;
+ max-height:300px;
+ object-fit:cover;
+ border-radius:10px;
+ margin-top:10px
 }
 
 .check-row{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-top:10px;
-  padding:10px;
-  background:#f8fafc;
-  border-radius:8px
+ display:flex;
+ align-items:center;
+ gap:10px;
+ margin-top:10px;
+ padding:10px;
+ background:#f8fafc;
+ border-radius:8px
 }
+
 .check-row input{
-  width:auto;
-  margin:0
+ width:auto;
+ margin:0
+}
+
+.small{
+ font-size:13px;
+ color:#666
 }
 
 hr{
-  border:0;
-  border-top:1px solid #e5e7eb;
-  margin:20px 0
+ border:0;
+ border-top:1px solid #e5e7eb;
+ margin:20px 0
+}
+
+.sync{
+ position:fixed;
+ right:10px;
+ bottom:10px;
+ z-index:99999;
+ padding:7px 11px;
+ border-radius:20px;
+ background:#111827;
+ color:white;
+ font-size:12px;
+ font-weight:bold;
+ box-shadow:0 2px 8px rgba(0,0,0,.2)
+}
+
+.back{
+ background:#6b7280;
+ margin-bottom:10px
+}
+
+.map-link{
+ display:inline-block;
+ margin-top:8px;
+ padding:10px;
+ background:#0891b2;
+ color:#fff;
+ border-radius:8px;
+ text-decoration:none
 }
 </style>
 </head>
@@ -165,23 +267,27 @@ hr{
 
 <div class="container">
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 
 <div id="login" class="card">
 
 <h2>🔐 Giriş</h2>
 
-<input id="username"
-       type="text"
-       placeholder="İstifadəçi adı"
-       autocomplete="username">
+<input
+ id="username"
+ type="text"
+ placeholder="İstifadəçi adı"
+ autocomplete="username">
 
-<input id="password"
-       type="password"
-       placeholder="Şifrə"
-       autocomplete="current-password">
+<input
+ id="password"
+ type="password"
+ placeholder="Şifrə"
+ autocomplete="current-password">
 
-<button onclick="login()">Daxil ol</button>
+<button onclick="login()">
+Daxil ol
+</button>
 
 <div class="info">
 🔐 İstifadəçi adı və şifrəni müdirinizdən alın.
@@ -190,14 +296,18 @@ hr{
 </div>
 
 
-<!-- ================= WORKER ================= -->
+<!-- WORKER -->
 
 <div id="workerDashboard" class="hidden">
 
 <div class="card">
-<h2>Salam, <span id="workerName"></span> 👋</h2>
-<p>Bugünkü işlərinizi buradan idarə edə bilərsiniz.</p>
+
+<h2>
+Salam, <span id="workerName"></span> 👋
+</h2>
+
 <div id="workerStatus"></div>
+
 </div>
 
 <div class="menu">
@@ -236,21 +346,26 @@ hr{
 
 </div>
 
-<div id="workerContent" style="margin-top:15px"></div>
+<div
+ id="workerContent"
+ style="margin-top:15px">
+</div>
 
 </div>
 
 
-<!-- ================= ADMIN ================= -->
+<!-- ADMIN -->
 
 <div id="adminDashboard" class="hidden">
 
 <div class="card">
+
 <h2>👨‍💼 Müdir Paneli</h2>
+
 <p>
-Bütün merçendayzerlərin iş vəziyyətini və mağaza
-ziyarətlərini buradan idarə edə bilərsiniz.
+Bütün merçendayzerlərin iş vəziyyətini və mağaza ziyarətlərini idarə edin.
 </p>
+
 </div>
 
 
@@ -293,27 +408,23 @@ ziyarətlərini buradan idarə edə bilərsiniz.
 </div>
 
 
-<!-- ŞİFRƏ -->
-
 <div class="card">
 
 <h2>🔑 Şifrə idarəetməsi</h2>
-
-<p>
-İşçinin və ya müdir hesabının şifrəsini buradan dəyişə bilərsiniz.
-</p>
 
 <select id="adminPasswordWorker">
 <option value="">Hesab seçin</option>
 </select>
 
-<input id="adminNewPassword"
-       type="password"
-       placeholder="Yeni şifrə">
+<input
+ id="adminNewPassword"
+ type="password"
+ placeholder="Yeni şifrə">
 
-<input id="adminNewPassword2"
-       type="password"
-       placeholder="Yeni şifrəni təkrar yazın">
+<input
+ id="adminNewPassword2"
+ type="password"
+ placeholder="Yeni şifrəni təkrar yazın">
 
 <button onclick="adminChangeWorkerPassword()">
 🔐 Şifrəni dəyiş
@@ -324,8 +435,6 @@ ziyarətlərini buradan idarə edə bilərsiniz.
 </div>
 
 
-<!-- GPS -->
-
 <div class="card">
 
 <h2>📍 İşçini xəritədə yoxla</h2>
@@ -334,8 +443,9 @@ ziyarətlərini buradan idarə edə bilərsiniz.
 <option value="">İşçi seçin</option>
 </select>
 
-<button class="location-btn"
-        onclick="adminShowLocation()">
+<button
+ class="location-btn"
+ onclick="adminShowLocation()">
 📍 Son məkanı göstər
 </button>
 
@@ -344,20 +454,21 @@ ziyarətlərini buradan idarə edə bilərsiniz.
 </div>
 
 
-<!-- MAĞAZA YARAT -->
-
 <div class="card">
 
 <h2>🏪 Yeni mağaza yarat</h2>
 
-<input id="newStoreCode"
-placeholder="Mağaza kodu — Bravo 5200">
+<input
+ id="newStoreCode"
+ placeholder="Mağaza kodu — Bravo 5200">
 
-<input id="newStoreName"
-placeholder="Mağaza adı — Bakıxanov">
+<input
+ id="newStoreName"
+ placeholder="Mağaza adı — Bakıxanov">
 
-<input id="newStoreArea"
-placeholder="Ərazi — Sabunçu">
+<input
+ id="newStoreArea"
+ placeholder="Ərazi — Sabunçu">
 
 <button onclick="adminCreateStore()">
 ➕ Mağazanı sistemə əlavə et
@@ -367,8 +478,6 @@ placeholder="Ərazi — Sabunçu">
 
 </div>
 
-
-<!-- İŞÇİYƏ MAĞAZA -->
 
 <div class="card">
 
@@ -421,8 +530,6 @@ placeholder="Ərazi — Sabunçu">
 </div>
 
 
-<!-- MAĞAZA SİL -->
-
 <div class="card">
 
 <h2>🗑️ Sistemdən mağaza sil</h2>
@@ -432,11 +539,14 @@ placeholder="Ərazi — Sabunçu">
 </div>
 
 <select id="deleteStoreSelect">
-<option value="">Silinəcək mağazanı seçin</option>
+<option value="">
+Silinəcək mağazanı seçin
+</option>
 </select>
 
-<button class="delete-btn"
-        onclick="adminDeleteStore()">
+<button
+ class="delete-btn"
+ onclick="adminDeleteStore()">
 🗑️ Mağazanı tamamilə sil
 </button>
 
@@ -445,21 +555,25 @@ placeholder="Ərazi — Sabunçu">
 </div>
 
 
-<!-- MAĞAZA KEÇİR -->
-
 <div class="card">
 
 <h2>🔄 Mağazanı başqa işçiyə keçir</h2>
 
-<select id="transferFromWorker"
-        onchange="loadTransferStores()">
-<option value="">Hazırkı işçi</option>
+<select
+ id="transferFromWorker"
+ onchange="loadTransferStores()">
+<option value="">
+Hazırkı işçi
+</option>
 </select>
 
-<select id="transferDay"
-        onchange="loadTransferStores()">
+<select
+ id="transferDay"
+ onchange="loadTransferStores()">
 
-<option value="">Gün seçin</option>
+<option value="">
+Gün seçin
+</option>
 
 <option value="1">1-ci gün — Bazar ertəsi</option>
 <option value="2">2-ci gün — Çərşənbə axşamı</option>
@@ -477,11 +591,14 @@ placeholder="Ərazi — Sabunçu">
 </select>
 
 <select id="transferToWorker">
-<option value="">Yeni işçi seçin</option>
+<option value="">
+Yeni işçi seçin
+</option>
 </select>
 
-<button class="transfer-btn"
-        onclick="adminTransferStore()">
+<button
+ class="transfer-btn"
+ onclick="adminTransferStore()">
 🔄 Mağazanı digər işçiyə keçir
 </button>
 
@@ -490,21 +607,27 @@ placeholder="Ərazi — Sabunçu">
 </div>
 
 
-<!-- İŞÇİDƏN MAĞAZA SİL -->
-
 <div class="card">
 
 <h2>📋 İşçinin mağazalarını idarə et</h2>
 
-<select id="removeWorkerSelect"
-        onchange="loadWorkerAssignedStores()">
-<option value="">İşçi seçin</option>
+<select
+ id="removeWorkerSelect"
+ onchange="loadWorkerAssignedStores()">
+
+<option value="">
+İşçi seçin
+</option>
+
 </select>
 
-<select id="removeWorkerDay"
-        onchange="loadWorkerAssignedStores()">
+<select
+ id="removeWorkerDay"
+ onchange="loadWorkerAssignedStores()">
 
-<option value="">Gün seçin</option>
+<option value="">
+Gün seçin
+</option>
 
 <option value="1">1-ci gün — Bazar ertəsi</option>
 <option value="2">2-ci gün — Çərşənbə axşamı</option>
@@ -516,13 +639,16 @@ placeholder="Ərazi — Sabunçu">
 </select>
 
 <select id="removeWorkerStore">
+
 <option value="">
 Əvvəlcə işçi və gün seçin
 </option>
+
 </select>
 
-<button class="remove-worker-btn"
-        onclick="adminRemoveStoreFromWorker()">
+<button
+ class="remove-worker-btn"
+ onclick="adminRemoveStoreFromWorker()">
 ➖ Mağazanı bu işçidən sil
 </button>
 
@@ -530,8 +656,6 @@ placeholder="Ərazi — Sabunçu">
 
 </div>
 
-
-<!-- ZİYARƏTLƏR -->
 
 <div class="card">
 
@@ -541,8 +665,6 @@ placeholder="Ərazi — Sabunçu">
 
 </div>
 
-
-<!-- FOTO -->
 
 <div class="card">
 
@@ -557,8 +679,9 @@ placeholder="Ərazi — Sabunçu">
 🔄 Məlumatları yenilə
 </button>
 
-<button class="logout-btn"
-        onclick="logout()">
+<button
+ class="logout-btn"
+ onclick="logout()">
 🚪 Müdir panelindən çıx
 </button>
 
@@ -567,158 +690,135 @@ placeholder="Ərazi — Sabunçu">
 </div>
 
 
+<div id="syncStatus" class="sync">
+☁️ D1 hazırlanır...
+</div>
+
+
 <script>
 
 /* =====================================================
-   HESABLAR
+   D1 MƏRKƏZİ YADDAŞ
 ===================================================== */
 
-const DEFAULT_PASSWORDS = {
+const API="/api/state";
 
-  mudir:"1234",
+const memoryStore={};
 
-  mer1:"1234",
-  mer2:"1234",
-  mer3:"1234",
-  mer4:"1234",
-  mer5:"1234",
-  mer6:"1234",
-  mer7:"1234",
-  mer8:"1234",
-  mer9:"1234",
-  mer10:"1234",
-  mer11:"1234"
+let centralState={};
 
-};
+let d1Ready=false;
+
+let currentUser=null;
+
+let currentRole=null;
 
 
-/* =====================================================
-   İŞÇİLƏR
-===================================================== */
-
-const workers = [
-
- {username:"mer1",name:"Cəlal Abbasov"},
- {username:"mer2",name:"Şəhanə"},
- {username:"mer3",name:"Şəhanə2"},
- {username:"mer4",name:"Rüfət"},
- {username:"mer5",name:"Ariz"},
- {username:"mer6",name:"Sahil"},
- {username:"mer7",name:"Aytac"},
- {username:"mer8",name:"Səkinə"},
- {username:"mer9",name:"Qənirə"},
- {username:"mer10",name:"Ruhiyyə"},
- {username:"mer11",name:"Günel"}
-
-];
-
-
-/* =====================================================
-   MAĞAZALAR
-===================================================== */
-
-const defaultStores = [
-
-"Bravo 5041 — Sea Breeze",
-"Bravo 2004 — Xətai SS Babək prospekti",
-"Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
-"Bravo 4023 — Xətai Sabit Orucov küçəsi",
-"Bravo 3077 — Sea Breeze Premium",
-"Tamstore 220 — Sea Breeze",
-"Bravo 4001 — Amburan Mall",
-"Bravo 5004 — Sabunçu",
-"Bravo 5021 — Sabunçu",
-"Bravo 5120 — Ağ Şəhər",
-"Bravo 3013 — Xətai Park Azure",
-"Bravo 4072 — Bilgəh yolu",
-"Bravo 5179 — Maştağa",
-"Tamstore 137 — Savalan"
-
-];
-
-
-/* =====================================================
-   CƏLALIN MARŞRUTLARI
-===================================================== */
-
-const workerRoutes = {
-
-mer1:{
-
-1:[
-"Bravo 5041 — Sea Breeze",
-"Bravo 2004 — Xətai SS Babək prospekti",
-"Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
-"Bravo 4023 — Xətai Sabit Orucov küçəsi"
-],
-
-2:[
-"Bravo 5041 — Sea Breeze",
-"Bravo 3077 — Sea Breeze Premium",
-"Tamstore 220 — Sea Breeze",
-"Bravo 4001 — Amburan Mall",
-"Bravo 5004 — Sabunçu",
-"Bravo 5021 — Sabunçu"
-],
-
-3:[
-"Bravo 5041 — Sea Breeze",
-"Bravo 5120 — Ağ Şəhər",
-"Bravo 3013 — Xətai Park Azure",
-"Bravo 4023 — Xətai Sabit Orucov küçəsi",
-"Bravo 5096 — Xətai Süleyman Vəzirov küçəsi"
-],
-
-4:[
-"Bravo 5041 — Sea Breeze",
-"Bravo 4001 — Amburan Mall",
-"Bravo 4072 — Bilgəh yolu",
-"Bravo 5179 — Maştağa",
-"Tamstore 137 — Savalan",
-"Bravo 5021 — Sabunçu"
-],
-
-5:[
-"Bravo 5041 — Sea Breeze",
-"Bravo 2004 — Xətai SS Babək prospekti",
-"Bravo 3013 — Xətai Park Azure",
-"Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
-"Bravo 4023 — Xətai Sabit Orucov küçəsi"
-],
-
-6:[
-"Bravo 5041 — Sea Breeze",
-"Bravo 3077 — Sea Breeze Premium",
-"Bravo 4001 — Amburan Mall",
-"Bravo 5004 — Sabunçu",
-"Bravo 5021 — Sabunçu"
-]
-
-}
-
-};
-
-
-/* =====================================================
-   YERLİ YADDAŞ
-===================================================== */
-
-const memoryStore = {};
-
-function read(key,def){
+function localRead(key,def){
 
  try{
 
-   const raw = localStorage.getItem(key);
+  const raw=
+   localStorage.getItem(key);
 
-   if(raw===null)
-     return memoryStore[key] ?? def;
+  if(raw===null)
+   return memoryStore[key] ?? def;
 
-   return JSON.parse(raw) ?? def;
+  return JSON.parse(raw) ?? def;
 
  }catch(e){
 
-   return memoryStore[key] ?? def;
+  return memoryStore[key] ?? def;
+
+ }
+
+}
+
+
+function localWrite(key,value){
+
+ memoryStore[key]=value;
+
+ try{
+
+  localStorage.setItem(
+   key,
+   JSON.stringify(value)
+  );
+
+ }catch(e){}
+
+}
+
+
+function updateSyncStatus(){
+
+ const el=
+  document.getElementById(
+   "syncStatus"
+  );
+
+ if(!el)return;
+
+ if(d1Ready){
+
+  el.innerText="☁️ D1 sinxron";
+
+  el.style.background="#166534";
+
+ }else{
+
+  el.innerText="📱 Lokal rejim";
+
+  el.style.background="#92400e";
+
+ }
+
+}
+
+
+async function saveCentral(key,value){
+
+ try{
+
+  const r=
+   await fetch(
+    API,
+    {
+     method:"POST",
+     headers:{
+      "Content-Type":
+       "application/json"
+     },
+     body:JSON.stringify({
+      key:key,
+      value:value
+     })
+    }
+   );
+
+  if(!r.ok)
+   throw new Error("Server xətası");
+
+  centralState[key]=value;
+
+  localWrite(key,value);
+
+  d1Ready=true;
+
+  updateSyncStatus();
+
+  return true;
+
+ }catch(e){
+
+  console.error(e);
+
+  d1Ready=false;
+
+  updateSyncStatus();
+
+  return false;
 
  }
 
@@ -729,93 +829,460 @@ function write(key,value){
 
  memoryStore[key]=value;
 
- try{
+ localWrite(key,value);
 
-   localStorage.setItem(
-     key,
-     JSON.stringify(value)
-   );
+ centralState[key]=value;
 
- }catch(e){}
+ saveCentral(key,value);
 
 }
 
 
+function read(key,def){
+
+ if(
+  Object.prototype.hasOwnProperty.call(
+   centralState,
+   key
+  )
+ ){
+
+  return centralState[key];
+
+ }
+
+ return localRead(key,def);
+
+}
+
+
+async function loadCentralState(){
+
+ try{
+
+  const r=
+   await fetch(
+    API+"?t="+Date.now(),
+    {
+     method:"GET",
+     cache:"no-store"
+    }
+   );
+
+  if(!r.ok)
+   throw new Error("D1 oxunmadı");
+
+  const data=
+   await r.json();
+
+  if(!data.success)
+   throw new Error("D1 cavabı səhvdir");
+
+  const server=data.state || {};
+
+  /*
+   D1 boşdursa bu telefondakı köhnə
+   localStorage məlumatlarını ilk dəfə
+   serverə göndəririk.
+  */
+
+  if(
+   Object.keys(server).length===0
+  ){
+
+   const keys=[
+    "passwords",
+    "customStores",
+    "deletedStores",
+    "addedRoutes",
+    "removedRoutes",
+    "visits"
+   ];
+
+   for(
+    const key of keys
+   ){
+
+    const value=
+     localRead(key,null);
+
+    if(value!==null){
+
+     centralState[key]=value;
+
+     await saveCentral(
+      key,
+      value
+     );
+
+    }
+
+   }
+
+  }else{
+
+   centralState=server;
+
+   Object.keys(
+    server
+   ).forEach(key=>{
+
+    localWrite(
+     key,
+     server[key]
+    );
+
+   });
+
+  }
+
+  d1Ready=true;
+
+  updateSyncStatus();
+
+  loadStores();
+
+  if(currentRole==="worker"){
+
+   updateWorkerStatus();
+
+  }
+
+  if(currentRole==="admin"){
+
+   refreshAdmin();
+
+  }
+
+ }catch(e){
+
+  console.error(
+   "D1 xətası:",
+   e
+  );
+
+  d1Ready=false;
+
+  updateSyncStatus();
+
+ }
+
+}
+
+
+/*
+ Hər 5 saniyədə mərkəzi məlumatı yoxla.
+*/
+
+setInterval(
+ async function(){
+
+  if(
+   !d1Ready ||
+   navigator.onLine
+  ){
+
+   await loadCentralState();
+
+  }
+
+ },
+ 5000
+);
+
+
 /* =====================================================
-   ŞİFRƏLƏR
+   HESABLAR
+===================================================== */
+
+const DEFAULT_PASSWORDS={
+
+ mudir:"1234",
+
+ mer1:"1234",
+ mer2:"1234",
+ mer3:"1234",
+ mer4:"1234",
+ mer5:"1234",
+ mer6:"1234",
+ mer7:"1234",
+ mer8:"1234",
+ mer9:"1234",
+ mer10:"1234",
+ mer11:"1234"
+
+};
+
+
+/* =====================================================
+   İŞÇİLƏR
+===================================================== */
+
+const workers=[
+
+ {
+  username:"mer1",
+  name:"Cəlal Abbasov"
+ },
+
+ {
+  username:"mer2",
+  name:"Şəhanə"
+ },
+
+ {
+  username:"mer3",
+  name:"Şəhanə2"
+ },
+
+ {
+  username:"mer4",
+  name:"Rüfət"
+ },
+
+ {
+  username:"mer5",
+  name:"Ariz"
+ },
+
+ {
+  username:"mer6",
+  name:"Sahil"
+ },
+
+ {
+  username:"mer7",
+  name:"Aytac"
+ },
+
+ {
+  username:"mer8",
+  name:"Səkinə"
+ },
+
+ {
+  username:"mer9",
+  name:"Qənirə"
+ },
+
+ {
+  username:"mer10",
+  name:"Ruhiyyə"
+ },
+
+ {
+  username:"mer11",
+  name:"Günel"
+ }
+
+];
+
+
+/* =====================================================
+   MAĞAZALAR
+===================================================== */
+
+const defaultStores=[
+
+ "Bravo 5041 — Sea Breeze",
+
+ "Bravo 2004 — Xətai SS Babək prospekti",
+
+ "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
+
+ "Bravo 4023 — Xətai Sabit Orucov küçəsi",
+
+ "Bravo 3077 — Sea Breeze Premium",
+
+ "Tamstore 220 — Sea Breeze",
+
+ "Bravo 4001 — Amburan Mall",
+
+ "Bravo 5004 — Sabunçu",
+
+ "Bravo 5021 — Sabunçu",
+
+ "Bravo 5120 — Ağ Şəhər",
+
+ "Bravo 3013 — Xətai Park Azure",
+
+ "Bravo 4072 — Bilgəh yolu",
+
+ "Bravo 5179 — Maştağa",
+
+ "Tamstore 137 — Savalan"
+
+];
+
+
+let stores=[];
+
+
+/* =====================================================
+   MARŞRUTLAR
+===================================================== */
+
+const workerRoutes={
+
+ mer1:{
+
+  1:[
+   "Bravo 5041 — Sea Breeze",
+   "Bravo 2004 — Xətai SS Babək prospekti",
+   "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
+   "Bravo 4023 — Xətai Sabit Orucov küçəsi"
+  ],
+
+  2:[
+   "Bravo 5041 — Sea Breeze",
+   "Bravo 3077 — Sea Breeze Premium",
+   "Tamstore 220 — Sea Breeze",
+   "Bravo 4001 — Amburan Mall",
+   "Bravo 5004 — Sabunçu",
+   "Bravo 5021 — Sabunçu"
+  ],
+
+  3:[
+   "Bravo 5041 — Sea Breeze",
+   "Bravo 5120 — Ağ Şəhər",
+   "Bravo 3013 — Xətai Park Azure",
+   "Bravo 4023 — Xətai Sabit Orucov küçəsi",
+   "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi"
+  ],
+
+  4:[
+   "Bravo 5041 — Sea Breeze",
+   "Bravo 4001 — Amburan Mall",
+   "Bravo 4072 — Bilgəh yolu",
+   "Bravo 5179 — Maştağa",
+   "Tamstore 137 — Savalan",
+   "Bravo 5021 — Sabunçu"
+  ],
+
+  5:[
+   "Bravo 5041 — Sea Breeze",
+   "Bravo 2004 — Xətai SS Babək prospekti",
+   "Bravo 3013 — Xətai Park Azure",
+   "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
+   "Bravo 4023 — Xətai Sabit Orucov küçəsi"
+  ],
+
+  6:[
+   "Bravo 5041 — Sea Breeze",
+   "Bravo 3077 — Sea Breeze Premium",
+   "Bravo 4001 — Amburan Mall",
+   "Bravo 5004 — Sabunçu",
+   "Bravo 5021 — Sabunçu"
+  ]
+
+ }
+
+};
+
+
+/* =====================================================
+   ŞİFRƏ
 ===================================================== */
 
 function getPasswords(){
 
- const saved = read("passwords",null);
+ const saved=
+  read(
+   "passwords",
+   null
+  );
 
- const passwords = {
-   ...DEFAULT_PASSWORDS
+ const result={
+  ...DEFAULT_PASSWORDS
  };
 
- if(saved && typeof saved==="object"){
+ if(
+  saved &&
+  typeof saved==="object"
+ ){
 
-   Object.keys(DEFAULT_PASSWORDS).forEach(k=>{
+  Object.keys(
+   DEFAULT_PASSWORDS
+  ).forEach(k=>{
 
-     if(
-       typeof saved[k]==="string" &&
-       saved[k].trim()!==""
-     ){
+   if(
+    typeof saved[k]==="string" &&
+    saved[k].trim()!==""
+   ){
 
-       passwords[k]=saved[k];
+    result[k]=saved[k];
 
-     }
+   }
 
-   });
+  });
 
  }
 
- write("passwords",passwords);
-
- return passwords;
+ return result;
 
 }
 
 
-function setPassword(username,password){
+function setPassword(
+ username,
+ password
+){
 
- const passwords=getPasswords();
+ const p=
+  getPasswords();
 
- passwords[username]=password;
+ p[username]=password;
 
- write("passwords",passwords);
+ write(
+  "passwords",
+  p
+ );
 
 }
 
 
 /* =====================================================
-   MAĞAZA MƏLUMATLARI
+   MAĞAZALAR
 ===================================================== */
-
-let stores=[];
-
-let currentUser=null;
-let currentRole=null;
-
 
 function loadStores(){
 
- stores=[...defaultStores];
+ stores=[
+  ...defaultStores
+ ];
 
- const custom=read("customStores",[]);
+ const custom=
+  read(
+   "customStores",
+   []
+  );
 
  custom.forEach(x=>{
 
-   if(x.store && !stores.includes(x.store))
-     stores.push(x.store);
+  if(
+   x &&
+   x.store &&
+   !stores.includes(x.store)
+  ){
+
+   stores.push(
+    x.store
+   );
+
+  }
 
  });
 
- const deleted=read("deletedStores",[]);
+ const deleted=
+  read(
+   "deletedStores",
+   []
+  );
 
- stores=stores.filter(
-   s=>!deleted.includes(s)
- );
+ stores=
+  stores.filter(
+   x=>!deleted.includes(x)
+  );
 
 }
 
@@ -825,173 +1292,80 @@ loadStores();
 
 function getAddedRoutes(){
 
- return read("addedRoutes",{});
+ return read(
+  "addedRoutes",
+  {}
+ );
 
 }
 
 
 function getRemovedRoutes(){
 
- return read("removedRoutes",{});
+ return read(
+  "removedRoutes",
+  {}
+ );
 
 }
 
 
-function getWorkerRoute(username,day){
+function getWorkerRoute(
+ username,
+ day
+){
 
- let route =
-   workerRoutes[username]?.[day]
-   ? [...workerRoutes[username][day]]
-   : [];
+ let route=
+  workerRoutes[username]?.[day]
+  ?
+  [
+   ...workerRoutes[
+    username
+   ][day]
+  ]
+  :
+  [];
 
- const added=getAddedRoutes();
- const removed=getRemovedRoutes();
+ const added=
+  getAddedRoutes();
 
- if(added[username]?.[day])
-   route.push(...added[username][day]);
+ const removed=
+  getRemovedRoutes();
 
- if(removed[username]?.[day])
-   route=route.filter(
-     s=>!removed[username][day].includes(s)
+ if(
+  added[username]?.[day]
+ ){
+
+  route.push(
+   ...added[
+    username
+   ][day]
+  );
+
+ }
+
+ if(
+  removed[username]?.[day]
+ ){
+
+  route=
+   route.filter(
+    x=>
+     !removed[
+      username
+     ][day].includes(x)
    );
 
- route=route.filter(
-   s=>stores.includes(s)
- );
-
- return [...new Set(route)];
-
-}
-
-
-/* =====================================================
-   GİRİŞ
-===================================================== */
-
-function login(){
-
- const u=document
-   .getElementById("username")
-   .value
-   .trim();
-
- const p=document
-   .getElementById("password")
-   .value;
-
- if(!u || !p){
-
-   alert("İstifadəçi adı və şifrəni daxil edin.");
-
-   return;
-
  }
 
- const passwords=getPasswords();
+ route=
+  route.filter(
+   x=>stores.includes(x)
+  );
 
-
- /* MÜDİR */
-
- if(
-   u==="mudir" &&
-   p===passwords.mudir
- ){
-
-   currentUser="mudir";
-   currentRole="admin";
-
-   document
-     .getElementById("login")
-     .classList.add("hidden");
-
-   document
-     .getElementById("workerDashboard")
-     .classList.add("hidden");
-
-   document
-     .getElementById("adminDashboard")
-     .classList.remove("hidden");
-
-   loadAdminPanel();
-   refreshAdmin();
-
-   return;
-
- }
-
-
- /* İŞÇİ */
-
- const w=workers.find(
-   x=>x.username===u
- );
-
- if(
-   w &&
-   p===passwords[u]
- ){
-
-   currentUser=u;
-   currentRole="worker";
-
-   document
-     .getElementById("login")
-     .classList.add("hidden");
-
-   document
-     .getElementById("adminDashboard")
-     .classList.add("hidden");
-
-   document
-     .getElementById("workerDashboard")
-     .classList.remove("hidden");
-
-   document
-     .getElementById("workerName")
-     .innerText=w.name;
-
-   updateWorkerStatus();
-
-   return;
-
- }
-
-
- alert("İstifadəçi adı və ya şifrə yanlışdır.");
-
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-function getActiveVisit(){
-
- const x=read("activeVisit",null);
-
- if(
-   x &&
-   x.username===currentUser
- )
-   return x;
-
- return null;
-
-}
-
-
-function getWorkStatus(){
-
- const x=read("workStatus",null);
-
- if(
-   x &&
-   x.username===currentUser
- )
-   return x;
-
- return null;
+ return [
+  ...new Set(route)
+ ];
 
 }
 
@@ -1000,67 +1374,234 @@ function getWorkStatus(){
    İŞÇİ STATUSU
 ===================================================== */
 
+function getWorkStatus(){
+
+ if(!currentUser)
+  return null;
+
+ return read(
+  "workStatus_"+currentUser,
+  null
+ );
+
+}
+
+
+function getActiveVisit(){
+
+ if(!currentUser)
+  return null;
+
+ return read(
+  "activeVisit_"+currentUser,
+  null
+ );
+
+}
+
+
+function getWorkerWorkStatus(
+ username
+){
+
+ return read(
+  "workStatus_"+username,
+  null
+ );
+
+}
+
+
+function getWorkerActiveVisit(
+ username
+){
+
+ return read(
+  "activeVisit_"+username,
+  null
+ );
+
+}
+
+
+/* =====================================================
+   GİRİŞ
+===================================================== */
+
+async function login(){
+
+ const u=
+  document
+  .getElementById("username")
+  .value
+  .trim();
+
+ const p=
+  document
+  .getElementById("password")
+  .value;
+
+ if(!u || !p){
+
+  alert(
+   "İstifadəçi adı və şifrəni daxil edin."
+  );
+
+  return;
+
+ }
+
+ await loadCentralState();
+
+ const passwords=
+  getPasswords();
+
+ if(
+  u==="mudir" &&
+  p===passwords.mudir
+ ){
+
+  currentUser="mudir";
+
+  currentRole="admin";
+
+  document
+   .getElementById("login")
+   .classList.add("hidden");
+
+  document
+   .getElementById("workerDashboard")
+   .classList.add("hidden");
+
+  document
+   .getElementById("adminDashboard")
+   .classList.remove("hidden");
+
+  loadAdminPanel();
+
+  refreshAdmin();
+
+  return;
+
+ }
+
+ const w=
+  workers.find(
+   x=>x.username===u
+  );
+
+ if(
+  w &&
+  p===passwords[u]
+ ){
+
+  currentUser=u;
+
+  currentRole="worker";
+
+  document
+   .getElementById("login")
+   .classList.add("hidden");
+
+  document
+   .getElementById("adminDashboard")
+   .classList.add("hidden");
+
+  document
+   .getElementById("workerDashboard")
+   .classList.remove("hidden");
+
+  document
+   .getElementById("workerName")
+   .innerText=w.name;
+
+  updateWorkerStatus();
+
+  return;
+
+ }
+
+ alert(
+  "İstifadəçi adı və ya şifrə yanlışdır."
+ );
+
+}
+
+
+/* =====================================================
+   İŞ STATUSU
+===================================================== */
+
 function updateWorkerStatus(){
 
- const e=document.getElementById("workerStatus");
+ const el=
+  document.getElementById(
+   "workerStatus"
+  );
 
- if(!e)return;
+ if(!el)return;
 
- const work=getWorkStatus();
- const active=getActiveVisit();
+ const work=
+  getWorkStatus();
+
+ const active=
+  getActiveVisit();
 
  if(work){
 
-   e.innerHTML=`
+  el.innerHTML=`
 
-   <div class="success">
+  <div class="success">
 
-   🟢 <b>İşdəsiniz</b>
+  🟢 <b>İşdəsiniz</b>
+
+  <br>
+
+  🕐 İşə başlama:
+  ${escapeHTML(work.startTime)}
+
+  ${
+   active
+   ?
+   `
+   <br><br>
+
+   🏪 Hazırda:
+   <b>${escapeHTML(active.store)}</b>
 
    <br>
-   🕐 İşə başlama: ${work.startTime}
 
-   ${
-     active
-     ?
-     `
-     <br><br>
-     🏪 Hazırda:
-     <b>${escapeHTML(active.store)}</b>
+   🕐 Ziyarət:
+   ${escapeHTML(active.startTime)}
 
-     <br>
-     🕐 Ziyarət:
-     ${active.startTime}
+   <button
+    class="finish-btn"
+    onclick="finishVisit()">
+    ⏹️ Ziyarəti bitir
+   </button>
+   `
+   :
+   `
+   <br>
+   📍 Hazırda mağaza ziyarəti yoxdur.
+   `
+  }
 
-     <button
-       type="button"
-       class="finish-btn"
-       onclick="finishVisit()">
-       ⏹️ Ziyarəti bitir
-     </button>
-     `
-     :
-     `
-     <br>
-     📍 Hazırda mağaza ziyarəti yoxdur.
-     `
-   }
+  </div>
 
-   </div>
-
-   `;
+  `;
 
  }else{
 
-   e.innerHTML=`
+  el.innerHTML=`
 
-   <div class="info">
+  <div class="info">
 
-   🔵 Hazırda iş statusunuz aktiv deyil.
+  🔵 Hazırda iş statusunuz aktiv deyil.
 
-   </div>
+  </div>
 
-   `;
+  `;
 
  }
 
@@ -1075,28 +1616,43 @@ function startWork(){
 
  if(getWorkStatus()){
 
-   alert("Siz artıq işdəsiniz.");
+  alert(
+   "Siz artıq işdəsiniz."
+  );
 
-   return;
+  return;
 
  }
 
- const now=new Date();
+ const now=
+  new Date();
+
+ const value={
+
+  username:currentUser,
+
+  startTime:
+   now.toLocaleTimeString(
+    "az-AZ"
+   ),
+
+  date:
+   now.toLocaleDateString(
+    "az-AZ"
+   ),
+
+  lat:null,
+
+  lng:null
+
+ };
 
  write(
-   "workStatus",
-   {
-     username:currentUser,
-     startTime:now.toLocaleTimeString("az-AZ"),
-     date:now.toLocaleDateString("az-AZ"),
-     lat:null,
-     lng:null
-   }
+  "workStatus_"+currentUser,
+  value
  );
 
  updateWorkerStatus();
-
- /* GPS məcburi deyil */
 
 }
 
@@ -1109,47 +1665,30 @@ function endWork(){
 
  if(getActiveVisit()){
 
-   alert(
-     "Əvvəlcə aktiv mağaza ziyarətini bitirin."
-   );
+  alert(
+   "Əvvəlcə aktiv mağaza ziyarətini bitirin."
+  );
 
-   return;
+  return;
 
  }
 
  if(!getWorkStatus()){
 
-   alert(
-     "Hazırda iş statusunuz aktiv deyil."
-   );
+  alert(
+   "Hazırda iş statusunuz aktiv deyil."
+  );
 
-   return;
+  return;
 
  }
 
- try{
-   localStorage.removeItem("workStatus");
- }catch(e){}
-
- delete memoryStore.workStatus;
+ write(
+  "workStatus_"+currentUser,
+  null
+ );
 
  updateWorkerStatus();
-
- document.getElementById(
-   "workerContent"
- ).innerHTML=`
-
- <div class="card">
-
- <div class="success">
-
- ✅ İş günü tamamlandı.
-
- </div>
-
- </div>
-
- `;
 
 }
 
@@ -1160,56 +1699,19 @@ function endWork(){
 
 function showStores(){
 
- const today=new Date().getDay();
+ const day=
+  new Date().getDay();
 
- if(today===0){
+ let routeDay=day;
 
-   document.getElementById(
-     "workerContent"
-   ).innerHTML=`
+ if(day===0)
+  routeDay=6;
 
-   <div class="card">
-
-   <h2>🏪 Bugünkü mağazalar</h2>
-
-   <div class="info">
-   📅 Bu gün istirahət günüdür.
-   </div>
-
-   </div>
-
-   `;
-
-   return;
-
- }
-
- const route=getWorkerRoute(
+ const route=
+  getWorkerRoute(
    currentUser,
-   today
- );
-
- if(!route.length){
-
-   document.getElementById(
-     "workerContent"
-   ).innerHTML=`
-
-   <div class="card">
-
-   <h2>🏪 Bugünkü mağazalar</h2>
-
-   <div class="info">
-   Bu gün üçün mağaza təyin edilməyib.
-   </div>
-
-   </div>
-
-   `;
-
-   return;
-
- }
+   routeDay
+  );
 
  let html=`
 
@@ -1217,38 +1719,60 @@ function showStores(){
 
  <h2>🏪 Bugünkü mağazalar</h2>
 
- <p>📅 ${today}. gün</p>
+ <div class="info">
+ Gün: ${routeDay}
+ </div>
 
  `;
 
- route.forEach((s,i)=>{
+ if(!route.length){
+
+  html+=`
+
+  <div class="warning">
+
+  Bu gün üçün mağaza təyin edilməyib.
+
+  </div>
+
+  `;
+
+ }else{
+
+  route.forEach((store,index)=>{
 
    html+=`
 
    <div class="store">
 
    <b>
-   ${i+1}. ${escapeHTML(s)}
+   ${index+1}. ${escapeHTML(store)}
    </b>
 
-   <p>Mağaza ziyarəti</p>
-
    <button
-     onclick='visitStore(${JSON.stringify(s)})'>
-     📍 Ziyarətə başla
+    onclick="visitStore('${escapeJS(store)}')">
+    📍 Ziyarətə başla
    </button>
 
    </div>
 
    `;
 
- });
+  });
 
- html+=`</div>`;
+ }
 
- document.getElementById(
+ html+=`
+
+ </div>
+
+ `;
+
+ document
+  .getElementById(
    "workerContent"
- ).innerHTML=html;
+  )
+  .innerHTML=html;
 
 }
 
@@ -1257,2210 +1781,168 @@ function showStores(){
    ZİYARƏT
 ===================================================== */
 
-function showVisit(){
-
- if(!getWorkStatus()){
-
-   document.getElementById(
-     "workerContent"
-   ).innerHTML=`
-
-   <div class="card">
-
-   <h2>📍 Ziyarət</h2>
-
-   <div class="warning">
-
-   Əvvəlcə “İşə başla” düyməsinə basın.
-
-   </div>
-
-   </div>
-
-   `;
-
-   return;
-
- }
-
- const today=new Date().getDay();
-
- const route=getWorkerRoute(
-   currentUser,
-   today
- );
-
- if(!route.length){
-
-   document.getElementById(
-     "workerContent"
-   ).innerHTML=`
-
-   <div class="card">
-
-   <h2>📍 Ziyarət</h2>
-
-   <div class="info">
-   Bu gün üçün mağaza yoxdur.
-   </div>
-
-   </div>
-
-   `;
-
-   return;
-
- }
-
- let options=`
- <option value="">
- Mağaza seçin
- </option>
- `;
-
- route.forEach(s=>{
-
-   options+=`
-
-   <option value="${escapeHTML(s)}">
-   ${escapeHTML(s)}
-   </option>
-
-   `;
-
- });
-
- document.getElementById(
-   "workerContent"
- ).innerHTML=`
-
- <div class="card">
-
- <h2>📍 Mağaza ziyarəti</h2>
-
- <select id="storeSelect">
- ${options}
- </select>
-
- <button onclick="startVisit()">
- ▶️ Ziyarəti başlat
- </button>
-
- <div id="visitResult"></div>
-
- </div>
-
- `;
-
-}
-
-
-function startVisit(){
-
- const s=document
-   .getElementById("storeSelect")
-   ?.value;
-
- if(!s){
-
-   alert("Əvvəlcə mağaza seçin.");
-
-   return;
-
- }
-
- visitStore(s);
-
-}
-
-
-/* =====================================================
-   ZİYARƏTƏ BAŞLA
-===================================================== */
-
 function visitStore(store){
 
  if(!getWorkStatus()){
 
-   alert("Əvvəlcə işə başlayın.");
+  alert(
+   "Əvvəlcə İşə başla düyməsini basın."
+  );
 
-   return;
+  return;
 
  }
 
  if(getActiveVisit()){
 
-   alert(
-     "Hazırda aktiv ziyarət var. Əvvəlcə onu bitirin."
-   );
+  alert(
+   "Hazırda aktiv ziyarətiniz var."
+  );
 
-   return;
+  return;
 
  }
 
- const now=new Date();
+ const now=
+  new Date();
 
  const visit={
 
-   username:currentUser,
+  username:currentUser,
 
-   store:store,
+  store:store,
 
-   startTime:
-     now.toLocaleTimeString("az-AZ"),
+  startTime:
+   now.toLocaleTimeString(
+    "az-AZ"
+   ),
 
-   date:
-     now.toLocaleDateString("az-AZ"),
+  date:
+   now.toLocaleDateString(
+    "az-AZ"
+   ),
 
-   lat:null,
+  lat:null,
 
-   lng:null,
+  lng:null,
 
-   note:"",
+  photo:null,
 
-   photo:"",
+  note:"",
 
-   checks:[]
+  checks:[]
 
  };
 
  write(
-   "activeVisit",
-   visit
+  "activeVisit_"+currentUser,
+  visit
  );
 
- updateWorkerStatus();
+ showVisit();
 
- document.getElementById(
-   "workerContent"
- ).innerHTML=`
-
- <div class="card">
-
- <h2>📍 ${escapeHTML(store)}</h2>
-
- <div class="success">
-
- ✅ Ziyarət başladı.
-
- <br>
- 🕐 ${visit.startTime}
-
- </div>
-
-
- <button
-   class="location-btn"
-   onclick="getLocation('Mağaza ziyarəti')">
-
-   📍 Məkanı götür
-
- </button>
-
-
- <button
-   class="photo-btn"
-   onclick="openCamera()">
-
-   📷 Foto çək
-
- </button>
-
-
- <input
-   id="visitPhotoInput"
-   type="file"
-   accept="image/*"
-   capture="environment"
-   class="hidden"
-   onchange="handlePhoto(event)"
- >
-
-
- <textarea
-   id="visitNote"
-   placeholder="Mağaza haqqında qeyd...">
- </textarea>
-
-
- <h3>📝 Məhsul yoxlama</h3>
-
-
- <div class="check-row">
-
- <input
-   type="checkbox"
-   id="c1">
-
- <label for="c1">
- Məhsullar rəfdədir
- </label>
-
- </div>
-
-
- <div class="check-row">
-
- <input
-   type="checkbox"
-   id="c2">
-
- <label for="c2">
- Qiymət etiketi düzgündür
- </label>
-
- </div>
-
-
- <div class="check-row">
-
- <input
-   type="checkbox"
-   id="c3">
-
- <label for="c3">
- Rəf səliqəlidir
- </label>
-
- </div>
-
-
- <div class="check-row">
-
- <input
-   type="checkbox"
-   id="c4">
-
- <label for="c4">
- Stok yoxlanıldı
- </label>
-
- </div>
-
-
- <button onclick="saveVisitData()">
- 💾 Məlumatları yadda saxla
- </button>
-
-
- <!-- ƏN VACİB:
-      BU DÜYMƏ GPS İSTƏMİR -->
-
- <button
-   type="button"
-   class="finish-btn"
-   onclick="finishVisit()">
-
-   ⏹️ Ziyarəti bitir
-
- </button>
-
-
- <div id="visitResult"></div>
-
- </div>
-
- `;
+ getLocation();
 
 }
 
 
 /* =====================================================
-   FOTO
+   ZİYARƏT EKRANI
 ===================================================== */
 
-function openCamera(){
+function showVisit(){
 
- document
-   .getElementById("visitPhotoInput")
-   ?.click();
-
-}
-
-
-function handlePhoto(event){
-
- const file=event.target.files?.[0];
-
- if(!file)return;
-
- const reader=new FileReader();
-
- reader.onload=e=>{
-
-   const v=getActiveVisit();
-
-   if(!v)return;
-
-   v.photo=e.target.result;
-
-   write("activeVisit",v);
-
-   const r=document.getElementById(
-     "visitResult"
-   );
-
-   if(r){
-
-     r.innerHTML=`
-
-     <div class="success">
-
-     📷 Foto əlavə edildi.
-
-     <img
-       class="photo-preview"
-       src="${v.photo}">
-
-     </div>
-
-     `;
-
-   }
-
- };
-
- reader.readAsDataURL(file);
-
-}
-
-
-/* =====================================================
-   MƏLUMATLARI SAXLA
-===================================================== */
-
-function saveVisitData(){
-
- const v=getActiveVisit();
-
- if(!v)return;
-
- const note=
-   document.getElementById(
-     "visitNote"
-   )?.value || "";
-
- v.note=note;
-
- v.checks=[
-   "c1",
-   "c2",
-   "c3",
-   "c4"
- ].filter(id=>{
-
-   const el=document.getElementById(id);
-
-   return el ? el.checked:false;
-
- });
-
- write("activeVisit",v);
-
- const r=document.getElementById(
-   "visitResult"
- );
-
- if(r){
-
-   r.innerHTML=`
-
-   <div class="success">
-
-   ✅ Məlumatlar yadda saxlanıldı.
-
-   </div>
-
-   `;
-
- }
-
-}
-
-
-/* =====================================================
-   GPS
-===================================================== */
-
-function getLocation(label){
-
- if(!navigator.geolocation){
-
-   alert(
-     "Bu brauzerdə GPS dəstəklənmir."
-   );
-
-   return;
-
- }
-
- navigator.geolocation.getCurrentPosition(
-
-   pos=>{
-
-     const lat=pos.coords.latitude;
-     const lng=pos.coords.longitude;
-
-     const active=getActiveVisit();
-
-     if(active){
-
-       active.lat=lat;
-       active.lng=lng;
-
-       write("activeVisit",active);
-
-     }
-
-     const work=getWorkStatus();
-
-     if(work){
-
-       work.lat=lat;
-       work.lng=lng;
-
-       write("workStatus",work);
-
-     }
-
-     const el=document.getElementById(
-       "visitResult"
-     );
-
-     if(el){
-
-       el.innerHTML=`
-
-       <div class="success">
-
-       📍 Məkan alındı.
-
-       <br>
-       Enlik: ${lat.toFixed(6)}
-
-       <br>
-       Uzunluq: ${lng.toFixed(6)}
-
-       </div>
-
-       `;
-
-     }
-
-   },
-
-   err=>{
-
-     /* GPS alınmasa belə
-        ziyarəti bitirməyə mane olmur */
-
-     const el=document.getElementById(
-       "visitResult"
-     );
-
-     if(el){
-
-       el.innerHTML=`
-
-       <div class="warning">
-
-       ⚠️ GPS məkanı alınmadı.
-
-       Ziyarəti yenə də bitirə bilərsiniz.
-
-       </div>
-
-       `;
-
-     }
-
-   },
-
-   {
-     enableHighAccuracy:true,
-     timeout:10000,
-     maximumAge:0
-   }
-
- );
-
-}
-
-
-/* =====================================================
-   ZİYARƏTİ BİTİR
-===================================================== */
-
-function finishVisit(){
-
- const active=getActiveVisit();
+ const active=
+  getActiveVisit();
 
  if(!active){
 
-   alert("Aktiv ziyarət yoxdur.");
-
-   return;
-
- }
-
-
- /* GPS BURADA YOXDUR.
-    Ona görə GPS xətası
-    ziyarəti bloklamır. */
-
-
- const noteEl=
-   document.getElementById("visitNote");
-
- if(noteEl)
-   active.note=noteEl.value || "";
-
-
- active.checks=[
-   "c1",
-   "c2",
-   "c3",
-   "c4"
- ].filter(id=>{
-
-   const el=document.getElementById(id);
-
-   return el ? el.checked:false;
-
- });
-
-
- active.endTime=
-   new Date().toLocaleTimeString("az-AZ");
-
-
- const visits=read("visits",[]);
-
- const history=
-   Array.isArray(visits)
-   ? visits
-   : [];
-
-
- history.unshift(active);
-
- write("visits",history);
-
-
- try{
-
-   localStorage.removeItem(
-     "activeVisit"
-   );
-
- }catch(e){}
-
- delete memoryStore.activeVisit;
-
-
- updateWorkerStatus();
-
-
- document.getElementById(
-   "workerContent"
- ).innerHTML=`
-
- <div class="card">
-
- <h2>✅ Ziyarət tamamlandı</h2>
-
- <div class="success">
-
- 🏪 ${escapeHTML(active.store)}
-
- <br>
-
- ▶️ ${active.startTime}
-
- <br>
-
- ⏹️ ${active.endTime}
-
- ${
-   active.lat!==null
-   ?
-   `<br>📍 GPS qeyd edildi`
-   :
-   `<br>📍 GPS qeyd edilmədi`
- }
-
- </div>
-
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   HESABAT
-===================================================== */
-
-function showReport(){
-
- const visits=
-   read("visits",[])
-   .filter(
-     v=>v.username===currentUser
-   );
-
- let html=`
-
- <div class="card">
-
- <h2>📊 Mənim hesabatım</h2>
-
- `;
-
- if(!visits.length){
-
-   html+=`
-
-   <div class="info">
-
-   Hələ tamamlanmış ziyarət yoxdur.
-
-   </div>
-
-   `;
-
- }
-
- visits.forEach(v=>{
-
-   html+=visitHTML(v);
-
- });
-
- html+=`</div>`;
-
- document.getElementById(
-   "workerContent"
- ).innerHTML=html;
-
-}
-
-
-function visitHTML(v){
-
- const worker=
-   workers.find(
-     w=>w.username===v.username
-   );
-
- return `
-
- <div class="visit-item">
-
- 👤 <b>
- ${escapeHTML(worker?.name || v.username)}
- </b>
-
- <br>
-
- 🏪 <b>
- ${escapeHTML(v.store)}
- </b>
-
- <br>
-
- 📅 ${v.date}
-
- <br>
-
- ▶️ ${v.startTime}
-
- <br>
-
- ⏹️ ${v.endTime || "-"}
-
- <br>
-
- 📍 ${
-   v.lat!==null &&
-   v.lat!==undefined
-   ?
-   `GPS: ${Number(v.lat).toFixed(5)},
-    ${Number(v.lng).toFixed(5)}`
-   :
-   "GPS yoxdur"
- }
-
- ${
-   v.note
-   ?
-   `<br>📝 ${escapeHTML(v.note)}`
-   :
-   ""
- }
-
- ${
-   v.photo
-   ?
-   `<img
-      class="photo-preview"
-      src="${v.photo}">`
-   :
-   ""
- }
-
- <br>
-
- <span class="badge">
-
- Yoxlama:
- ${(v.checks||[]).length}/4
-
- </span>
-
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   BUGÜNKÜ İŞ
-===================================================== */
-
-function showTodaySummary(){
-
- const today=
-   new Date().toLocaleDateString("az-AZ");
-
- const visits=
-   read("visits",[])
-   .filter(
-     v=>
-       v.username===currentUser &&
-       v.date===today
-   );
-
- document.getElementById(
-   "workerContent"
- ).innerHTML=`
-
- <div class="card">
-
- <h2>📋 Bugünkü iş</h2>
-
- <div class="info">
-
- Tamamlanan ziyarət:
- <b>${visits.length}</b>
-
- </div>
-
- ${visits.map(visitHTML).join("")}
-
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   PROFİL
-===================================================== */
-
-function showProfile(){
-
- const w=workers.find(
-   x=>x.username===currentUser
- );
-
- document.getElementById(
-   "workerContent"
- ).innerHTML=`
-
- <div class="card">
-
- <h2>👤 Profil</h2>
-
- <p>
- Ad:
- <b>${escapeHTML(w.name)}</b>
- </p>
-
- <p>
- İstifadəçi:
- <b>${w.username}</b>
- </p>
-
- <p>
- Vəzifə:
- <b>Merçendayzer</b>
- </p>
-
- <hr>
-
- <h3>🔑 Şifrəni dəyiş</h3>
-
- <input
-   id="myOldPassword"
-   type="password"
-   placeholder="Hazırkı şifrə">
-
- <input
-   id="myNewPassword"
-   type="password"
-   placeholder="Yeni şifrə">
-
- <input
-   id="myNewPassword2"
-   type="password"
-   placeholder="Yeni şifrəni təkrar yazın">
-
- <button onclick="changeMyPassword()">
- 🔐 Şifrəni dəyiş
- </button>
-
- <div id="myPasswordResult"></div>
-
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   İŞÇİ ÖZ ŞİFRƏSİNİ DƏYİŞİR
-===================================================== */
-
-function changeMyPassword(){
-
- const oldP=
-   document.getElementById(
-     "myOldPassword"
-   ).value;
-
- const newP=
-   document.getElementById(
-     "myNewPassword"
-   ).value;
-
- const newP2=
-   document.getElementById(
-     "myNewPassword2"
-   ).value;
-
- const result=
-   document.getElementById(
-     "myPasswordResult"
-   );
-
- const passwords=getPasswords();
-
-
- if(!oldP || !newP || !newP2){
-
-   result.innerHTML=`
-
-   <div class="warning">
-   Bütün sahələri doldurun.
-   </div>
-
-   `;
-
-   return;
-
- }
-
-
- if(passwords[currentUser]!==oldP){
-
-   result.innerHTML=`
-
-   <div class="danger">
-   Hazırkı şifrə yanlışdır.
-   </div>
-
-   `;
-
-   return;
-
- }
-
-
- if(newP.length<4){
-
-   result.innerHTML=`
-
-   <div class="warning">
-   Yeni şifrə ən azı 4 simvol olsun.
-   </div>
-
-   `;
-
-   return;
-
- }
-
-
- if(newP!==newP2){
-
-   result.innerHTML=`
-
-   <div class="danger">
-   Yeni şifrələr eyni deyil.
-   </div>
-
-   `;
-
-   return;
-
- }
-
-
- setPassword(
-   currentUser,
-   newP
- );
-
-
- result.innerHTML=`
-
- <div class="success">
-
- ✅ Şifrəniz uğurla dəyişdirildi.
-
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   MÜDİR PANELİ
-===================================================== */
-
-function loadAdminPanel(){
-
- loadStores();
-
- const workerOptions=
-   workers
-   .map(
-     w=>
-     `<option value="${w.username}">
-       ${escapeHTML(w.name)}
-      </option>`
+  document
+   .getElementById(
+    "workerContent"
    )
-   .join("");
+   .innerHTML=`
 
+   <div class="card">
 
- document.getElementById(
-   "adminWorkerSelect"
- ).innerHTML=
- `<option value="">İşçi seçin</option>`
- +workerOptions;
-
-
- document.getElementById(
-   "transferFromWorker"
- ).innerHTML=
- `<option value="">Hazırkı işçi</option>`
- +workerOptions;
-
-
- document.getElementById(
-   "transferToWorker"
- ).innerHTML=
- `<option value="">Yeni işçi</option>`
- +workerOptions;
-
-
- document.getElementById(
-   "removeWorkerSelect"
- ).innerHTML=
- `<option value="">İşçi seçin</option>`
- +workerOptions;
-
-
- document.getElementById(
-   "adminLocationWorker"
- ).innerHTML=
- `<option value="">İşçi seçin</option>`
- +workerOptions;
-
-
- document.getElementById(
-   "adminPasswordWorker"
- ).innerHTML=
- `<option value="">Hesab seçin</option>
-  <option value="mudir">Müdir hesabı</option>`
- +workerOptions;
-
-
- fillStoreSelects();
-
-}
-
-
-/* =====================================================
-   MAĞAZA SEÇİMLƏRİ
-===================================================== */
-
-function fillStoreSelects(){
-
- loadStores();
-
- let o=`
- <option value="">
- Mağaza seçin
- </option>
- `;
-
- stores.forEach(s=>{
-
-   o+=`
-
-   <option value="${escapeHTML(s)}">
-   ${escapeHTML(s)}
-   </option>
-
-   `;
-
- });
-
-
- document.getElementById(
-   "adminStoreSelect"
- ).innerHTML=o;
-
-
- document.getElementById(
-   "deleteStoreSelect"
- ).innerHTML=
- o.replace(
-   "Mağaza seçin",
-   "Silinəcək mağazanı seçin"
- );
-
-}
-
-
-/* =====================================================
-   YENİ MAĞAZA
-===================================================== */
-
-function adminCreateStore(){
-
- const code=
-   document.getElementById(
-     "newStoreCode"
-   ).value.trim();
-
- const name=
-   document.getElementById(
-     "newStoreName"
-   ).value.trim();
-
- const area=
-   document.getElementById(
-     "newStoreArea"
-   ).value.trim();
-
-
- if(!code || !name || !area){
-
-   alert(
-     "Kodu, adı və ərazini daxil edin."
-   );
-
-   return;
-
- }
-
-
- const full=
-   code+" — "+name;
-
-
- if(stores.includes(full)){
-
-   alert(
-     "Bu mağaza artıq mövcuddur."
-   );
-
-   return;
-
- }
-
-
- const custom=
-   read("customStores",[]);
-
- custom.push({
-   store:full,
-   code:code,
-   name:name,
-   area:area
- });
-
- write(
-   "customStores",
-   custom
- );
-
-
- let deleted=
-   read("deletedStores",[])
-   .filter(x=>x!==full);
-
- write(
-   "deletedStores",
-   deleted
- );
-
-
- loadStores();
- fillStoreSelects();
-
-
- document.getElementById(
-   "newStoreResult"
- ).innerHTML=`
-
- <div class="success">
-
- ✅ ${escapeHTML(full)}
- mağazası əlavə edildi.
-
- <br>
- Ərazi: ${escapeHTML(area)}
-
- </div>
-
- `;
-
-
- document.getElementById(
-   "newStoreCode"
- ).value="";
-
- document.getElementById(
-   "newStoreName"
- ).value="";
-
- document.getElementById(
-   "newStoreArea"
- ).value="";
-
-
- refreshAdmin();
-
-}
-
-
-/* =====================================================
-   İŞÇİYƏ MAĞAZA ƏLAVƏ
-===================================================== */
-
-function adminAddStore(){
-
- const u=
-   document.getElementById(
-     "adminWorkerSelect"
-   ).value;
-
- const s=
-   document.getElementById(
-     "adminStoreSelect"
-   ).value;
-
- const d=
-   document.getElementById(
-     "adminDaySelect"
-   ).value;
-
-
- if(!u || !s || !d){
-
-   alert(
-     "İşçi, mağaza və günü seçin."
-   );
-
-   return;
-
- }
-
-
- const r=getWorkerRoute(u,d);
-
- if(r.includes(s)){
-
-   alert(
-     "Bu mağaza artıq həmin işçinin həmin günündə var."
-   );
-
-   return;
-
- }
-
-
- const added=getAddedRoutes();
-
- added[u] ??={};
- added[u][d] ??=[];
-
- added[u][d].push(s);
-
- write(
-   "addedRoutes",
-   added
- );
-
-
- const removed=getRemovedRoutes();
-
- if(removed[u]?.[d]){
-
-   removed[u][d]=
-     removed[u][d]
-     .filter(x=>x!==s);
-
- }
-
- write(
-   "removedRoutes",
-   removed
- );
-
-
- document.getElementById(
-   "adminAddResult"
- ).innerHTML=`
-
- <div class="success">
-
- ✅ Mağaza işçiyə əlavə edildi.
-
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   MAĞAZA SİL
-===================================================== */
-
-function adminDeleteStore(){
-
- const s=
-   document.getElementById(
-     "deleteStoreSelect"
-   ).value;
-
-
- if(!s){
-
-   alert("Mağaza seçin.");
-
-   return;
-
- }
-
-
- if(!confirm(
-   "Mağaza sistemdən tamamilə silinsin?\n\n"+s
- )){
-
-   return;
-
- }
-
-
- const deleted=
-   read("deletedStores",[]);
-
- if(!deleted.includes(s))
-   deleted.push(s);
-
- write(
-   "deletedStores",
-   deleted
- );
-
-
- write(
-   "customStores",
-   read("customStores",[])
-   .filter(x=>x.store!==s)
- );
-
-
- const added=getAddedRoutes();
-
- Object.keys(added).forEach(u=>{
-
-   Object.keys(added[u]).forEach(d=>{
-
-     added[u][d]=
-       added[u][d]
-       .filter(x=>x!==s);
-
-   });
-
- });
-
-
- write(
-   "addedRoutes",
-   added
- );
-
-
- loadStores();
- fillStoreSelects();
- refreshAdmin();
-
-
- document.getElementById(
-   "deleteStoreResult"
- ).innerHTML=`
-
- <div class="success">
-
- ✅ Mağaza silindi.
-
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   MAĞAZA KEÇİR
-===================================================== */
-
-function loadTransferStores(){
-
- const u=
-   document.getElementById(
-     "transferFromWorker"
-   ).value;
-
- const d=
-   document.getElementById(
-     "transferDay"
-   ).value;
-
- const sel=
-   document.getElementById(
-     "transferStore"
-   );
-
-
- sel.innerHTML=`
-
- <option value="">
- Mağaza seçin
- </option>
-
- `;
-
-
- if(!u || !d)return;
-
-
- getWorkerRoute(u,d).forEach(s=>{
-
-   sel.innerHTML+=`
-
-   <option value="${escapeHTML(s)}">
-   ${escapeHTML(s)}
-   </option>
-
-   `;
-
- });
-
-}
-
-
-function adminTransferStore(){
-
- const from=
-   document.getElementById(
-     "transferFromWorker"
-   ).value;
-
- const d=
-   document.getElementById(
-     "transferDay"
-   ).value;
-
- const s=
-   document.getElementById(
-     "transferStore"
-   ).value;
-
- const to=
-   document.getElementById(
-     "transferToWorker"
-   ).value;
-
-
- if(!from || !d || !s || !to){
-
-   alert(
-     "Bütün seçimləri edin."
-   );
-
-   return;
-
- }
-
-
- if(from===to){
-
-   alert(
-     "Eyni işçini seçmək olmaz."
-   );
-
-   return;
-
- }
-
-
- if(
-   !getWorkerRoute(from,d)
-   .includes(s)
- ){
-
-   alert(
-     "Mağaza tapılmadı."
-   );
-
-   return;
-
- }
-
-
- if(
-   getWorkerRoute(to,d)
-   .includes(s)
- ){
-
-   alert(
-     "Yeni işçidə bu mağaza artıq var."
-   );
-
-   return;
-
- }
-
-
- const rem=getRemovedRoutes();
-
- rem[from] ??={};
- rem[from][d] ??=[];
-
- if(!rem[from][d].includes(s))
-   rem[from][d].push(s);
-
- write(
-   "removedRoutes",
-   rem
- );
-
-
- const add=getAddedRoutes();
-
- add[to] ??={};
- add[to][d] ??=[];
-
- add[to][d].push(s);
-
- write(
-   "addedRoutes",
-   add
- );
-
-
- document.getElementById(
-   "transferResult"
- ).innerHTML=`
-
- <div class="success">
-
- ✅ Mağaza uğurla keçirildi.
-
- </div>
-
- `;
-
-
- loadTransferStores();
- refreshAdmin();
-
-}
-
-
-/* =====================================================
-   İŞÇİDƏN MAĞAZA SİL
-===================================================== */
-
-function loadWorkerAssignedStores(){
-
- const u=
-   document.getElementById(
-     "removeWorkerSelect"
-   ).value;
-
- const d=
-   document.getElementById(
-     "removeWorkerDay"
-   ).value;
-
- const s=
-   document.getElementById(
-     "removeWorkerStore"
-   );
-
-
- s.innerHTML=`
-
- <option value="">
- Mağaza seçin
- </option>
-
- `;
-
-
- if(!u || !d)return;
-
-
- getWorkerRoute(u,d)
- .forEach(x=>{
-
-   s.innerHTML+=`
-
-   <option value="${escapeHTML(x)}">
-   ${escapeHTML(x)}
-   </option>
-
-   `;
-
- });
-
-}
-
-
-function adminRemoveStoreFromWorker(){
-
- const u=
-   document.getElementById(
-     "removeWorkerSelect"
-   ).value;
-
- const d=
-   document.getElementById(
-     "removeWorkerDay"
-   ).value;
-
- const s=
-   document.getElementById(
-     "removeWorkerStore"
-   ).value;
-
-
- if(!u || !d || !s){
-
-   alert(
-     "İşçi, gün və mağazanı seçin."
-   );
-
-   return;
-
- }
-
-
- if(!confirm(
-   s+" mağazası bu işçidən silinsin?"
- )){
-
-   return;
-
- }
-
-
- const rem=getRemovedRoutes();
-
- rem[u] ??={};
- rem[u][d] ??=[];
-
- if(!rem[u][d].includes(s))
-   rem[u][d].push(s);
-
- write(
-   "removedRoutes",
-   rem
- );
-
-
- const add=getAddedRoutes();
-
- if(add[u]?.[d]){
-
-   add[u][d]=
-     add[u][d]
-     .filter(x=>x!==s);
-
- }
-
- write(
-   "addedRoutes",
-   add
- );
-
-
- loadWorkerAssignedStores();
- refreshAdmin();
-
-
- document.getElementById(
-   "removeWorkerResult"
- ).innerHTML=`
-
- <div class="success">
-
- ✅ Mağaza işçidən silindi.
-
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   MÜDİR ŞİFRƏ DƏYİŞİR
-===================================================== */
-
-function adminChangeWorkerPassword(){
-
- const u=
-   document.getElementById(
-     "adminPasswordWorker"
-   ).value;
-
- const p1=
-   document.getElementById(
-     "adminNewPassword"
-   ).value;
-
- const p2=
-   document.getElementById(
-     "adminNewPassword2"
-   ).value;
-
- const result=
-   document.getElementById(
-     "adminPasswordResult"
-   );
-
-
- if(!u || !p1 || !p2){
-
-   result.innerHTML=`
-
-   <div class="warning">
-
-   Hesab seçin və yeni şifrəni
-   iki dəfə yazın.
-
-   </div>
-
-   `;
-
-   return;
-
- }
-
-
- if(p1.length<4){
-
-   result.innerHTML=`
-
-   <div class="warning">
-
-   Yeni şifrə ən azı 4 simvol olsun.
-
-   </div>
-
-   `;
-
-   return;
-
- }
-
-
- if(p1!==p2){
-
-   result.innerHTML=`
-
-   <div class="danger">
-
-   Yeni şifrələr eyni deyil.
-
-   </div>
-
-   `;
-
-   return;
-
- }
-
-
- setPassword(u,p1);
-
-
- const w=workers.find(
-   x=>x.username===u
- );
-
-
- const accountName=
-   u==="mudir"
-   ?
-   "Müdir hesabı"
-   :
-   (w?.name || u);
-
-
- result.innerHTML=`
-
- <div class="success">
-
- ✅ ${escapeHTML(accountName)}
- üçün şifrə dəyişdirildi.
-
- </div>
-
- `;
-
-
- document.getElementById(
-   "adminNewPassword"
- ).value="";
-
- document.getElementById(
-   "adminNewPassword2"
- ).value="";
-
-}
-
-
-/* =====================================================
-   MÜDİR GPS
-===================================================== */
-
-function adminShowLocation(){
-
- const u=
-   document.getElementById(
-     "adminLocationWorker"
-   ).value;
-
-
- if(!u){
-
-   alert("İşçi seçin.");
-
-   return;
-
- }
-
-
- const work=read(
-   "workStatus",
-   null
- );
-
- const active=read(
-   "activeVisit",
-   null
- );
-
-
- let x=
-   (
-     active?.username===u
-     ?
-     active
-     :
-     null
-   )
-   ||
-   (
-     work?.username===u
-     ?
-     work
-     :
-     null
-   );
-
-
- if(
-   !x ||
-   x.lat===null ||
-   x.lat===undefined
- ){
-
-   document.getElementById(
-     "adminLocationResult"
-   ).innerHTML=`
-
-   <div class="warning">
-
-   Bu işçi üçün GPS məlumatı yoxdur.
-
-   </div>
-
-   `;
-
-   return;
-
- }
-
-
- document.getElementById(
-   "adminLocationResult"
- ).innerHTML=`
-
- <div class="success">
-
- 📍 ${escapeHTML(
-   workers.find(
-     w=>w.username===u
-   )?.name || u
- )}
-
- <br>
-
- Enlik:
- ${Number(x.lat).toFixed(6)}
-
- <br>
-
- Uzunluq:
- ${Number(x.lng).toFixed(6)}
-
- <br><br>
-
- <a
-   target="_blank"
-   href="https://www.google.com/maps?q=${x.lat},${x.lng}">
-
- 🗺️ Google Maps-da aç
-
- </a>
-
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   MÜDİR REFRESH
-===================================================== */
-
-function refreshAdmin(){
-
- loadStores();
-
- document.getElementById(
-   "totalWorkers"
- ).innerText=workers.length;
-
- document.getElementById(
-   "storeCount"
- ).innerText=stores.length;
-
-
- const active=read(
-   "activeVisit",
-   null
- );
-
- const work=read(
-   "workStatus",
-   null
- );
-
-
- const activeWorkers=new Set();
-
-
- if(work?.username)
-   activeWorkers.add(work.username);
-
- if(active?.username)
-   activeWorkers.add(active.username);
-
-
- document.getElementById(
-   "workingWorkers"
- ).innerText=
-   activeWorkers.size;
-
-
- const visits=read(
-   "visits",
-   []
- );
-
-
- document.getElementById(
-   "finishedVisits"
- ).innerText=
-   visits.length;
-
-
- let wh="";
-
-
- workers.forEach(w=>{
-
-   const ws=
-     work?.username===w.username;
-
-   const av=
-     active?.username===w.username;
-
-
-   wh+=`
-
-   <div class="worker">
-
-   <b>${escapeHTML(w.name)}</b>
-
-   <div class="${ws?"online":"offline"}">
-
-   ${ws
-     ?"🟢 İŞDƏDİR"
-     :"🔴 İşdə deyil"}
-
-   </div>
-
-   ${
-     av
-     ?
-     `
-     🏪 ${escapeHTML(active.store)}
-
-     <br>
-
-     🕐 ${active.startTime}
-     `
-     :
-     ""
-   }
-
-   ${
-     ws && work.lat
-     ?
-     `<br>📍 GPS mövcuddur`
-     :
-     ""
-   }
-
-   </div>
-
-   `;
-
- });
-
-
- document.getElementById(
-   "workerList"
- ).innerHTML=wh;
-
-
- document.getElementById(
-   "visitList"
- ).innerHTML=
-
-   visits.length
-
-   ?
-
-   visits
-   .slice(0,20)
-   .map(visitHTML)
-   .join("")
-
-   :
-
-   `
+   <h2>📍 Ziyarət</h2>
 
    <div class="info">
-
-   Hələ ziyarət yoxdur.
+   Aktiv mağaza ziyarəti yoxdur.
+   </div>
 
    </div>
 
    `;
 
+  return;
 
- const photos=
-   visits
-   .filter(v=>v.photo)
-   .slice(0,20);
-
-
- document.getElementById(
-   "photoReportList"
- ).innerHTML=
-
-   photos.length
-
-   ?
-
-   photos
-   .map(v=>`
-
-   <div class="visit-item">
-
-   <b>
-   ${escapeHTML(v.store)}
-   </b>
-
-   <br>
-
-   ${v.date} — ${v.startTime}
-
-   <img
-     class="photo-preview"
-     src="${v.photo}">
-
-   </div>
-
-   `)
-   .join("")
-
-   :
-
-   `
-
-   <div class="info">
-
-   Hələ foto hesabatı yoxdur.
-
-   </div>
-
-   `;
-
-}
-
-
-/* =====================================================
-   XÜSUSİ HTML TƏMİZLƏMƏ
-===================================================== */
-
-function escapeHTML(s){
-
- return String(s).replace(
-   /[&<>"']/g,
-   m=>({
-
-     "&":"&amp;",
-     "<":"&lt;",
-     ">":"&gt;",
-     '"':"&quot;",
-     "'":"&#039;"
-
-   }[m])
- );
-
-}
-
-
-/* =====================================================
-   ÇIXIŞ
-===================================================== */
-
-function logout(){
-
- currentUser=null;
- currentRole=null;
-
+ }
 
  document
-   .getElementById("workerDashboard")
-   .classList.add("hidden");
+  .getElementById(
+   "workerContent"
+  )
+  .innerHTML=`
 
+  <div class="card">
 
- document
-   .getElementById("adminDashboard")
-   .classList.add("hidden");
+  <h2>📍 Aktiv ziyarət</h2>
 
+  <div class="success">
 
- document
-   .getElementById("login")
-   .classList.remove("hidden");
+  🏪
+  <b>${escapeHTML(active.store)}</b>
 
+  <br>
 
- document
-   .getElementById("username")
-   .value="";
+  🕐 ${escapeHTML(active.startTime)}
 
+  </div>
 
- document
-   .getElementById("password")
-   .value="";
+  <div id="visitResult"></div>
 
+  <div class="check-row">
 
- document
-   .getElementById("workerContent")
-   .innerHTML="";
+  <input
+   type="checkbox"
+   id="c1">
 
-}
+  <label for="c1">
+  Rəf düzülüşü yoxlanıldı
+  </label>
 
+  </div>
 
-/* =====================================================
-   ENTER İLƏ GİRİŞ
-===================================================== */
+  <div class="check-row">
 
-document
-  .getElementById("password")
-  .addEventListener(
-    "keydown",
-    e=>{
-      if(e.key==="Enter")
-        login();
-    }
-  );
+  <input
+   type="checkbox"
+   id="c2">
 
+  <label for="c2">
+  Qiymətlər yoxlanıldı
+  </label>
 
-document
-  .getElementById("username")
-  .addEventListener(
-    "keydown",
-    e=>{
-      if(e.key==="Enter")
-        login();
-    }
-  );
+  </div>
 
-</script>
+  <div class="check-row">
 
-</body>
-</html>
+  <input
+   type="checkbox"
+   id="c3">
+
+  <label for="c3">
+  Məhsul sayı yoxlanıldı
+  </label>
+
+  </div>
+
+  <div class="check-row">
+
+  <input
+   type="checkbox"
+   id="c4">
+
+  <label for="c4">
+  Rəf foto

@@ -2,50 +2,70 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // D1 test
+    // =========================
+    // D1 TEST
+    // =========================
     if (url.pathname === "/api/test") {
-      const result = await env.DB
-        .prepare("SELECT 1 AS ok")
-        .first();
+      try {
+        const result = await env.DB
+          .prepare("SELECT 1 AS ok")
+          .first();
 
-      return Response.json({
-        success: true,
-        database: result
-      });
-    }
-
-    // Bütün yaddaşı oxu
-    if (url.pathname === "/api/state" && request.method === "GET") {
-      const rows = await env.DB
-        .prepare("SELECT key, value, updated_at FROM app_state")
-        .all();
-
-      const state = {};
-
-      for (const row of rows.results) {
-        try {
-          state[row.key] = JSON.parse(row.value);
-        } catch {
-          state[row.key] = row.value;
-        }
+        return Response.json({
+          success: true,
+          database: result
+        });
+      } catch (error) {
+        return Response.json({
+          success: false,
+          error: error.message
+        }, { status: 500 });
       }
-
-      return Response.json({
-        success: true,
-        state
-      });
     }
 
-    // Bir məlumatı yadda saxla
+    // =========================
+    // D1-DƏN BÜTÜN MƏLUMATLARI OXU
+    // =========================
+    if (url.pathname === "/api/state" && request.method === "GET") {
+      try {
+        const rows = await env.DB
+          .prepare("SELECT key, value, updated_at FROM app_state")
+          .all();
+
+        const state = {};
+
+        for (const row of rows.results || []) {
+          try {
+            state[row.key] = JSON.parse(row.value);
+          } catch {
+            state[row.key] = row.value;
+          }
+        }
+
+        return Response.json({
+          success: true,
+          state
+        });
+      } catch (error) {
+        return Response.json({
+          success: false,
+          error: error.message
+        }, { status: 500 });
+      }
+    }
+
+    // =========================
+    // D1-Ə MƏLUMAT YAZ
+    // =========================
     if (url.pathname === "/api/state" && request.method === "POST") {
       try {
         const body = await request.json();
 
         if (!body.key) {
-          return Response.json(
-            { success: false, error: "key tələb olunur" },
-            { status: 400 }
-          );
+          return Response.json({
+            success: false,
+            error: "key tələb olunur"
+          }, { status: 400 });
         }
 
         const value = JSON.stringify(body.value ?? null);
@@ -68,16 +88,24 @@ export default {
           saved: body.key
         });
       } catch (error) {
-        return Response.json(
-          {
-            success: false,
-            error: error.message
-          },
-          { status: 500 }
-        );
+        return Response.json({
+          success: false,
+          error: error.message
+        }, { status: 500 });
       }
     }
 
-    return new Response("Mercendayzer API işləyir");
+    // =========================
+    // SAYT
+    // =========================
+
+    return new Response(
+      "Mercendayzer App Worker işləyir. /api/test və /api/state aktivdir.",
+      {
+        headers: {
+          "content-type": "text/plain; charset=UTF-8"
+        }
+      }
+    );
   }
 };

@@ -2,9 +2,9 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // =========================
+    // ==========================================
     // D1 TEST
-    // =========================
+    // ==========================================
     if (url.pathname === "/api/test") {
       try {
         const result = await env.DB
@@ -16,20 +16,28 @@ export default {
           database: result
         });
       } catch (error) {
-        return Response.json({
-          success: false,
-          error: error.message
-        }, { status: 500 });
+        return Response.json(
+          {
+            success: false,
+            error: error.message
+          },
+          { status: 500 }
+        );
       }
     }
 
-    // =========================
-    // D1-DƏN BÜTÜN MƏLUMATLARI OXU
-    // =========================
-    if (url.pathname === "/api/state" && request.method === "GET") {
+    // ==========================================
+    // D1 - BÜTÜN MƏLUMATLARI OXU
+    // ==========================================
+    if (
+      url.pathname === "/api/state" &&
+      request.method === "GET"
+    ) {
       try {
         const rows = await env.DB
-          .prepare("SELECT key, value, updated_at FROM app_state")
+          .prepare(
+            "SELECT key, value, updated_at FROM app_state"
+          )
           .all();
 
         const state = {};
@@ -47,40 +55,58 @@ export default {
           state
         });
       } catch (error) {
-        return Response.json({
-          success: false,
-          error: error.message
-        }, { status: 500 });
+        return Response.json(
+          {
+            success: false,
+            error: error.message
+          },
+          { status: 500 }
+        );
       }
     }
 
-    // =========================
-    // D1-Ə MƏLUMAT YAZ
-    // =========================
-    if (url.pathname === "/api/state" && request.method === "POST") {
+    // ==========================================
+    // D1 - MƏLUMAT YAZ
+    // ==========================================
+    if (
+      url.pathname === "/api/state" &&
+      request.method === "POST"
+    ) {
       try {
         const body = await request.json();
 
         if (!body.key) {
-          return Response.json({
-            success: false,
-            error: "key tələb olunur"
-          }, { status: 400 });
+          return Response.json(
+            {
+              success: false,
+              error: "key tələb olunur"
+            },
+            { status: 400 }
+          );
         }
 
-        const value = JSON.stringify(body.value ?? null);
+        const value = JSON.stringify(
+          body.value ?? null
+        );
+
         const now = Date.now();
 
         await env.DB
           .prepare(`
-            INSERT INTO app_state (key, value, updated_at)
+            INSERT INTO app_state
+              (key, value, updated_at)
             VALUES (?, ?, ?)
+
             ON CONFLICT(key)
             DO UPDATE SET
               value = excluded.value,
               updated_at = excluded.updated_at
           `)
-          .bind(body.key, value, now)
+          .bind(
+            body.key,
+            value,
+            now
+          )
           .run();
 
         return Response.json({
@@ -88,22 +114,86 @@ export default {
           saved: body.key
         });
       } catch (error) {
-        return Response.json({
-          success: false,
-          error: error.message
-        }, { status: 500 });
+        return Response.json(
+          {
+            success: false,
+            error: error.message
+          },
+          { status: 500 }
+        );
       }
     }
 
-    // =========================
-    // SAYT
-    // =========================
+    // ==========================================
+    // INDEX.HTML
+    // ==========================================
+    if (
+      request.method === "GET" &&
+      (
+        url.pathname === "/" ||
+        url.pathname === "/index.html"
+      )
+    ) {
+      try {
+        const githubUrl =
+          "https://raw.githubusercontent.com/" +
+          "Celal1997/MercendayzerApp/main/index.html";
 
+        const response = await fetch(githubUrl, {
+          headers: {
+            "User-Agent": "MercendayzerApp"
+          }
+        });
+
+        if (!response.ok) {
+          return new Response(
+            "index.html GitHub-dan oxuna bilmədi. HTTP " +
+            response.status,
+            {
+              status: 500,
+              headers: {
+                "content-type":
+                  "text/plain; charset=UTF-8"
+              }
+            }
+          );
+        }
+
+        const html = await response.text();
+
+        return new Response(html, {
+          status: 200,
+          headers: {
+            "content-type":
+              "text/html; charset=UTF-8",
+            "cache-control":
+              "no-cache, no-store, must-revalidate"
+          }
+        });
+      } catch (error) {
+        return new Response(
+          "index.html açılarkən xəta: " +
+          error.message,
+          {
+            status: 500,
+            headers: {
+              "content-type":
+                "text/plain; charset=UTF-8"
+            }
+          }
+        );
+      }
+    }
+
+    // ==========================================
+    // DEFAULT
+    // ==========================================
     return new Response(
-      "Mercendayzer App Worker işləyir. /api/test və /api/state aktivdir.",
+      "Mercendayzer API işləyir",
       {
         headers: {
-          "content-type": "text/plain; charset=UTF-8"
+          "content-type":
+            "text/plain; charset=UTF-8"
         }
       }
     );

@@ -123,7 +123,88 @@ export default {
         );
       }
     }
+    // ==========================================
+    // LOGIN
+    // ==========================================
+    if (
+      url.pathname === "/api/login" &&
+      request.method === "POST"
+    ) {
+      try {
+        const body = await request.json();
 
+        const id = String(body.id || "").trim();
+        const password = String(body.password || "");
+
+        if (!id || !password) {
+          return Response.json(
+            {
+              success: false,
+              error: "İstifadəçi adı və şifrə tələb olunur"
+            },
+            { status: 400 }
+          );
+        }
+
+        const worker = await env.DB
+          .prepare(`
+            SELECT id, name, password, active
+            FROM workers
+            WHERE id = ?
+            LIMIT 1
+          `)
+          .bind(id)
+          .first();
+
+        if (!worker) {
+          return Response.json(
+            {
+              success: false,
+              error: "İstifadəçi tapılmadı"
+            },
+            { status: 401 }
+          );
+        }
+
+        if (!worker.active) {
+          return Response.json(
+            {
+              success: false,
+              error: "Bu işçi deaktiv edilib"
+            },
+            { status: 403 }
+          );
+        }
+
+        if (String(worker.password) !== password) {
+          return Response.json(
+            {
+              success: false,
+              error: "Şifrə yanlışdır"
+            },
+            { status: 401 }
+          );
+        }
+
+        return Response.json({
+          success: true,
+          user: {
+            id: worker.id,
+            name: worker.name,
+            role: "worker"
+          }
+        });
+
+      } catch (error) {
+        return Response.json(
+          {
+            success: false,
+            error: error.message
+          },
+          { status: 500 }
+        );
+      }
+    }
     // ==========================================
     // INDEX.HTML
     // ==========================================

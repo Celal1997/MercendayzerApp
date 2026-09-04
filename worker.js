@@ -408,9 +408,10 @@ export default {
             .all();
 
         return json({
-          success: true,
-          routes: result.results || []
-        });
+  success: true,
+  stores: result.results || [],
+  routes: result.results || []
+});
       }
 
 

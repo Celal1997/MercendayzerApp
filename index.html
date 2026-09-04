@@ -1,4030 +1,2500 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="az">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#2563eb">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Merçendayzer App</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f4f6f8;
- color:#222
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f3f4f6;
+  color:#111827;
 }
 
-.header{
- background:#1f2937;
- color:#fff;
- padding:22px 15px;
- text-align:center
+header{
+  background:#111827;
+  color:#fff;
+  padding:15px;
+  text-align:center;
+  font-size:20px;
+  font-weight:700;
 }
 
-.header h1{
- margin:0 0 8px;
- font-size:30px
-}
-
-.container{
- padding:15px;
- max-width:760px;
- margin:auto
+.wrap{
+  max-width:900px;
+  margin:auto;
+  padding:15px;
 }
 
 .card{
- background:#fff;
- border-radius:16px;
- padding:18px;
- margin-bottom:15px;
- box-shadow:0 3px 12px rgba(0,0,0,.08)
+  background:#fff;
+  border-radius:14px;
+  padding:16px;
+  margin:12px 0;
+  box-shadow:0 2px 8px #0001;
 }
 
-h1,h2,h3{
- margin-top:0
-}
-
-input,select,textarea,button{
- width:100%;
- padding:14px;
- margin-top:10px;
- border-radius:10px;
- border:1px solid #ccc;
- font-size:16px
-}
-
+input,
+select,
+button,
 textarea{
- min-height:90px;
- resize:vertical
+  width:100%;
+  padding:12px;
+  margin:6px 0;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:16px;
 }
 
 button{
- background:#2563eb;
- color:#fff;
- border:0;
- font-weight:bold;
- cursor:pointer
+  background:#2563eb;
+  color:#fff;
+  border:0;
+  font-weight:700;
+  cursor:pointer;
 }
 
 button:active{
- transform:scale(.98)
-}
-
-.menu{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px
-}
-
-.menu button{
- min-height:78px
-}
-
-.hidden{
- display:none!important
-}
-
-.store,.worker{
- border:1px solid #ddd;
- border-radius:12px;
- padding:14px;
- margin-top:10px;
- background:#fff
-}
-
-.success,.danger,.info,.warning{
- padding:13px;
- border-radius:10px;
- margin-top:10px
-}
-
-.success{
- background:#dcfce7;
- color:#166534
+  transform:scale(.98);
 }
 
 .danger{
- background:#fee2e2;
- color:#991b1b
+  background:#dc2626;
 }
 
-.info{
- background:#dbeafe;
- color:#1e40af
+.green{
+  background:#16a34a;
 }
 
-.warning{
- background:#fef3c7;
- color:#92400e
+.gray{
+  background:#6b7280;
 }
 
-.stat-grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px
+.orange{
+  background:#ea580c;
 }
 
-.stat{
- background:#f8fafc;
- border-radius:12px;
- padding:15px;
- text-align:center;
- border:1px solid #e5e7eb
+.hidden{
+  display:none!important;
 }
 
-.stat-number{
- font-size:28px;
- font-weight:bold
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
-.online{
- color:#16a34a;
- font-weight:bold
-}
-
-.offline{
- color:#dc2626;
- font-weight:bold
-}
-
-.visit-item{
- border-left:4px solid #2563eb;
- background:#f8fafc;
- padding:12px;
- margin-top:10px;
- border-radius:8px
-}
-
-.logout-btn{
- background:#dc2626
-}
-
-.finish-btn{
- background:#16a34a
-}
-
-.delete-btn{
- background:#dc2626
-}
-
-.transfer-btn{
- background:#7c3aed
-}
-
-.remove-worker-btn{
- background:#ea580c
-}
-
-.location-btn{
- background:#0891b2
-}
-
-.photo-btn{
- background:#9333ea
-}
-
-.badge{
- display:inline-block;
- padding:5px 9px;
- border-radius:20px;
- background:#e5e7eb;
- font-size:13px
-}
-
-.photo-preview{
- width:100%;
- max-height:300px;
- object-fit:cover;
- border-radius:10px;
- margin-top:10px
-}
-
-.check-row{
- display:flex;
- align-items:center;
- gap:10px;
- margin-top:10px;
- padding:10px;
- background:#f8fafc;
- border-radius:8px
-}
-
-.check-row input{
- width:auto;
- margin:0
+.store{
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:12px;
+  margin:8px 0;
+  background:#fff;
 }
 
 .small{
- font-size:13px;
- color:#666
+  font-size:13px;
+  color:#6b7280;
+  margin-top:5px;
 }
 
-hr{
- border:0;
- border-top:1px solid #e5e7eb;
- margin:20px 0
+.ok{
+  color:#15803d;
+  font-weight:700;
 }
 
-.sync{
- position:fixed;
- right:10px;
- bottom:10px;
- z-index:99999;
- padding:7px 11px;
- border-radius:20px;
- background:#111827;
- color:white;
- font-size:12px;
- font-weight:bold;
- box-shadow:0 2px 8px rgba(0,0,0,.2)
+.bad{
+  color:#b91c1c;
+  font-weight:700;
 }
 
-.back{
- background:#6b7280;
- margin-bottom:10px
+.title{
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:10px;
 }
 
-.map-link{
- display:inline-block;
- margin-top:8px;
- padding:10px;
- background:#0891b2;
- color:#fff;
- border-radius:8px;
- text-decoration:none
+.distance{
+  font-size:15px;
+  font-weight:700;
+  margin:8px 0;
+}
+
+#msg{
+  padding:10px;
+  border-radius:10px;
+  margin:8px 0;
+  display:none;
+}
+
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.stat{
+  background:#f9fafb;
+  border-radius:12px;
+  padding:14px;
+  text-align:center;
+  border:1px solid #e5e7eb;
+}
+
+.stat b{
+  display:block;
+  font-size:24px;
+  margin-top:5px;
+}
+
+.photo-preview{
+  width:100%;
+  max-height:250px;
+  object-fit:contain;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:700;
+  background:#e5e7eb;
+}
+
+.badge-green{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.badge-red{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+@media(max-width:600px){
+  .row{
+    grid-template-columns:1fr;
+  }
+
+  .stat-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  header{
+    font-size:18px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-<h1>Merçendayzer App</h1>
-<div>Mağaza ziyarət və iş izləmə sistemi</div>
-</div>
+<header>
+📍 Merçendayzer App
+</header>
 
-<div class="container">
+<div class="wrap">
 
 <!-- LOGIN -->
-
 <div id="login" class="card">
 
-<h2>🔐 Giriş</h2>
+  <div class="title">
+    🔐 Sistemə giriş
+  </div>
 
-<input
- id="username"
- type="text"
- placeholder="İstifadəçi adı"
- autocomplete="username">
+  <input
+    id="uid"
+    type="text"
+    placeholder="İşçi ID (məs: mer1)"
+    autocomplete="username"
+  >
 
-<input
- id="password"
- type="password"
- placeholder="Şifrə"
- autocomplete="current-password">
+  <input
+    id="pass"
+    type="password"
+    placeholder="Şifrə"
+    autocomplete="current-password"
+  >
 
-<button onclick="login()">
-Daxil ol
-</button>
+  <button onclick="login()">
+    Daxil ol
+  </button>
 
-<div class="info">
-🔐 İstifadəçi adı və şifrəni müdirinizdən alın.
-</div>
-
-</div>
-
-
-<!-- WORKER -->
-
-<div id="workerDashboard" class="hidden">
-
-<div class="card">
-
-<h2>
-Salam, <span id="workerName"></span> 👋
-</h2>
-
-<div id="workerStatus"></div>
-
-</div>
-
-<div class="menu">
-
-<button onclick="showStores()">
-🏪<br>Mağazalar
-</button>
-
-<button onclick="showVisit()">
-📍<br>Ziyarət
-</button>
-
-<button onclick="showReport()">
-📊<br>Hesabat
-</button>
-
-<button onclick="showProfile()">
-👤<br>Profil
-</button>
-
-<button onclick="startWork()">
-🟢<br>İşə başla
-</button>
-
-<button onclick="endWork()">
-🔴<br>İşi bitir
-</button>
-
-<button onclick="showTodaySummary()">
-📋<br>Bugünkü iş
-</button>
-
-<button onclick="logout()">
-🚪<br>Çıxış
-</button>
-
-</div>
-
-<div
- id="workerContent"
- style="margin-top:15px">
-</div>
+  <div id="msg"></div>
 
 </div>
 
 
-<!-- ADMIN -->
+<!-- APPLICATION -->
+<div id="app" class="hidden">
 
-<div id="adminDashboard" class="hidden">
+  <!-- USER HEADER -->
+  <div class="card">
 
-<div class="card">
+    <div class="title">
+      👤 <span id="userName"></span>
+    </div>
 
-<h2>👨‍💼 Müdir Paneli</h2>
+    <button
+      class="gray"
+      onclick="logout()"
+    >
+      Çıxış
+    </button>
 
-<p>
-Bütün merçendayzerlərin iş vəziyyətini və mağaza ziyarətlərini idarə edin.
-</p>
+  </div>
 
-</div>
 
+  <!-- WORKER PANEL -->
+  <div id="workerPanel" class="hidden">
 
-<div class="card">
+    <!-- WORK STATUS -->
+    <div class="card">
 
-<h2>📊 Bugünkü statistika</h2>
+      <div class="title">
+        🕐 İş vaxtı
+      </div>
 
-<div class="stat-grid">
+      <div id="workInfo">
+        Yüklənir...
+      </div>
 
-<div class="stat">
-<div class="stat-number" id="totalWorkers">11</div>
-👥 İşçi
-</div>
+      <div class="row">
 
-<div class="stat">
-<div class="stat-number" id="workingWorkers">0</div>
-🟢 İşdə
-</div>
+        <button
+          class="green"
+          onclick="startWork()"
+        >
+          🟢 İşə başla
+        </button>
 
-<div class="stat">
-<div class="stat-number" id="finishedVisits">0</div>
-✅ Ziyarət
-</div>
+        <button
+          class="danger"
+          onclick="endWork()"
+        >
+          🔴 İşi bitir
+        </button>
 
-<div class="stat">
-<div class="stat-number" id="storeCount">0</div>
-🏪 Mağaza
-</div>
+      </div>
 
-</div>
-</div>
+    </div>
 
 
-<div class="card">
+    <!-- ROUTE -->
+    <div class="card">
 
-<h2>👥 Merçendayzerlər</h2>
+      <div class="title">
+        🏪 Bugünkü mağazalar
+      </div>
 
-<div id="workerList"></div>
+      <select
+        id="day"
+        onchange="loadRoute()"
+      >
+        <option value="1">
+          1-ci gün
+        </option>
 
-</div>
+        <option value="2">
+          2-ci gün
+        </option>
 
+        <option value="3">
+          3-cü gün
+        </option>
 
-<div class="card">
+        <option value="4">
+          4-cü gün
+        </option>
 
-<h2>🔑 Şifrə idarəetməsi</h2>
+        <option value="5">
+          5-ci gün
+        </option>
 
-<select id="adminPasswordWorker">
-<option value="">Hesab seçin</option>
-</select>
+        <option value="6">
+          6-cı gün
+        </option>
+      </select>
 
-<input
- id="adminNewPassword"
- type="password"
- placeholder="Yeni şifrə">
+      <div id="route">
+        Yüklənir...
+      </div>
 
-<input
- id="adminNewPassword2"
- type="password"
- placeholder="Yeni şifrəni təkrar yazın">
+    </div>
 
-<button onclick="adminChangeWorkerPassword()">
-🔐 Şifrəni dəyiş
-</button>
 
-<div id="adminPasswordResult"></div>
+    <!-- ACTIVE VISIT -->
+    <div
+      id="visitCard"
+      class="card hidden"
+    >
 
-</div>
+      <div class="title">
+        📍 Aktiv mağaza ziyarəti
+      </div>
 
+      <div id="visitInfo"></div>
 
-<div class="card">
+      <div
+        id="visitDistance"
+        class="distance"
+      ></div>
 
-<h2>📍 İşçini xəritədə yoxla</h2>
+      <!-- PHOTO -->
+      <div class="card">
 
-<select id="adminLocationWorker">
-<option value="">İşçi seçin</option>
-</select>
+        <b>📷 Mağaza şəkli</b>
 
-<button
- class="location-btn"
- onclick="adminShowLocation()">
-📍 Son məkanı göstər
-</button>
+        <input
+          id="visitPhoto"
+          type="file"
+          accept="image/*"
+          capture="environment"
+          onchange="previewPhoto(event)"
+        >
 
-<div id="adminLocationResult"></div>
+        <img
+          id="photoPreview"
+          class="photo-preview hidden"
+        >
 
-</div>
+        <button
+          class="orange"
+          onclick="uploadVisitPhoto()"
+        >
+          📤 Şəkli göndər
+        </button>
 
+      </div>
 
-<div class="card">
 
-<h2>🏪 Yeni mağaza yarat</h2>
+      <!-- CHECKS -->
+      <div class="card">
 
-<input
- id="newStoreCode"
- placeholder="Mağaza kodu — Bravo 5200">
+        <b>✅ Məhsul yoxlaması</b>
 
-<input
- id="newStoreName"
- placeholder="Mağaza adı — Bakıxanov">
+        <input
+          id="productName"
+          placeholder="Məhsul adı"
+        >
 
-<input
- id="newStoreArea"
- placeholder="Ərazi — Sabunçu">
+        <button
+          onclick="saveCheck()"
+        >
+          Yoxlamanı yadda saxla
+        </button>
 
-<button onclick="adminCreateStore()">
-➕ Mağazanı sistemə əlavə et
-</button>
+        <div id="checks"></div>
 
-<div id="newStoreResult"></div>
+      </div>
 
-</div>
 
+      <textarea
+        id="visitNote"
+        placeholder="Qeyd..."
+      ></textarea>
 
-<div class="card">
+      <button
+        class="danger"
+        onclick="finishVisit()"
+      >
+        🔴 Ziyarəti bitir
+      </button>
 
-<h2>➕ İşçiyə mağaza əlavə et</h2>
+    </div>
 
-<select id="adminWorkerSelect">
-<option value="">İşçi seçin</option>
-</select>
+  </div>
 
-<select id="adminStoreSelect">
-<option value="">Mağaza seçin</option>
-</select>
 
-<select id="adminDaySelect">
+  <!-- ADMIN PANEL -->
+  <div id="adminPanel" class="hidden">
 
-<option value="">Gün seçin</option>
+    <div class="card">
 
-<option value="1">
-1-ci gün — Bazar ertəsi
-</option>
+      <div class="title">
+        👨‍💼 Müdir paneli
+      </div>
 
-<option value="2">
-2-ci gün — Çərşənbə axşamı
-</option>
+      <div
+        id="stats"
+        class="stat-grid"
+      >
+        Yüklənir...
+      </div>
 
-<option value="3">
-3-cü gün — Çərşənbə
-</option>
+      <button onclick="loadAdmin()">
+        🔄 Yenilə
+      </button>
 
-<option value="4">
-4-cü gün — Cümə axşamı
-</option>
+    </div>
 
-<option value="5">
-5-ci gün — Cümə
-</option>
 
-<option value="6">
-6-cı gün — Şənbə
-</option>
+    <!-- WORKERS -->
+    <div class="card">
 
-</select>
+      <div class="title">
+        👥 Merçendayzerlər
+      </div>
 
-<button onclick="adminAddStore()">
-➕ Mağazanı işçiyə əlavə et
-</button>
+      <div id="workers">
+        Yüklənir...
+      </div>
 
-<div id="adminAddResult"></div>
+    </div>
 
-</div>
 
+    <!-- STORES -->
+    <div class="card">
 
-<div class="card">
+      <div class="title">
+        🏪 Mağazalar
+      </div>
 
-<h2>🗑️ Sistemdən mağaza sil</h2>
+      <div class="row">
 
-<div class="danger">
-⚠️ Mağaza bütün işçilərin marşrutlarından silinəcək.
-</div>
+        <input
+          id="newChain"
+          placeholder="Şəbəkə (məs: Bravo)"
+        >
 
-<select id="deleteStoreSelect">
-<option value="">
-Silinəcək mağazanı seçin
-</option>
-</select>
+        <input
+          id="newStore"
+          placeholder="Mağaza adı"
+        >
 
-<button
- class="delete-btn"
- onclick="adminDeleteStore()">
-🗑️ Mağazanı tamamilə sil
-</button>
+      </div>
 
-<div id="deleteStoreResult"></div>
+      <div class="row">
 
-</div>
+        <input
+          id="newLat"
+          placeholder="Latitude"
+        >
 
+        <input
+          id="newLng"
+          placeholder="Longitude"
+        >
 
-<div class="card">
+      </div>
 
-<h2>🔄 Mağazanı başqa işçiyə keçir</h2>
+      <input
+        id="newRadius"
+        value="500"
+        placeholder="Radius (metr)"
+      >
 
-<select
- id="transferFromWorker"
- onchange="loadTransferStores()">
-<option value="">
-Hazırkı işçi
-</option>
-</select>
+      <button onclick="addStore()">
+        ➕ Mağaza əlavə et
+      </button>
 
-<select
- id="transferDay"
- onchange="loadTransferStores()">
+      <div id="stores">
+        Yüklənir...
+      </div>
 
-<option value="">
-Gün seçin
-</option>
+    </div>
 
-<option value="1">1-ci gün — Bazar ertəsi</option>
-<option value="2">2-ci gün — Çərşənbə axşamı</option>
-<option value="3">3-cü gün — Çərşənbə</option>
-<option value="4">4-cü gün — Cümə axşamı</option>
-<option value="5">5-ci gün — Cümə</option>
-<option value="6">6-cı gün — Şənbə</option>
-
-</select>
-
-<select id="transferStore">
-<option value="">
-Əvvəlcə işçi və gün seçin
-</option>
-</select>
-
-<select id="transferToWorker">
-<option value="">
-Yeni işçi seçin
-</option>
-</select>
-
-<button
- class="transfer-btn"
- onclick="adminTransferStore()">
-🔄 Mağazanı digər işçiyə keçir
-</button>
-
-<div id="transferResult"></div>
-
-</div>
-
-
-<div class="card">
-
-<h2>📋 İşçinin mağazalarını idarə et</h2>
-
-<select
- id="removeWorkerSelect"
- onchange="loadWorkerAssignedStores()">
-
-<option value="">
-İşçi seçin
-</option>
-
-</select>
-
-<select
- id="removeWorkerDay"
- onchange="loadWorkerAssignedStores()">
-
-<option value="">
-Gün seçin
-</option>
-
-<option value="1">1-ci gün — Bazar ertəsi</option>
-<option value="2">2-ci gün — Çərşənbə axşamı</option>
-<option value="3">3-cü gün — Çərşənbə</option>
-<option value="4">4-cü gün — Cümə axşamı</option>
-<option value="5">5-ci gün — Cümə</option>
-<option value="6">6-cı gün — Şənbə</option>
-
-</select>
-
-<select id="removeWorkerStore">
-
-<option value="">
-Əvvəlcə işçi və gün seçin
-</option>
-
-</select>
-
-<button
- class="remove-worker-btn"
- onclick="adminRemoveStoreFromWorker()">
-➖ Mağazanı bu işçidən sil
-</button>
-
-<div id="removeWorkerResult"></div>
-
-</div>
-
-
-<div class="card">
-
-<h2>📋 Son ziyarətlər</h2>
-
-<div id="visitList"></div>
-
-</div>
-
-
-<div class="card">
-
-<h2>📷 Foto hesabatları</h2>
-
-<div id="photoReportList"></div>
-
-</div>
-
-
-<button onclick="refreshAdmin()">
-🔄 Məlumatları yenilə
-</button>
-
-<button
- class="logout-btn"
- onclick="logout()">
-🚪 Müdir panelindən çıx
-</button>
+  </div>
 
 </div>
 
 </div>
-
-
-<div id="syncStatus" class="sync">
-☁️ D1 hazırlanır...
-</div>
-
 
 <script>
 
-/* =====================================================
-   D1 MƏRKƏZİ YADDAŞ
-===================================================== */
+const API="/api";
 
-const API="/api/state";
+let user=null;
 
-const memoryStore={};
+let activeWork=null;
 
-let centralState={};
+let activeVisit=null;
 
-let d1Ready=false;
+let currentRoute=[];
 
-let currentUser=null;
+let gpsWatch=null;
 
-let currentRole=null;
+let selectedPhoto=null;
 
 
-function localRead(key,def){
+/* =========================
+   MESSAGE
+========================= */
 
- try{
+function showMsg(text,ok=false){
 
-  const raw=
-   localStorage.getItem(key);
+  const el=document.getElementById("msg");
 
-  if(raw===null)
-   return memoryStore[key] ?? def;
+  el.style.display="block";
 
-  return JSON.parse(raw) ?? def;
+  el.textContent=text;
 
- }catch(e){
+  el.style.background=ok
+    ? "#dcfce7"
+    : "#fee2e2";
 
-  return memoryStore[key] ?? def;
-
- }
-
+  el.style.color=ok
+    ? "#166534"
+    : "#991b1b";
 }
 
 
-function localWrite(key,value){
+/* =========================
+   API
+========================= */
 
- memoryStore[key]=value;
+async function api(path,opt={}){
 
- try{
-
-  localStorage.setItem(
-   key,
-   JSON.stringify(value)
-  );
-
- }catch(e){}
-
-}
-
-
-function updateSyncStatus(){
-
- const el=
-  document.getElementById(
-   "syncStatus"
-  );
-
- if(!el)return;
-
- if(d1Ready){
-
-  el.innerText="☁️ D1 sinxron";
-
-  el.style.background="#166534";
-
- }else{
-
-  el.innerText="📱 Lokal rejim";
-
-  el.style.background="#92400e";
-
- }
-
-}
-
-
-async function saveCentral(key,value){
-
- try{
-
-  const r=
-   await fetch(
-    API,
-    {
-     method:"POST",
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
-     body:JSON.stringify({
-      key:key,
-      value:value
-     })
+  const options={
+    ...opt,
+    headers:{
+      "Content-Type":"application/json",
+      ...(opt.headers||{})
     }
-   );
+  };
 
-  if(!r.ok)
-   throw new Error("Server xətası");
-
-  centralState[key]=value;
-
-  localWrite(key,value);
-
-  d1Ready=true;
-
-  updateSyncStatus();
-
-  return true;
-
- }catch(e){
-
-  console.error(e);
-
-  d1Ready=false;
-
-  updateSyncStatus();
-
-  return false;
-
- }
-
-}
-
-
-function write(key,value){
-
- memoryStore[key]=value;
-
- localWrite(key,value);
-
- centralState[key]=value;
-
- saveCentral(key,value);
-
-}
-
-
-function read(key,def){
-
- if(
-  Object.prototype.hasOwnProperty.call(
-   centralState,
-   key
-  )
- ){
-
-  return centralState[key];
-
- }
-
- return localRead(key,def);
-
-}
-
-
-async function loadCentralState(){
-
- try{
-
-  const r=
-   await fetch(
-    API+"?t="+Date.now(),
-    {
-     method:"GET",
-     cache:"no-store"
-    }
-   );
-
-  if(!r.ok)
-   throw new Error("D1 oxunmadı");
+  const response=
+    await fetch(API+path,options);
 
   const data=
-   await r.json();
+    await response.json()
+      .catch(()=>({
+        success:false,
+        error:"Server cavabı oxunmadı"
+      }));
 
-  if(!data.success)
-   throw new Error("D1 cavabı səhvdir");
+  if(!response.ok){
 
-  const server=data.state || {};
-
-  /*
-   D1 boşdursa bu telefondakı köhnə
-   localStorage məlumatlarını ilk dəfə
-   serverə göndəririk.
-  */
-
-  if(
-   Object.keys(server).length===0
-  ){
-
-   const keys=[
-    "passwords",
-    "customStores",
-    "deletedStores",
-    "addedRoutes",
-    "removedRoutes",
-    "visits"
-   ];
-
-   for(
-    const key of keys
-   ){
-
-    const value=
-     localRead(key,null);
-
-    if(value!==null){
-
-     centralState[key]=value;
-
-     await saveCentral(
-      key,
-      value
-     );
-
-    }
-
-   }
-
-  }else{
-
-   centralState=server;
-
-   Object.keys(
-    server
-   ).forEach(key=>{
-
-    localWrite(
-     key,
-     server[key]
+    throw new Error(
+      data.error ||
+      "Server xətası"
     );
 
-   });
-
   }
 
-  d1Ready=true;
-
-  updateSyncStatus();
-
-  loadStores();
-
-  if(currentRole==="worker"){
-
-   updateWorkerStatus();
-
-  }
-
-  if(currentRole==="admin"){
-
-   refreshAdmin();
-
-  }
-
- }catch(e){
-
-  console.error(
-   "D1 xətası:",
-   e
-  );
-
-  d1Ready=false;
-
-  updateSyncStatus();
-
- }
-
+  return data;
 }
 
 
-/*
- Hər 5 saniyədə mərkəzi məlumatı yoxla.
-*/
-
-setInterval(
- async function(){
-
-  if(
-   !d1Ready ||
-   navigator.onLine
-  ){
-
-   await loadCentralState();
-
-  }
-
- },
- 5000
-);
-
-
-/* =====================================================
-   HESABLAR
-===================================================== */
-
-const DEFAULT_PASSWORDS={
-
- mudir:"1234",
-
- mer1:"1234",
- mer2:"1234",
- mer3:"1234",
- mer4:"1234",
- mer5:"1234",
- mer6:"1234",
- mer7:"1234",
- mer8:"1234",
- mer9:"1234",
- mer10:"1234",
- mer11:"1234"
-
-};
-
-
-/* =====================================================
-   İŞÇİLƏR
-===================================================== */
-
-const workers=[
-
- {
-  username:"mer1",
-  name:"Cəlal Abbasov"
- },
-
- {
-  username:"mer2",
-  name:"Şəhanə"
- },
-
- {
-  username:"mer3",
-  name:"Şəhanə2"
- },
-
- {
-  username:"mer4",
-  name:"Rüfət"
- },
-
- {
-  username:"mer5",
-  name:"Ariz"
- },
-
- {
-  username:"mer6",
-  name:"Sahil"
- },
-
- {
-  username:"mer7",
-  name:"Aytac"
- },
-
- {
-  username:"mer8",
-  name:"Səkinə"
- },
-
- {
-  username:"mer9",
-  name:"Qənirə"
- },
-
- {
-  username:"mer10",
-  name:"Ruhiyyə"
- },
-
- {
-  username:"mer11",
-  name:"Günel"
- }
-
-];
-
-
-/* =====================================================
-   MAĞAZALAR
-===================================================== */
-
-const defaultStores=[
-
- "Bravo 5041 — Sea Breeze",
-
- "Bravo 2004 — Xətai SS Babək prospekti",
-
- "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
-
- "Bravo 4023 — Xətai Sabit Orucov küçəsi",
-
- "Bravo 3077 — Sea Breeze Premium",
-
- "Tamstore 220 — Sea Breeze",
-
- "Bravo 4001 — Amburan Mall",
-
- "Bravo 5004 — Sabunçu",
-
- "Bravo 5021 — Sabunçu",
-
- "Bravo 5120 — Ağ Şəhər",
-
- "Bravo 3013 — Xətai Park Azure",
-
- "Bravo 4072 — Bilgəh yolu",
-
- "Bravo 5179 — Maştağa",
-
- "Tamstore 137 — Savalan"
-
-];
-
-
-let stores=[];
-
-
-/* =====================================================
-   MARŞRUTLAR
-===================================================== */
-
-const workerRoutes={
-
- mer1:{
-
-  1:[
-   "Bravo 5041 — Sea Breeze",
-   "Bravo 2004 — Xətai SS Babək prospekti",
-   "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
-   "Bravo 4023 — Xətai Sabit Orucov küçəsi"
-  ],
-
-  2:[
-   "Bravo 5041 — Sea Breeze",
-   "Bravo 3077 — Sea Breeze Premium",
-   "Tamstore 220 — Sea Breeze",
-   "Bravo 4001 — Amburan Mall",
-   "Bravo 5004 — Sabunçu",
-   "Bravo 5021 — Sabunçu"
-  ],
-
-  3:[
-   "Bravo 5041 — Sea Breeze",
-   "Bravo 5120 — Ağ Şəhər",
-   "Bravo 3013 — Xətai Park Azure",
-   "Bravo 4023 — Xətai Sabit Orucov küçəsi",
-   "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi"
-  ],
-
-  4:[
-   "Bravo 5041 — Sea Breeze",
-   "Bravo 4001 — Amburan Mall",
-   "Bravo 4072 — Bilgəh yolu",
-   "Bravo 5179 — Maştağa",
-   "Tamstore 137 — Savalan",
-   "Bravo 5021 — Sabunçu"
-  ],
-
-  5:[
-   "Bravo 5041 — Sea Breeze",
-   "Bravo 2004 — Xətai SS Babək prospekti",
-   "Bravo 3013 — Xətai Park Azure",
-   "Bravo 5096 — Xətai Süleyman Vəzirov küçəsi",
-   "Bravo 4023 — Xətai Sabit Orucov küçəsi"
-  ],
-
-  6:[
-   "Bravo 5041 — Sea Breeze",
-   "Bravo 3077 — Sea Breeze Premium",
-   "Bravo 4001 — Amburan Mall",
-   "Bravo 5004 — Sabunçu",
-   "Bravo 5021 — Sabunçu"
-  ]
-
- }
-
-};
-
-
-/* =====================================================
-   ŞİFRƏ
-===================================================== */
-
-function getPasswords(){
-
- const saved=
-  read(
-   "passwords",
-   null
-  );
-
- const result={
-  ...DEFAULT_PASSWORDS
- };
-
- if(
-  saved &&
-  typeof saved==="object"
- ){
-
-  Object.keys(
-   DEFAULT_PASSWORDS
-  ).forEach(k=>{
-
-   if(
-    typeof saved[k]==="string" &&
-    saved[k].trim()!==""
-   ){
-
-    result[k]=saved[k];
-
-   }
-
-  });
-
- }
-
- return result;
-
-}
-
-
-function setPassword(
- username,
- password
-){
-
- const p=
-  getPasswords();
-
- p[username]=password;
-
- write(
-  "passwords",
-  p
- );
-
-}
-
-
-/* =====================================================
-   MAĞAZALAR
-===================================================== */
-
-function loadStores(){
-
- stores=[
-  ...defaultStores
- ];
-
- const custom=
-  read(
-   "customStores",
-   []
-  );
-
- custom.forEach(x=>{
-
-  if(
-   x &&
-   x.store &&
-   !stores.includes(x.store)
-  ){
-
-   stores.push(
-    x.store
-   );
-
-  }
-
- });
-
- const deleted=
-  read(
-   "deletedStores",
-   []
-  );
-
- stores=
-  stores.filter(
-   x=>!deleted.includes(x)
-  );
-
-}
-
-
-loadStores();
-
-
-function getAddedRoutes(){
-
- return read(
-  "addedRoutes",
-  {}
- );
-
-}
-
-
-function getRemovedRoutes(){
-
- return read(
-  "removedRoutes",
-  {}
- );
-
-}
-
-
-function getWorkerRoute(
- username,
- day
-){
-
- let route=
-  workerRoutes[username]?.[day]
-  ?
-  [
-   ...workerRoutes[
-    username
-   ][day]
-  ]
-  :
-  [];
-
- const added=
-  getAddedRoutes();
-
- const removed=
-  getRemovedRoutes();
-
- if(
-  added[username]?.[day]
- ){
-
-  route.push(
-   ...added[
-    username
-   ][day]
-  );
-
- }
-
- if(
-  removed[username]?.[day]
- ){
-
-  route=
-   route.filter(
-    x=>
-     !removed[
-      username
-     ][day].includes(x)
-   );
-
- }
-
- route=
-  route.filter(
-   x=>stores.includes(x)
-  );
-
- return [
-  ...new Set(route)
- ];
-
-}
-
-
-/* =====================================================
-   İŞÇİ STATUSU
-===================================================== */
-
-function getWorkStatus(){
-
- if(!currentUser)
-  return null;
-
- return read(
-  "workStatus_"+currentUser,
-  null
- );
-
-}
-
-
-function getActiveVisit(){
-
- if(!currentUser)
-  return null;
-
- return read(
-  "activeVisit_"+currentUser,
-  null
- );
-
-}
-
-
-function getWorkerWorkStatus(
- username
-){
-
- return read(
-  "workStatus_"+username,
-  null
- );
-
-}
-
-
-function getWorkerActiveVisit(
- username
-){
-
- return read(
-  "activeVisit_"+username,
-  null
- );
-
-}
-
-
-/* =====================================================
-   GİRİŞ
-===================================================== */
+/* =========================
+   LOGIN
+========================= */
 
 async function login(){
 
- const u=
-  document
-  .getElementById("username")
-  .value
-  .trim();
+  try{
 
- const p=
-  document
-  .getElementById("password")
-  .value;
+    const id=
+      document.getElementById("uid")
+      .value
+      .trim();
 
- if(!u || !p){
+    const password=
+      document.getElementById("pass")
+      .value;
 
-  alert(
-   "İstifadəçi adı və şifrəni daxil edin."
-  );
+    if(!id){
 
-  return;
+      showMsg("İşçi ID yazın.");
 
- }
+      return;
 
- await loadCentralState();
+    }
 
- const passwords=
-  getPasswords();
+    if(!password){
 
- if(
-  u==="mudir" &&
-  p===passwords.mudir
- ){
+      showMsg("Şifrə yazın.");
 
-  currentUser="mudir";
+      return;
 
-  currentRole="admin";
+    }
 
-  document
-   .getElementById("login")
-   .classList.add("hidden");
 
-  document
-   .getElementById("workerDashboard")
-   .classList.add("hidden");
+    /*
+      Müdir üçün giriş
+    */
 
-  document
-   .getElementById("adminDashboard")
-   .classList.remove("hidden");
+    if(
+      id==="admin" &&
+      password==="1234"
+    ){
 
-  loadAdminPanel();
-
-  refreshAdmin();
-
-  return;
-
- }
-
- const w=
-  workers.find(
-   x=>x.username===u
-  );
-
- if(
-  w &&
-  p===passwords[u]
- ){
-
-  currentUser=u;
-
-  currentRole="worker";
-
-  document
-   .getElementById("login")
-   .classList.add("hidden");
-
-  document
-   .getElementById("adminDashboard")
-   .classList.add("hidden");
-
-  document
-   .getElementById("workerDashboard")
-   .classList.remove("hidden");
-
-  document
-   .getElementById("workerName")
-   .innerText=w.name;
-
-  updateWorkerStatus();
-
-  return;
-
- }
-
- alert(
-  "İstifadəçi adı və ya şifrə yanlışdır."
- );
-
-}
-
-
-/* =====================================================
-   İŞ STATUSU
-===================================================== */
-
-function updateWorkerStatus(){
-
- const el=
-  document.getElementById(
-   "workerStatus"
-  );
-
- if(!el)return;
-
- const work=
-  getWorkStatus();
-
- const active=
-  getActiveVisit();
-
- if(work){
-
-  el.innerHTML=`
-
-  <div class="success">
-
-  🟢 <b>İşdəsiniz</b>
-
-  <br>
-
-  🕐 İşə başlama:
-  ${escapeHTML(work.startTime)}
-
-  ${
-   active
-   ?
-   `
-   <br><br>
-
-   🏪 Hazırda:
-   <b>${escapeHTML(active.store)}</b>
-
-   <br>
-
-   🕐 Ziyarət:
-   ${escapeHTML(active.startTime)}
-
-   <button
-    class="finish-btn"
-    onclick="finishVisit()">
-    ⏹️ Ziyarəti bitir
-   </button>
-   `
-   :
-   `
-   <br>
-   📍 Hazırda mağaza ziyarəti yoxdur.
-   `
-  }
-
-  </div>
-
-  `;
-
- }else{
-
-  el.innerHTML=`
-
-  <div class="info">
-
-  🔵 Hazırda iş statusunuz aktiv deyil.
-
-  </div>
-
-  `;
-
- }
-
-}
-
-
-/* =====================================================
-   İŞƏ BAŞLA
-===================================================== */
-
-function startWork(){
-
- if(getWorkStatus()){
-
-  alert(
-   "Siz artıq işdəsiniz."
-  );
-
-  return;
-
- }
-
- const now=
-  new Date();
-
- const value={
-
-  username:currentUser,
-
-  startTime:
-   now.toLocaleTimeString(
-    "az-AZ"
-   ),
-
-  date:
-   now.toLocaleDateString(
-    "az-AZ"
-   ),
-
-  lat:null,
-
-  lng:null
-
- };
-
- write(
-  "workStatus_"+currentUser,
-  value
- );
-
- updateWorkerStatus();
-
-}
-
-
-/* =====================================================
-   İŞİ BİTİR
-===================================================== */
-
-function endWork(){
-
- if(getActiveVisit()){
-
-  alert(
-   "Əvvəlcə aktiv mağaza ziyarətini bitirin."
-  );
-
-  return;
-
- }
-
- if(!getWorkStatus()){
-
-  alert(
-   "Hazırda iş statusunuz aktiv deyil."
-  );
-
-  return;
-
- }
-
- write(
-  "workStatus_"+currentUser,
-  null
- );
-
- updateWorkerStatus();
-
-}
-
-
-/* =====================================================
-   MAĞAZALAR
-===================================================== */
-
-function showStores(){
-
- const day=
-  new Date().getDay();
-
- let routeDay=day;
-
- if(day===0)
-  routeDay=6;
-
- const route=
-  getWorkerRoute(
-   currentUser,
-   routeDay
-  );
-
- let html=`
-
- <div class="card">
-
- <h2>🏪 Bugünkü mağazalar</h2>
-
- <div class="info">
- Gün: ${routeDay}
- </div>
-
- `;
-
- if(!route.length){
-
-  html+=`
-
-  <div class="warning">
-
-  Bu gün üçün mağaza təyin edilməyib.
-
-  </div>
-
-  `;
-
- }else{
-
-  route.forEach((store,index)=>{
-
-   html+=`
-
-   <div class="store">
-
-   <b>
-   ${index+1}. ${escapeHTML(store)}
-   </b>
-
-   <button
-    onclick="visitStore('${escapeJS(store)}')">
-    📍 Ziyarətə başla
-   </button>
-
-   </div>
-
-   `;
-
-  });
-
- }
-
- html+=`
-
- </div>
-
- `;
-
- document
-  .getElementById(
-   "workerContent"
-  )
-  .innerHTML=html;
-
-}
-
-
-/* =====================================================
-   ZİYARƏT
-===================================================== */
-
-function visitStore(store){
-
- if(!getWorkStatus()){
-
-  alert(
-   "Əvvəlcə İşə başla düyməsini basın."
-  );
-
-  return;
-
- }
-
- if(getActiveVisit()){
-
-  alert(
-   "Hazırda aktiv ziyarətiniz var."
-  );
-
-  return;
-
- }
-
- const now=
-  new Date();
-
- const visit={
-
-  username:currentUser,
-
-  store:store,
-
-  startTime:
-   now.toLocaleTimeString(
-    "az-AZ"
-   ),
-
-  date:
-   now.toLocaleDateString(
-    "az-AZ"
-   ),
-
-  lat:null,
-
-  lng:null,
-
-  photo:null,
-
-  note:"",
-
-  checks:[]
-
- };
-
- write(
-  "activeVisit_"+currentUser,
-  visit
- );
-
- showVisit();
-
- getLocation();
-
-}
-
-
-/* =====================================================
-   ZİYARƏT EKRANI
-===================================================== */
-
-function showVisit(){
-
- const active=
-  getActiveVisit();
-
- if(!active){
-
-  document
-   .getElementById(
-    "workerContent"
-   )
-   .innerHTML=`
-
-   <div class="card">
-
-   <h2>📍 Ziyarət</h2>
-
-   <div class="info">
-   Aktiv mağaza ziyarəti yoxdur.
-   </div>
-
-   </div>
-
-   `;
-
-  return;
-
- }
-
- document
-  .getElementById(
-   "workerContent"
-  )
-  .innerHTML=`
-
-  <div class="card">
-
-  <h2>📍 Aktiv ziyarət</h2>
-
-  <div class="success">
-
-  🏪
-  <b>${escapeHTML(active.store)}</b>
-
-  <br>
-
-  🕐 ${escapeHTML(active.startTime)}
-
-  </div>
-
-  <div id="visitResult"></div>
-
-  <div class="check-row">
-
-  <input
-   type="checkbox"
-   id="c1">
-
-  <label for="c1">
-  Rəf düzülüşü yoxlanıldı
-  </label>
-
-  </div>
-
-  <div class="check-row">
-
-  <input
-   type="checkbox"
-   id="c2">
-
-  <label for="c2">
-  Qiymətlər yoxlanıldı
-  </label>
-
-  </div>
-
-  <div class="check-row">
-
-  <input
-   type="checkbox"
-   id="c3">
-
-  <label for="c3">
-  Məhsul sayı yoxlanıldı
-  </label>
-
-  </div>
-
-  <div class="check-row">
-
-  <input
-   type="checkbox"
-   id="c4">
-
-  <label for="c4">
-  Rəf fotoşəkli çəkildi
-  </label>
-
-  </div>
-
-  <textarea
-   id="visitNote"
-   placeholder="Qeyd">
-  </textarea>
-
-  <button
-   class="photo-btn"
-   onclick="takePhoto()">
-   📷 Foto çək
-  </button>
-
-  <input
-   id="photoInput"
-   type="file"
-   accept="image/*"
-   capture="environment"
-   class="hidden"
-   onchange="handlePhoto(event)">
-
-  <div id="photoPreview"></div>
-
-  <button
-   class="location-btn"
-   onclick="getLocation()">
-   📍 GPS-i yenilə
-  </button>
-
-  <button
-   class="finish-btn"
-   onclick="finishVisit()">
-   ✅ Ziyarəti bitir
-  </button>
-
-  </div>
-
-  `;
-
- if(active.photo){
-
-  document
-   .getElementById(
-    "photoPreview"
-   )
-   .innerHTML=`
-
-   <img
-    class="photo-preview"
-    src="${active.photo}">
-
-   `;
-
- }
-
-}
-
-
-/* =====================================================
-   FOTO
-===================================================== */
-
-function takePhoto(){
-
- document
-  .getElementById(
-   "photoInput"
-  )
-  .click();
-
-}
-
-
-function compressImage(
- file
-){
-
- return new Promise(
-  resolve=>{
-
-   const reader=
-    new FileReader();
-
-   reader.onload=
-    function(e){
-
-     const img=
-      new Image();
-
-     img.onload=
-      function(){
-
-       const max=1000;
-
-       let w=img.width;
-
-       let h=img.height;
-
-       if(w>max){
-
-        h=
-         Math.round(
-          h*max/w
-         );
-
-        w=max;
-
-       }
-
-       const canvas=
-        document.createElement(
-         "canvas"
-        );
-
-       canvas.width=w;
-
-       canvas.height=h;
-
-       const ctx=
-        canvas.getContext(
-         "2d"
-        );
-
-       ctx.drawImage(
-        img,
-        0,
-        0,
-        w,
-        h
-       );
-
-       resolve(
-        canvas.toDataURL(
-         "image/jpeg",
-         .65
-        )
-       );
-
+      user={
+        id:"admin",
+        name:"Müdir",
+        role:"admin"
       };
 
-     img.src=e.target.result;
+    }else{
 
-    };
+      const result=
+        await api(
+          "/login",
+          {
+            method:"POST",
+            body:JSON.stringify({
+              id:id,
+              password:password
+            })
+          }
+        );
 
-   reader.readAsDataURL(file);
+      if(!result.success){
 
-  }
- );
+        throw new Error(
+          result.error ||
+          "Giriş mümkün olmadı"
+        );
 
+      }
 
-}
+      user=result.user;
 
-
-async function handlePhoto(event){
-
- const file=
-  event.target.files[0];
-
- if(!file)return;
-
- const active=
-  getActiveVisit();
-
- if(!active)return;
-
- const photo=
-  await compressImage(file);
-
- active.photo=photo;
-
- write(
-  "activeVisit_"+currentUser,
-  active
- );
-
- document
-  .getElementById(
-   "photoPreview"
-  )
-  .innerHTML=`
-
-  <img
-   class="photo-preview"
-   src="${photo}">
-
-  <div class="success">
-  ✅ Foto yadda saxlanıldı.
-  </div>
-
-  `;
-
-}
+    }
 
 
-/* =====================================================
-   GPS
-===================================================== */
-
-function getLocation(){
-
- if(!navigator.geolocation){
-
-  alert(
-   "Bu telefonda GPS dəstəklənmir."
-  );
-
-  return;
-
- }
-
- navigator.geolocation.getCurrentPosition(
-
-  function(pos){
-
-   const lat=
-    pos.coords.latitude;
-
-   const lng=
-    pos.coords.longitude;
-
-   const active=
-    getActiveVisit();
-
-   if(active){
-
-    active.lat=lat;
-
-    active.lng=lng;
-
-    write(
-     "activeVisit_"+currentUser,
-     active
+    localStorage.setItem(
+      "mer_user",
+      JSON.stringify(user)
     );
 
-   }
+    showApp();
 
-   const work=
-    getWorkStatus();
+  }catch(error){
 
-   if(work){
-
-    work.lat=lat;
-
-    work.lng=lng;
-
-    write(
-     "workStatus_"+currentUser,
-     work
-    );
-
-   }
-
-   const el=
-    document.getElementById(
-     "visitResult"
-    );
-
-   if(el){
-
-    el.innerHTML=`
-
-    <div class="success">
-
-    📍 Məkan alındı.
-
-    <br>
-    Enlik:
-    ${lat.toFixed(6)}
-
-    <br>
-    Uzunluq:
-    ${lng.toFixed(6)}
-
-    </div>
-
-    `;
-
-   }
-
-  },
-
-  function(){
-
-   const el=
-    document.getElementById(
-     "visitResult"
-    );
-
-   if(el){
-
-    el.innerHTML=`
-
-    <div class="warning">
-
-    ⚠️ GPS məkanı alınmadı.
-    Ziyarəti yenə də bitirə bilərsiniz.
-
-    </div>
-
-    `;
-
-   }
-
-  },
-
-  {
-   enableHighAccuracy:true,
-   timeout:10000,
-   maximumAge:0
-  }
-
- );
-
-}
-
-
-/* =====================================================
-   ZİYARƏTİ BİTİR
-===================================================== */
-
-function finishVisit(){
-
- const active=
-  getActiveVisit();
-
- if(!active){
-
-  alert(
-   "Aktiv ziyarət yoxdur."
-  );
-
-  return;
-
- }
-
- const note=
-  document.getElementById(
-   "visitNote"
-  );
-
- if(note)
-  active.note=
-   note.value || "";
-
- active.checks=[
-  "c1",
-  "c2",
-  "c3",
-  "c4"
- ].filter(
-  id=>{
-   const e=
-    document.getElementById(id);
-
-   return e ?
-    e.checked :
-    false;
-  }
- );
-
- active.endTime=
-  new Date()
-  .toLocaleTimeString(
-   "az-AZ"
-  );
-
- active.createdAt=
-  Date.now();
-
- /*
-  Hər ziyarət ayrıca obyekt kimi
-  visits massivinə əlavə edilir.
- */
-
- const visits=
-  read(
-   "visits",
-   []
-  );
-
- const history=
-  Array.isArray(visits)
-  ?
-  visits
-  :
-  [];
-
- history.unshift(active);
-
- /*
-  Son 500 ziyarəti saxla.
- */
-
- const limited=
-  history.slice(
-   0,
-   500
-  );
-
- write(
-  "visits",
-  limited
- );
-
- write(
-  "activeVisit_"+currentUser,
-  null
- );
-
- updateWorkerStatus();
-
- document
-  .getElementById(
-   "workerContent"
-  )
-  .innerHTML=`
-
-  <div class="card">
-
-  <h2>✅ Ziyarət tamamlandı</h2>
-
-  <div class="success">
-
-  🏪 ${escapeHTML(active.store)}
-
-  <br>
-
-  ▶️ ${escapeHTML(active.startTime)}
-
-  <br>
-
-  ⏹️ ${escapeHTML(active.endTime)}
-
-  <br>
-
-  ${
-   active.lat!==null
-   ?
-   "📍 GPS qeyd edildi"
-   :
-   "📍 GPS qeyd edilmədi"
-  }
-
-  </div>
-
-  </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   HESABAT
-===================================================== */
-
-function showReport(){
-
- const visits=
-  read(
-   "visits",
-   []
-  ).filter(
-   v=>v.username===currentUser
-  );
-
- let html=`
-
- <div class="card">
-
- <h2>📊 Mənim hesabatım</h2>
-
- `;
-
- if(!visits.length){
-
-  html+=`
-
-  <div class="info">
-  Hələ tamamlanmış ziyarət yoxdur.
-  </div>
-
-  `;
-
- }
-
- visits.forEach(
-  v=>{
-   html+=visitHTML(v);
-  }
- );
-
- html+=`
-
- </div>
-
- `;
-
- document
-  .getElementById(
-   "workerContent"
-  )
-  .innerHTML=html;
-
-}
-
-
-function visitHTML(v){
-
- const worker=
-  workers.find(
-   w=>w.username===v.username
-  );
-
- return `
-
- <div class="visit-item">
-
- <b>
- ${escapeHTML(v.store)}
- </b>
-
- <br>
-
- 👤
- ${escapeHTML(
-  worker?.name ||
-  v.username ||
-  ""
- )}
-
- <br>
-
- 📅
- ${escapeHTML(v.date || "")}
-
- <br>
-
- ▶️
- ${escapeHTML(v.startTime || "")}
-
- <br>
-
- ⏹️
- ${escapeHTML(v.endTime || "")}
-
- ${
-  v.note
-  ?
-  `<br>📝 ${escapeHTML(v.note)}`
-  :
-  ""
- }
-
- ${
-  v.lat!==null &&
-  v.lng!==null
-  ?
-  `
-  <br>
-
-  📍 GPS
-
-  <br>
-
-  <a
-   class="map-link"
-   target="_blank"
-   href="https://www.google.com/maps?q=${v.lat},${v.lng}">
-   🗺️ Xəritədə aç
-  </a>
-  `
-  :
-  ""
- }
-
- ${
-  v.photo
-  ?
-  `
-  <img
-   class="photo-preview"
-   src="${v.photo}">
-  `
-  :
-  ""
- }
-
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   BUGÜNKÜ İŞ
-===================================================== */
-
-function showTodaySummary(){
-
- const today=
-  new Date()
-  .toLocaleDateString(
-   "az-AZ"
-  );
-
- const visits=
-  read(
-   "visits",
-   []
-  ).filter(
-   v=>
-    v.username===currentUser &&
-    v.date===today
-  );
-
- const work=
-  getWorkStatus();
-
- const active=
-  getActiveVisit();
-
- document
-  .getElementById(
-   "workerContent"
-  )
-  .innerHTML=`
-
-  <div class="card">
-
-  <h2>📋 Bugünkü iş</h2>
-
-  <div class="info">
-
-  ${
-   work
-   ?
-   "🟢 İş statusu aktivdir"
-   :
-   "🔴 İş statusu aktiv deyil"
-  }
-
-  <br>
-
-  Tamamlanmış ziyarət:
-  <b>${visits.length}</b>
-
-  <br>
-
-  Aktiv ziyarət:
-  <b>${active ? "Bəli":"Xeyr"}</b>
-
-  </div>
-
-  ${
-   visits.length
-   ?
-   visits.map(visitHTML).join("")
-   :
-   `
-   <div class="warning">
-   Bu gün hələ ziyarət tamamlanmayıb.
-   </div>
-   `
-  }
-
-  </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   PROFİL
-===================================================== */
-
-function showProfile(){
-
- const w=
-  workers.find(
-   x=>x.username===currentUser
-  );
-
- document
-  .getElementById(
-   "workerContent"
-  )
-  .innerHTML=`
-
-  <div class="card">
-
-  <h2>👤 Profil</h2>
-
-  <div class="info">
-
-  <b>Ad:</b>
-  ${escapeHTML(w?.name || "")}
-
-  <br><br>
-
-  <b>İstifadəçi:</b>
-  ${escapeHTML(currentUser)}
-
-  </div>
-
-  <h3>🔑 Şifrəni dəyiş</h3>
-
-  <input
-   id="myOldPassword"
-   type="password"
-   placeholder="Köhnə şifrə">
-
-  <input
-   id="myNewPassword"
-   type="password"
-   placeholder="Yeni şifrə">
-
-  <input
-   id="myNewPassword2"
-   type="password"
-   placeholder="Yeni şifrə təkrar">
-
-  <button
-   onclick="changeMyPassword()">
-   🔐 Şifrəni dəyiş
-  </button>
-
-  <div id="myPasswordResult"></div>
-
-  </div>
-
-  `;
-
-}
-
-
-function changeMyPassword(){
-
- const oldP=
-  document.getElementById(
-   "myOldPassword"
-  ).value;
-
- const newP=
-  document.getElementById(
-   "myNewPassword"
-  ).value;
-
- const newP2=
-  document.getElementById(
-   "myNewPassword2"
-  ).value;
-
- const passwords=
-  getPasswords();
-
- if(
-  oldP!==passwords[currentUser]
- ){
-
-  alert(
-   "Köhnə şifrə yanlışdır."
-  );
-
-  return;
-
- }
-
- if(!newP){
-
-  alert(
-   "Yeni şifrəni yazın."
-  );
-
-  return;
-
- }
-
- if(newP!==newP2){
-
-  alert(
-   "Yeni şifrələr eyni deyil."
-  );
-
-  return;
-
- }
-
- setPassword(
-  currentUser,
-  newP
- );
-
- document
-  .getElementById(
-   "myPasswordResult"
-  )
-  .innerHTML=`
-
-  <div class="success">
-  ✅ Şifrə dəyişdirildi.
-  </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   ADMIN PANEL
-===================================================== */
-
-function loadAdminPanel(){
-
- const ids=[
-  "adminPasswordWorker",
-  "adminLocationWorker",
-  "adminWorkerSelect",
-  "transferFromWorker",
-  "transferToWorker",
-  "removeWorkerSelect"
- ];
-
- ids.forEach(
-  id=>{
-   const e=
-    document.getElementById(id);
-
-   if(e){
-
-    e.innerHTML=
-     `<option value="">
-      İşçi seçin
-      </option>`;
-
-    workers.forEach(w=>{
-
-     e.innerHTML+=`
-
-     <option value="${w.username}">
-     ${escapeHTML(w.name)}
-     (${w.username})
-     </option>
-
-     `;
-
-    });
-
-   }
-
-  }
- );
-
- fillStoreSelects();
-
-}
-
-
-function fillStoreSelects(){
-
- const selectIds=[
-  "adminStoreSelect",
-  "deleteStoreSelect"
- ];
-
- selectIds.forEach(
-  id=>{
-
-   const e=
-    document.getElementById(id);
-
-   if(!e)return;
-
-   const first=
-    e.options[0]
-    ?
-    e.options[0].text
-    :
-    "Mağaza seçin";
-
-   e.innerHTML=
-    `<option value="">
-    ${first}
-    </option>`;
-
-   stores.forEach(s=>{
-
-    e.innerHTML+=`
-
-    <option value="${escapeHTML(s)}">
-    ${escapeHTML(s)}
-    </option>
-
-    `;
-
-   });
-
-  }
- );
-
-}
-
-
-/* =====================================================
-   ADMIN ŞİFRƏ
-===================================================== */
-
-function adminChangeWorkerPassword(){
-
- const u=
-  document
-   .getElementById(
-    "adminPasswordWorker"
-   ).value;
-
- const p1=
-  document
-   .getElementById(
-    "adminNewPassword"
-   ).value;
-
- const p2=
-  document
-   .getElementById(
-    "adminNewPassword2"
-   ).value;
-
- if(!u){
-
-  alert(
-   "Hesab seçin."
-  );
-
-  return;
-
- }
-
- if(!p1){
-
-  alert(
-   "Yeni şifrəni yazın."
-  );
-
-  return;
-
- }
-
- if(p1!==p2){
-
-  alert(
-   "Şifrələr eyni deyil."
-  );
-
-  return;
-
- }
-
- setPassword(
-  u,
-  p1
- );
-
- document
-  .getElementById(
-   "adminPasswordResult"
-  )
-  .innerHTML=`
-
-  <div class="success">
-
-  ✅
-  ${escapeHTML(u)}
-  hesabının şifrəsi dəyişdirildi.
-
-  <br>
-
-  ☁️ D1-ə yadda saxlanıldı.
-
-  </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   YENİ MAĞAZA
-===================================================== */
-
-function adminCreateStore(){
-
- const code=
-  document
-   .getElementById(
-    "newStoreCode"
-   ).value
-   .trim();
-
- const name=
-  document
-   .getElementById(
-    "newStoreName"
-   ).value
-   .trim();
-
- const area=
-  document
-   .getElementById(
-    "newStoreArea"
-   ).value
-   .trim();
-
- if(!code || !name){
-
-  alert(
-   "Mağaza kodu və adı lazımdır."
-  );
-
-  return;
-
- }
-
- const store=
-  code+
-  " — "+
-  name+
-  (
-   area
-   ?
-   " — "+area
-   :
-   ""
-  );
-
- if(stores.includes(store)){
-
-  alert(
-   "Bu mağaza artıq mövcuddur."
-  );
-
-  return;
-
- }
-
- const custom=
-  read(
-   "customStores",
-   []
-  );
-
- custom.push({
-  store:store,
-  createdAt:Date.now()
- });
-
- write(
-  "customStores",
-  custom
- );
-
- const deleted=
-  read(
-   "deletedStores",
-   []
-  ).filter(
-   x=>x!==store
-  );
-
- write(
-  "deletedStores",
-  deleted
- );
-
- loadStores();
-
- fillStoreSelects();
-
- document
-  .getElementById(
-   "newStoreResult"
-  )
-  .innerHTML=`
-
-  <div class="success">
-
-  ✅ Mağaza yaradıldı:
-
-  <br>
-
-  <b>${escapeHTML(store)}</b>
-
-  </div>
-
-  `;
-
- document
-  .getElementById(
-   "newStoreCode"
-  ).value="";
-
- document
-  .getElementById(
-   "newStoreName"
-  ).value="";
-
- document
-  .getElementById(
-   "newStoreArea"
-  ).value="";
-
-}
-
-
-/* =====================================================
-   İŞÇİYƏ MAĞAZA
-===================================================== */
-
-function adminAddStore(){
-
- const u=
-  document
-   .getElementById(
-    "adminWorkerSelect"
-   ).value;
-
- const s=
-  document
-   .getElementById(
-    "adminStoreSelect"
-   ).value;
-
- const d=
-  document
-   .getElementById(
-    "adminDaySelect"
-   ).value;
-
- if(!u || !s || !d){
-
-  alert(
-   "İşçi, mağaza və gün seçin."
-  );
-
-  return;
-
- }
-
- const route=
-  getWorkerRoute(
-   u,
-   d
-  );
-
- if(route.includes(s)){
-
-  alert(
-   "Bu mağaza həmin işçidə artıq var."
-  );
-
-  return;
-
- }
-
- const added=
-  getAddedRoutes();
-
- added[u] ??={};
-
- added[u][d] ??=[];
-
- added[u][d].push(s);
-
- write(
-  "addedRoutes",
-  added
- );
-
- const removed=
-  getRemovedRoutes();
-
- if(removed[u]?.[d]){
-
-  removed[u][d]=
-   removed[u][d]
-   .filter(
-    x=>x!==s
-   );
-
- }
-
- write(
-  "removedRoutes",
-  removed
- );
-
- document
-  .getElementById(
-   "adminAddResult"
-  )
-  .innerHTML=`
-
-  <div class="success">
-
-  ✅ Mağaza işçiyə əlavə edildi.
-
-  </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   MAĞAZA SİL
-===================================================== */
-
-function adminDeleteStore(){
-
- const s=
-  document
-   .getElementById(
-    "deleteStoreSelect"
-   ).value;
-
- if(!s){
-
-  alert(
-   "Mağaza seçin."
-  );
-
-  return;
-
- }
-
- if(
-  !confirm(
-   "Mağaza sistemdən tamamilə silinsin?\n\n"+
-   s
-  )
- ){
-
-  return;
-
- }
-
- const deleted=
-  read(
-   "deletedStores",
-   []
-  );
-
- if(!deleted.includes(s))
-  deleted.push(s);
-
- write(
-  "deletedStores",
-  deleted
- );
-
- const custom=
-  read(
-   "customStores",
-   []
-  );
-
- write(
-  "customStores",
-  custom.filter(
-   x=>x.store!==s
-  )
- );
-
- const added=
-  getAddedRoutes();
-
- Object.keys(
-  added
- ).forEach(u=>{
-
-  Object.keys(
-   added[u]
-  ).forEach(d=>{
-
-   added[u][d]=
-    added[u][d]
-    .filter(
-     x=>x!==s
-    );
-
-  });
-
- });
-
- write(
-  "addedRoutes",
-  added
- );
-
- loadStores();
-
- fillStoreSelects();
-
- refreshAdmin();
-
- document
-  .getElementById(
-   "deleteStoreResult"
-  )
-  .innerHTML=`
-
-  <div class="success">
-  ✅ Mağaza silindi.
-  </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   MAĞAZA KEÇİR
-===================================================== */
-
-function loadTransferStores(){
-
- const u=
-  document
-   .getElementById(
-    "transferFromWorker"
-   ).value;
-
- const d=
-  document
-   .getElementById(
-    "transferDay"
-   ).value;
-
- const sel=
-  document
-   .getElementById(
-    "transferStore"
-   );
-
- sel.innerHTML=`
-
- <option value="">
- Mağaza seçin
- </option>
-
- `;
-
- if(!u || !d)
-  return;
-
- getWorkerRoute(
-  u,
-  d
- ).forEach(s=>{
-
-  sel.innerHTML+=`
-
-  <option value="${escapeHTML(s)}">
-  ${escapeHTML(s)}
-  </option>
-
-  `;
-
- });
-
-}
-
-
-function adminTransferStore(){
-
- const from=
-  document
-   .getElementById(
-    "transferFromWorker"
-   ).value;
-
- const d=
-  document
-   .getElementById(
-    "transferDay"
-   ).value;
-
- const s=
-  document
-   .getElementById(
-    "transferStore"
-   ).value;
-
- const to=
-  document
-   .getElementById(
-    "transferToWorker"
-   ).value;
-
- if(!from || !d || !s || !to){
-
-  alert(
-   "Bütün seçimləri edin."
-  );
-
-  return;
-
- }
-
- if(from===to){
-
-  alert(
-   "Eyni işçini seçmək olmaz."
-  );
-
-  return;
-
- }
-
- const fromRoute=
-  getWorkerRoute(
-   from,
-   d
-  );
-
- if(!fromRoute.includes(s)){
-
-  alert(
-   "Mağaza tapılmadı."
-  );
-
-  return;
-
- }
-
- const toRoute=
-  getWorkerRoute(
-   to,
-   d
-  );
-
- if(toRoute.includes(s)){
-
-  alert(
-   "Yeni işçidə bu mağaza artıq var."
-  );
-
-  return;
-
- }
-
- const rem=
-  getRemovedRoutes();
-
- rem[from] ??={};
-
- rem[from][d] ??=[];
-
- if(!rem[from][d].includes(s))
-  rem[from][d].push(s);
-
- write(
-  "removedRoutes",
-  rem
- );
-
- const add=
-  getAddedRoutes();
-
- add[to] ??={};
-
- add[to][d] ??=[];
-
- if(!add[to][d].includes(s))
-  add[to][d].push(s);
-
- write(
-  "addedRoutes",
-  add
- );
-
- document
-  .getElementById(
-   "transferResult"
-  )
-  .innerHTML=`
-
-  <div class="success">
-
-  ✅ Mağaza digər işçiyə keçirildi.
-
-  </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   İŞÇİDƏN MAĞAZA SİL
-===================================================== */
-
-function loadWorkerAssignedStores(){
-
- const u=
-  document
-   .getElementById(
-    "removeWorkerSelect"
-   ).value;
-
- const d=
-  document
-   .getElementById(
-    "removeWorkerDay"
-   ).value;
-
- const sel=
-  document
-   .getElementById(
-    "removeWorkerStore"
-   );
-
- sel.innerHTML=`
-
- <option value="">
- Mağaza seçin
- </option>
-
- `;
-
- if(!u || !d)
-  return;
-
- getWorkerRoute(
-  u,
-  d
- ).forEach(s=>{
-
-  sel.innerHTML+=`
-
-  <option value="${escapeHTML(s)}">
-  ${escapeHTML(s)}
-  </option>
-
-  `;
-
- });
-
-}
-
-
-function adminRemoveStoreFromWorker(){
-
- const u=
-  document
-   .getElementById(
-    "removeWorkerSelect"
-   ).value;
-
- const d=
-  document
-   .getElementById(
-    "removeWorkerDay"
-   ).value;
-
- const s=
-  document
-   .getElementById(
-    "removeWorkerStore"
-   ).value;
-
- if(!u || !d || !s){
-
-  alert(
-   "İşçi, gün və mağaza seçin."
-  );
-
-  return;
-
- }
-
- const removed=
-  getRemovedRoutes();
-
- removed[u] ??={};
-
- removed[u][d] ??=[];
-
- if(
-  !removed[u][d].includes(s)
- ){
-
-  removed[u][d].push(s);
-
- }
-
- write(
-  "removedRoutes",
-  removed
- );
-
- loadWorkerAssignedStores();
-
- refreshAdmin();
-
- document
-  .getElementById(
-   "removeWorkerResult"
-  )
-  .innerHTML=`
-
-  <div class="success">
-
-  ✅ Mağaza bu işçidən silindi.
-
-  </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   ADMIN GPS
-===================================================== */
-
-function adminShowLocation(){
-
- const u=
-  document
-   .getElementById(
-    "adminLocationWorker"
-   ).value;
-
- if(!u){
-
-  alert(
-   "İşçi seçin."
-  );
-
-  return;
-
- }
-
- const active=
-  getWorkerActiveVisit(u);
-
- const work=
-  getWorkerWorkStatus(u);
-
- const data=
-  active || work;
-
- const result=
-  document
-   .getElementById(
-    "adminLocationResult"
-   );
-
- if(
-  !data ||
-  data.lat===null ||
-  data.lng===null
- ){
-
-  result.innerHTML=`
-
-  <div class="warning">
-
-  ⚠️ Bu işçinin GPS məlumatı yoxdur.
-
-  </div>
-
-  `;
-
-  return;
-
- }
-
- const worker=
-  workers.find(
-   w=>w.username===u
-  );
-
- result.innerHTML=`
-
- <div class="success">
-
- <b>
- ${escapeHTML(
-  worker?.name || u
- )}
- </b>
-
- <br>
-
- 📍 Enlik:
- ${data.lat}
-
- <br>
-
- 📍 Uzunluq:
- ${data.lng}
-
- <br>
-
- <a
-  class="map-link"
-  target="_blank"
-  href="https://www.google.com/maps?q=${data.lat},${data.lng}">
-  🗺️ Google Maps-də aç
- </a>
-
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   ADMIN REFRESH
-===================================================== */
-
-function refreshAdmin(){
-
- if(currentRole!=="admin")
-  return;
-
- loadStores();
-
- document
-  .getElementById(
-   "totalWorkers"
-  ).innerText=
-   workers.length;
-
- document
-  .getElementById(
-   "storeCount"
-  ).innerText=
-   stores.length;
-
- let working=0;
-
- workers.forEach(w=>{
-
-  if(
-   getWorkerWorkStatus(
-    w.username
-   )
-  ){
-
-   working++;
+    showMsg(error.message);
 
   }
 
- });
+}
 
- document
-  .getElementById(
-   "workingWorkers"
-  ).innerText=
-   working;
 
- const visits=
-  read(
-   "visits",
-   []
-  );
+/* =========================
+   SHOW APP
+========================= */
 
- document
-  .getElementById(
-   "finishedVisits"
-  ).innerText=
-   visits.length;
+function showApp(){
 
- let html="";
+  document
+    .getElementById("login")
+    .classList
+    .add("hidden");
 
- workers.forEach(w=>{
+  document
+    .getElementById("app")
+    .classList
+    .remove("hidden");
 
-  const work=
-   getWorkerWorkStatus(
-    w.username
-   );
+  document
+    .getElementById("userName")
+    .textContent=user.name;
 
-  const active=
-   getWorkerActiveVisit(
-    w.username
-   );
 
-  html+=`
+  if(user.role==="admin"){
 
-  <div class="worker">
+    document
+      .getElementById("adminPanel")
+      .classList
+      .remove("hidden");
 
-  <b>
-  ${escapeHTML(w.name)}
-  </b>
+    loadAdmin();
 
-  <br>
+  }else{
 
-  <span class="${
-   work
-   ?
-   "online"
-   :
-   "offline"
-  }">
+    document
+      .getElementById("workerPanel")
+      .classList
+      .remove("hidden");
 
-  ${
-   work
-   ?
-   "🟢 İŞDƏDİR"
-   :
-   "🔴 İşdə deyil"
+    loadWorker();
+
   }
-
-  </span>
-
-  ${
-   work
-   ?
-   `
-   <br>
-   🕐 ${escapeHTML(work.startTime)}
-   `
-   :
-   ""
-  }
-
-  ${
-   active
-   ?
-   `
-   <br><br>
-
-   🏪
-   <b>
-   ${escapeHTML(active.store)}
-   </b>
-
-   <br>
-
-   🕐
-   ${escapeHTML(active.startTime)}
-   `
-   :
-   ""
-  }
-
-  ${
-   (
-    work &&
-    work.lat!==null
-   )
-   ?
-   `
-   <br>
-   📍 GPS mövcuddur
-   `
-   :
-   ""
-  }
-
-  </div>
-
-  `;
-
- });
-
- document
-  .getElementById(
-   "workerList"
-  )
-  .innerHTML=html;
-
-
- /*
-  Son ziyarətlər.
- */
-
- document
-  .getElementById(
-   "visitList"
-  )
-  .innerHTML=
-   visits.length
-   ?
-   visits
-    .slice(0,30)
-    .map(visitHTML)
-    .join("")
-   :
-   `
-   <div class="info">
-   Hələ ziyarət yoxdur.
-   </div>
-   `;
-
-
- const photos=
-  visits
-   .filter(
-    v=>v.photo
-   )
-   .slice(0,30);
-
- document
-  .getElementById(
-   "photoReportList"
-  )
-  .innerHTML=
-   photos.length
-   ?
-   photos.map(v=>`
-
-    <div class="visit-item">
-
-    <b>
-    ${escapeHTML(v.store)}
-    </b>
-
-    <br>
-
-    ${escapeHTML(v.date || "")}
-    —
-    ${escapeHTML(v.startTime || "")}
-
-    <img
-     class="photo-preview"
-     src="${v.photo}">
-
-    </div>
-
-   `).join("")
-   :
-   `
-   <div class="info">
-   Hələ foto hesabatı yoxdur.
-   </div>
-   `;
 
 }
 
 
-/* =====================================================
-   ÇIXIŞ
-===================================================== */
+/* =========================
+   LOGOUT
+========================= */
 
 function logout(){
 
- currentUser=null;
+  localStorage.removeItem(
+    "mer_user"
+  );
 
- currentRole=null;
+  stopGPS();
 
- document
-  .getElementById(
-   "workerDashboard"
-  )
-  .classList.add("hidden");
-
- document
-  .getElementById(
-   "adminDashboard"
-  )
-  .classList.add("hidden");
-
- document
-  .getElementById(
-   "login"
-  )
-  .classList.remove("hidden");
-
- document
-  .getElementById(
-   "username"
-  ).value="";
-
- document
-  .getElementById(
-   "password"
-  ).value="";
-
- document
-  .getElementById(
-   "workerContent"
-  ).innerHTML="";
+  location.reload();
 
 }
 
 
-/* =====================================================
-   TƏMİZ HTML
-===================================================== */
+/* =========================
+   WORKER LOAD
+========================= */
 
-function escapeHTML(s){
+async function loadWorker(){
 
- return String(
-  s ?? ""
- ).replace(
-  /[&<>"']/g,
-  m=>({
+  await loadWork();
 
-   "&":"&amp;",
-   "<":"&lt;",
-   ">":"&gt;",
-   '"':"&quot;",
-   "'":"&#039;"
+  await loadRoute();
 
-  }[m])
- );
+  await loadActiveVisit();
 
 }
 
 
-function escapeJS(s){
+/* =========================
+   WORK STATUS
+========================= */
 
- return String(
-  s ?? ""
- )
- .replace(
-  /\\/g,
-  "\\\\"
- )
- .replace(
-  /'/g,
-  "\\'"
- )
- .replace(
-  /\n/g,
-  "\\n"
- );
+async function loadWork(){
 
-}
+  try{
+
+    const result=
+      await api(
+        "/work/active?worker_id="+
+        encodeURIComponent(user.id)
+      );
+
+    activeWork=
+      result.work || null;
+
+    const info=
+      document.getElementById(
+        "workInfo"
+      );
 
 
-/* =====================================================
-   ENTER İLƏ GİRİŞ
-===================================================== */
+    if(activeWork){
 
-document
- .getElementById(
-  "password"
- )
- .addEventListener(
-  "keydown",
-  e=>{
+      info.innerHTML=`
+        <span class="ok">
+          🟢 Hazırda işdədir
+        </span>
+        <br>
+        Başlanğıc:
+        ${formatDate(activeWork.start_time)}
+      `;
 
-   if(e.key==="Enter")
-    login();
+    }else{
+
+      info.innerHTML=`
+        <span class="bad">
+          🔴 İş başlamayıb
+        </span>
+      `;
+
+    }
+
+  }catch(error){
+
+    document
+      .getElementById("workInfo")
+      .textContent=
+      error.message;
 
   }
- );
+
+}
 
 
-document
- .getElementById(
-  "username"
- )
- .addEventListener(
-  "keydown",
-  e=>{
+/* =========================
+   START WORK
+========================= */
 
-   if(e.key==="Enter")
-    login();
+async function startWork(){
+
+  try{
+
+    const p=
+      await getPosition();
+
+    const result=
+      await api(
+        "/work/start",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            worker_id:user.id,
+            lat:p.coords.latitude,
+            lng:p.coords.longitude
+          })
+        }
+      );
+
+    alert(
+      result.message ||
+      "İş başladı"
+    );
+
+    await loadWork();
+
+    startGPS();
+
+  }catch(error){
+
+    alert(error.message);
 
   }
- );
+
+}
 
 
-/* =====================================================
-   BAŞLANĞIC
-===================================================== */
+/* =========================
+   END WORK
+========================= */
 
-loadCentralState();
+async function endWork(){
 
+  if(
+    !confirm(
+      "İşi bitirmək istəyirsiniz?"
+    )
+  ){
+
+    return;
+
+  }
+
+  try{
+
+    const p=
+      await getPosition();
+
+    const result=
+      await api(
+        "/work/end",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            worker_id:user.id,
+            lat:p.coords.latitude,
+            lng:p.coords.longitude
+          })
+        }
+      );
+
+    alert(
+      result.message ||
+      "İş bitdi"
+    );
+
+    activeWork=null;
+
+    stopGPS();
+
+    await loadWork();
+
+  }catch(error){
+
+    alert(error.message);
+
+  }
+
+}
+
+
+/* =========================
+   ROUTE
+========================= */
+
+async function loadRoute(){
+
+  try{
+
+    const day=
+      document.getElementById(
+        "day"
+      ).value;
+
+    const result=
+      await api(
+        "/routes?worker_id="+
+        encodeURIComponent(user.id)+
+        "&day="+
+        encodeURIComponent(day)
+      );
+
+    currentRoute=
+      result.stores || [];
+
+    const box=
+      document.getElementById(
+        "route"
+      );
+
+
+    if(!currentRoute.length){
+
+      box.innerHTML=
+        "<p>Bu gün üçün mağaza təyin edilməyib.</p>";
+
+      return;
+
+    }
+
+
+    box.innerHTML=
+      currentRoute
+      .map((store,index)=>`
+
+        <div class="store">
+
+          <b>
+            ${index+1}.
+            ${esc(store.chain)}
+            —
+            ${esc(store.name)}
+          </b>
+
+          <div class="small">
+            ID:
+            ${esc(store.id)}
+          </div>
+
+          <div class="small">
+            Radius:
+            ${store.radius || 500}
+            metr
+          </div>
+
+          <button
+            onclick="startVisit('${escAttr(store.id)}')"
+          >
+            📍 Mağazaya daxil ol
+          </button>
+
+        </div>
+
+      `)
+      .join("");
+
+  }catch(error){
+
+    document
+      .getElementById("route")
+      .textContent=
+      error.message;
+
+  }
+
+}
+
+
+/* =========================
+   START VISIT
+========================= */
+
+async function startVisit(storeId){
+
+  try{
+
+    if(!activeWork){
+
+      alert(
+        "Əvvəlcə işə başlamalısınız."
+      );
+
+      return;
+
+    }
+
+    const p=
+      await getPosition();
+
+    const result=
+      await api(
+        "/visits/start",
+        {
+          method:"POST",
+          body:JSON.stringify({
+
+            worker_id:user.id,
+
+            store_id:storeId,
+
+            session_id:activeWork.id,
+
+            lat:p.coords.latitude,
+
+            lng:p.coords.longitude
+
+          })
+        }
+      );
+
+
+    if(
+      result.distance !== undefined
+    ){
+
+      alert(
+        "Mağazaya məsafə: "+
+        Math.round(result.distance)+
+        " metr"
+      );
+
+    }
+
+
+    activeVisit=
+      result.visit;
+
+    showVisit();
+
+    startGPS();
+
+    loadChecks();
+
+    loadPhotos();
+
+  }catch(error){
+
+    alert(error.message);
+
+  }
+
+}
+ /* =========================
+   ACTIVE VISIT
+========================= */
+
+async function loadActiveVisit(){
+
+  try{
+
+    const result=
+      await api(
+        "/visits/active?worker_id="+
+        encodeURIComponent(user.id)
+      );
+
+    activeVisit=
+      result.visit || null;
+
+    showVisit();
+
+    if(activeVisit){
+
+      startGPS();
+
+      loadChecks();
+
+      loadPhotos();
+
+    }
+
+  }catch(error){
+
+    console.log(
+      "Aktiv ziyarət yoxdur:",
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   SHOW ACTIVE VISIT
+========================= */
+
+function showVisit(){
+
+  const card=
+    document.getElementById(
+      "visitCard"
+    );
+
+  if(!activeVisit){
+
+    card.classList.add(
+      "hidden"
+    );
+
+    return;
+
+  }
+
+
+  card.classList.remove(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "visitInfo"
+  ).innerHTML=`
+
+    <div class="store">
+
+      <b>
+        🏪 Mağaza:
+      </b>
+
+      <br>
+
+      ${esc(
+        activeVisit.store_id
+      )}
+
+      <div class="small">
+
+        Başlanğıc:
+        ${formatDate(
+          activeVisit.start_time
+        )}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   FINISH VISIT
+========================= */
+
+async function finishVisit(){
+
+  if(!activeVisit){
+
+    return;
+
+  }
+
+
+  try{
+
+    const p=
+      await getPosition();
+
+
+    const note=
+      document.getElementById(
+        "visitNote"
+      ).value.trim();
+
+
+    const result=
+      await api(
+        "/visits/end",
+        {
+          method:"POST",
+
+          body:JSON.stringify({
+
+            worker_id:user.id,
+
+            visit_id:activeVisit.id,
+
+            lat:p.coords.latitude,
+
+            lng:p.coords.longitude,
+
+            note:note
+
+          })
+
+        }
+      );
+
+
+    alert(
+      result.message ||
+      "Ziyarət tamamlandı"
+    );
+
+
+    activeVisit=null;
+
+    document.getElementById(
+      "visitNote"
+    ).value="";
+
+
+    document.getElementById(
+      "visitPhoto"
+    ).value="";
+
+
+    document.getElementById(
+      "photoPreview"
+    ).classList.add(
+      "hidden"
+    );
+
+
+    stopGPS();
+
+    showVisit();
+
+    loadRoute();
+
+
+  }catch(error){
+
+    alert(
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   GPS WATCH
+========================= */
+
+function startGPS(){
+
+  if(
+    !navigator.geolocation
+  ){
+
+    return;
+
+  }
+
+
+  if(
+    gpsWatch !== null
+  ){
+
+    return;
+
+  }
+
+
+  gpsWatch=
+    navigator.geolocation
+    .watchPosition(
+
+      async position=>{
+
+        try{
+
+          await api(
+            "/gps",
+            {
+              method:"POST",
+
+              body:JSON.stringify({
+
+                worker_id:
+                  user.id,
+
+                session_id:
+                  activeWork?.id ||
+                  null,
+
+                visit_id:
+                  activeVisit?.id ||
+                  null,
+
+                latitude:
+                  position.coords.latitude,
+
+                longitude:
+                  position.coords.longitude,
+
+                accuracy:
+                  position.coords.accuracy
+
+              })
+
+            }
+          );
+
+        }catch(error){
+
+          console.log(
+            "GPS göndərilmədi",
+            error.message
+          );
+
+        }
+
+      },
+
+      error=>{
+
+        console.log(
+          "GPS xətası:",
+          error.message
+        );
+
+      },
+
+      {
+
+        enableHighAccuracy:true,
+
+        maximumAge:10000,
+
+        timeout:15000
+
+      }
+
+    );
+
+}
+
+
+/* =========================
+   STOP GPS
+========================= */
+
+function stopGPS(){
+
+  if(
+    gpsWatch !== null
+  ){
+
+    navigator
+      .geolocation
+      .clearWatch(
+        gpsWatch
+      );
+
+    gpsWatch=null;
+
+  }
+
+}
+
+
+/* =========================
+   GET PHONE GPS
+========================= */
+
+function getPosition(){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      if(
+        !navigator.geolocation
+      ){
+
+        reject(
+          new Error(
+            "Telefon GPS-i dəstəkləmir."
+          )
+        );
+
+        return;
+
+      }
+
+
+      navigator
+        .geolocation
+        .getCurrentPosition(
+
+          resolve,
+
+          error=>{
+
+            let text=
+              "GPS alınmadı.";
+
+            if(
+              error.code===1
+            ){
+
+              text=
+                "GPS icazəsi verilməyib. Telefonun məkan icazəsini açın.";
+
+            }
+
+            if(
+              error.code===2
+            ){
+
+              text=
+                "Məkan müəyyən edilə bilmədi.";
+
+            }
+
+            if(
+              error.code===3
+            ){
+
+              text=
+                "GPS vaxtı keçdi. Açıq havada yenidən yoxlayın.";
+
+            }
+
+            reject(
+              new Error(text)
+            );
+
+          },
+
+          {
+
+            enableHighAccuracy:true,
+
+            timeout:15000,
+
+            maximumAge:5000
+
+          }
+
+        );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   PHOTO PREVIEW
+========================= */
+
+function previewPhoto(event){
+
+  const file=
+    event.target.files?.[0];
+
+
+  if(!file){
+
+    selectedPhoto=null;
+
+    document
+      .getElementById(
+        "photoPreview"
+      )
+      .classList
+      .add("hidden");
+
+    return;
+
+  }
+
+
+  selectedPhoto=file;
+
+
+  const url=
+    URL.createObjectURL(
+      file
+    );
+
+
+  const img=
+    document.getElementById(
+      "photoPreview"
+    );
+
+
+  img.src=url;
+
+  img.classList.remove(
+    "hidden"
+  );
+
+}
+
+
+/* =========================
+   PHOTO UPLOAD
+========================= */
+
+async function uploadVisitPhoto(){
+
+  try{
+
+    if(!activeVisit){
+
+      alert(
+        "Aktiv mağaza ziyarəti yoxdur."
+      );
+
+      return;
+
+    }
+
+
+    if(!selectedPhoto){
+
+      const input=
+        document.getElementById(
+          "visitPhoto"
+        );
+
+      const file=
+        input.files?.[0];
+
+      if(file){
+
+        selectedPhoto=file;
+
+      }
+
+    }
+
+
+    if(!selectedPhoto){
+
+      alert(
+        "Əvvəlcə şəkil çəkin və ya seçin."
+      );
+
+      return;
+
+    }
+
+
+    /*
+      Şəkli base64-ə çeviririk.
+      Worker bunu D1-də visit_photos
+      cədvəlinə yazır.
+    */
+
+    const base64=
+      await fileToBase64(
+        selectedPhoto
+      );
+
+
+    const result=
+      await api(
+        "/photos",
+        {
+          method:"POST",
+
+          body:JSON.stringify({
+
+            visit_id:
+              activeVisit.id,
+
+            photo_url:
+              base64
+
+          })
+
+        }
+      );
+
+
+    alert(
+      result.message ||
+      "Şəkil göndərildi."
+    );
+
+
+    loadPhotos();
+
+
+  }catch(error){
+
+    alert(
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   FILE -> BASE64
+========================= */
+
+function fileToBase64(file){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const reader=
+        new FileReader();
+
+
+      reader.onload=()=>{
+        resolve(
+          reader.result
+        );
+      };
+
+
+      reader.onerror=
+        reject;
+
+
+      reader.readAsDataURL(
+        file
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   LOAD PHOTOS
+========================= */
+
+async function loadPhotos(){
+
+  if(!activeVisit){
+
+    return;
+
+  }
+
+
+  try{
+
+    const result=
+      await api(
+        "/photos?visit_id="+
+        encodeURIComponent(
+          activeVisit.id
+        )
+      );
+
+
+    const photos=
+      result.photos || [];
+
+
+    const preview=
+      document.getElementById(
+        "photoPreview"
+      );
+
+
+    /*
+      Son şəkli göstəririk.
+    */
+
+    if(photos.length){
+
+      const last=
+        photos[
+          photos.length-1
+        ];
+
+
+      if(last.photo_url){
+
+        preview.src=
+          last.photo_url;
+
+        preview.classList.remove(
+          "hidden"
+        );
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.log(
+      "Şəkillər alınmadı:",
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   PRODUCT CHECK
+========================= */
+
+async function saveCheck(){
+
+  try{
+
+    if(!activeVisit){
+
+      alert(
+        "Aktiv ziyarət yoxdur."
+      );
+
+      return;
+
+    }
+
+
+    const input=
+      document.getElementById(
+        "productName"
+      );
+
+
+    const product=
+      input.value.trim();
+
+
+    if(!product){
+
+      alert(
+        "Məhsul adını yazın."
+      );
+
+      return;
+
+    }
+
+
+    await api(
+      "/checks",
+      {
+        method:"POST",
+
+        body:JSON.stringify({
+
+          visit_id:
+            activeVisit.id,
+
+          product_name:
+            product,
+
+          checked:1
+
+        })
+
+      }
+    );
+
+
+    input.value="";
+
+
+    alert(
+      "Məhsul yoxlanıldı."
+    );
+
+
+    loadChecks();
+
+
+  }catch(error){
+
+    alert(
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   LOAD CHECKS
+========================= */
+
+async function loadChecks(){
+
+  if(!activeVisit){
+
+    return;
+
+  }
+
+
+  try{
+
+    const result=
+      await api(
+        "/checks?visit_id="+
+        encodeURIComponent(
+          activeVisit.id
+        )
+      );
+
+
+    const checks=
+      result.checks || [];
+
+
+    const box=
+      document.getElementById(
+        "checks"
+      );
+
+
+    if(!checks.length){
+
+      box.innerHTML=
+        '<div class="small">Hələ məhsul yoxlanmayıb.</div>';
+
+      return;
+
+    }
+
+
+    box.innerHTML=
+      checks
+      .map(
+        (item,index)=>`
+
+          <div class="store">
+
+            ${index+1}.
+            <b>
+              ${esc(
+                item.product_name
+              )}
+            </b>
+
+            <span class="badge badge-green">
+              ✓ Yoxlanılıb
+            </span>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+
+  }catch(error){
+
+    console.log(
+      "Yoxlamalar alınmadı:",
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   ADMIN PANEL
+========================= */
+
+async function loadAdmin(){
+
+  try{
+
+    const [
+      workersResult,
+      storesResult
+    ]=
+      await Promise.all([
+
+        api("/workers"),
+
+        api("/stores")
+
+      ]);
+
+
+    const workers=
+      workersResult.workers || [];
+
+
+    const stores=
+      storesResult.stores || [];
+
+
+    document.getElementById(
+      "stats"
+    ).innerHTML=`
+
+      <div class="stat">
+
+        👥
+
+        <b>
+          ${workers.length}
+        </b>
+
+        İşçi
+
+      </div>
+
+
+      <div class="stat">
+
+        🏪
+
+        <b>
+          ${stores.length}
+        </b>
+
+        Mağaza
+
+      </div>
+
+
+      <div class="stat">
+
+        📍
+
+        <b>
+          ${stores.filter(
+            s =>
+              s.latitude !== null &&
+              s.longitude !== null
+          ).length
+        }</b>
+
+        GPS-li
+
+      </div>
+
+    `;
+
+
+    document.getElementById(
+      "workers"
+    ).innerHTML=
+
+      workers
+      .map(worker=>`
+
+        <div class="store">
+
+          <b>
+            ${esc(
+              worker.name
+            )}
+          </b>
+
+          <div class="small">
+
+            ID:
+            ${esc(worker.id)}
+
+          </div>
+
+          <span class="badge ${
+            worker.active
+              ? "badge-green"
+              : "badge-red"
+          }">
+
+            ${
+              worker.active
+                ? "Aktiv"
+                : "Deaktiv"
+            }
+
+          </span>
+
+        </div>
+
+      `)
+      .join("");
+
+
+    document.getElementById(
+      "stores"
+    ).innerHTML=
+
+      stores
+      .map(store=>`
+
+        <div class="store">
+
+          <b>
+            ${esc(store.chain)}
+            —
+            ${esc(store.name)}
+          </b>
+
+          <div class="small">
+
+            ID:
+            ${esc(store.id)}
+
+          </div>
+
+          <div class="small">
+
+            GPS:
+            ${
+              store.latitude ??
+              "-"
+            },
+
+            ${
+              store.longitude ??
+              "-"
+            }
+
+          </div>
+
+          <div class="small">
+
+            Radius:
+            ${
+              store.radius ||
+              500
+            }
+            metr
+
+          </div>
+
+          <button
+            class="danger"
+            onclick="deleteStore('${escAttr(store.id)}')"
+          >
+
+            🗑 Mağazanı sil
+
+          </button>
+
+        </div>
+
+      `)
+      .join("");
+
+
+  }catch(error){
+
+    document.getElementById(
+      "stats"
+    ).innerHTML=
+      `<div class="bad">
+        ${esc(error.message)}
+      </div>`;
+
+  }
+
+}
+
+
+/* =========================
+   ADD STORE
+========================= */
+
+async function addStore(){
+
+  try{
+
+    const chain=
+      document
+      .getElementById(
+        "newChain"
+      )
+      .value
+      .trim();
+
+
+    const name=
+      document
+      .getElementById(
+        "newStore"
+      )
+      .value
+      .trim();
+
+
+    const latText=
+      document
+      .getElementById(
+        "newLat"
+      )
+      .value
+      .trim();
+
+
+    const lngText=
+      document
+      .getElementById(
+        "newLng"
+      )
+      .value
+      .trim();
+
+
+    const radius=
+      parseInt(
+        document
+        .getElementById(
+          "newRadius"
+        )
+        .value
+      ) || 500;
+
+
+    if(!chain){
+
+      alert(
+        "Şəbəkə adını yazın."
+      );
+
+      return;
+
+    }
+
+
+    if(!name){
+
+      alert(
+        "Mağaza adını yazın."
+      );
+
+      return;
+
+    }
+
+
+    const latitude=
+      latText
+        ? parseFloat(latText)
+        : null;
+
+
+    const longitude=
+      lngText
+        ? parseFloat(lngText)
+        : null;
+
+
+    const id=
+      "store_"+Date.now();
+
+
+    await api(
+      "/stores",
+      {
+        method:"POST",
+
+        body:JSON.stringify({
+
+          id:id,
+
+          chain:chain,
+
+          name:name,
+
+          latitude:
+            Number.isFinite(
+              latitude
+            )
+              ? latitude
+              : null,
+
+          longitude:
+            Number.isFinite(
+              longitude
+            )
+              ? longitude
+              : null,
+
+          radius:radius
+
+        })
+
+      }
+    );
+
+
+    alert(
+      "Mağaza əlavə edildi."
+    );
+
+
+    document.getElementById(
+      "newChain"
+    ).value="";
+
+
+    document.getElementById(
+      "newStore"
+    ).value="";
+
+
+    document.getElementById(
+      "newLat"
+    ).value="";
+
+
+    document.getElementById(
+      "newLng"
+    ).value="";
+
+
+    loadAdmin();
+
+
+  }catch(error){
+
+    alert(
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   DELETE STORE
+========================= */
+
+async function deleteStore(id){
+
+  if(
+    !confirm(
+      "Bu mağazanı silmək istəyirsiniz?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    await api(
+      "/stores/"+encodeURIComponent(id),
+      {
+        method:"DELETE"
+      }
+    );
+
+
+    alert(
+      "Mağaza silindi."
+    );
+
+
+    loadAdmin();
+
+
+  }catch(error){
+
+    alert(
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function esc(value){
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /[&<>"']/g,
+    char=>({
+
+      "&":"&amp;",
+
+      "<":"&lt;",
+
+      ">":"&gt;",
+
+      '"':"&quot;",
+
+      "'":"&#039;"
+
+    }[char])
+
+  );
+
+}
+
+
+function escAttr(value){
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /\\/g,
+    "\\\\"
+  )
+  .replace(
+    /'/g,
+    "\\'"
+  );
+
+}
+
+
+function formatDate(value){
+
+  if(!value){
+
+    return "-";
+
+  }
+
+
+  try{
+
+    return new Date(
+      value
+    ).toLocaleString(
+      "az-AZ"
+    );
+
+  }catch(error){
+
+    return value;
+
+  }
+
+}
+
+
+/* =========================
+   AUTO LOGIN
+========================= */
+
+const savedUser=
+  localStorage.getItem(
+    "mer_user"
+  );
+
+
+if(savedUser){
+
+  try{
+
+    user=
+      JSON.parse(
+        savedUser
+      );
+
+    showApp();
+
+  }catch(error){
+
+    localStorage.removeItem(
+      "mer_user"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   AUTO REFRESH
+========================= */
+
+setInterval(
+  async()=>{
+
+    if(!user){
+
+      return;
+
+    }
+
+
+    if(
+      user.role==="admin"
+    ){
+
+      return;
+
+    }
+
+
+    try{
+
+      await loadWork();
+
+      await loadActiveVisit();
+
+    }catch(error){
+
+      console.log(
+        error.message
+      );
+
+    }
+
+  },
+  15000
+);
+
+</script>
+<!-- =========================
+     3-CÜ HİSSƏ — BAĞLANIŞ
+========================= -->
+
+<script>
+/*
+  Səhifə bağlanmazdan əvvəl
+  GPS izləməsini dayandırırıq.
+*/
+window.addEventListener("beforeunload", function(){
+
+  try{
+    stopGPS();
+  }catch(e){
+    console.log(e);
+  }
+
+});
+
+
+/*
+  Telefon GPS icazəsi yoxdursa
+  istifadəçiyə məlumat veririk.
+*/
+if(navigator.permissions){
+
+  try{
+
+    navigator.permissions
+      .query({
+        name:"geolocation"
+      })
+      .then(function(permission){
+
+        permission.onchange=function(){
+
+          console.log(
+            "GPS icazəsinin vəziyyəti:",
+            permission.state
+          );
+
+        };
+
+      });
+
+  }catch(e){
+
+    console.log(e);
+
+  }
+
+}
 </script>
 
 </body>

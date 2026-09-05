@@ -149,27 +149,50 @@ export default {
       }
 
 
-      // ==================================================
-      // WORKERS
-      // ==================================================
-      if (
-        url.pathname === "/api/workers" &&
-        request.method === "GET"
-      ) {
+  
+// ==================================================
+// WORKERS
+// ==================================================
+if (
+  url.pathname === "/api/workers" &&
+  request.method === "GET"
+) {
 
-        const result = await env.DB
-          .prepare(`
-            SELECT id, name, active, created_at
-            FROM workers
-            ORDER BY id
-          `)
-          .all();
+  const result = await env.DB
+    .prepare(`
+      SELECT
+        w.id,
+        w.name,
+        w.active,
+        w.created_at,
+        CASE
+          WHEN ws.id IS NOT NULL
+            AND ws.status = 'active'
+          THEN 1
+          ELSE 0
+        END AS working
+      FROM workers w
+      LEFT JOIN work_sessions ws
+        ON ws.worker_id = w.id
+        AND ws.status = 'active'
+      ORDER BY w.id
+    `)
+    .all();
 
-        return json({
-          success: true,
-          workers: result.results || []
-        });
-      }
+  const workers = (result.results || []).map(worker => ({
+    ...worker,
+    working: Number(worker.working || 0) === 1,
+    status:
+      Number(worker.working || 0) === 1
+        ? "working"
+        : "not_working"
+  }));
+
+  return json({
+    success: true,
+    workers
+  });
+}
 
 
       // ==================================================

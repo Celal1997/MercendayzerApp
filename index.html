@@ -2214,12 +2214,10 @@ async function loadAdminWorkers(){
     workers.forEach(
       worker=>{
 
-        if(
-          worker.active ||
-          worker.working ||
-          worker.status==="working"
-        ){
+        if(worker.working || worker.status==="working"){
 
+          
+    
           working++;
 
         }
@@ -2261,15 +2259,12 @@ async function loadAdminWorkers(){
 
             const id=
               worker.id ||
-              "";
-
-
-            const status=
-              worker.active ||
-              worker.working ||
-              worker.status==="working";
-
-
+              
+      
+              const status =
+             worker.working ||
+            worker.status === "working";
+ 
             return `
               <div class="store">
 
